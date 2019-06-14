@@ -1,0 +1,32 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Template AngularJS App</title>
+
+    <meta name="viewport" content="width=device-width, initial-scale=1, user-scalable=no">
+
+    <link rel="stylesheet" href="/styles/css/main.css">
+
+</head>
+
+<!-- apply our angular app to our site -->
+<body ng-app="myAppName">
+
+    <!-- THIS IS WHERE WE WILL INJECT OUR CONTENT -->
+    <div ui-view></div>
+
+    <!-- JS (load angular, ui-router) -->
+    <script src="/components/angular/angular.js"></script>
+    <script src="/components/angular-ui-router/release/angular-ui-router.js"></script>
+    
+    <!-- Main Javascript File -->
+    <script src="/scripts/app.js"></script>
+    
+    <!-- Controllers -->
+    <script src="/scripts/controllers/myControllerName.js"></script>
+
+    <!-- Directives -->
+    <script src="/scripts/directives/myDirectiveName.js"></script>
+
+</body>
+</html>
