@@ -20,9 +20,12 @@ body {
   left: 50%;
   transform: translate(-50%, -50%); }
   .user-input__plain-text {
-    font-size: 20rem; }
-  .user-input__activity-select {
-    font-size: 20rem; }
+    font-size: 10rem;
+    color: #696969; }
+  .user-input__custom-select {
+    position: relative;
+    color: #696969; }
 
 .home-container {
+  height: 100vh;
   position: relative; }

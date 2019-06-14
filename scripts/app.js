@@ -1,6 +1,20 @@
 'use strict';
 
-//TODO: Name your AngularJS app
+window.onload = function() {
+    if (navigator.geolocation) {
+        navigator.geolocation.getCurrentPosition(logPosition);
+    } 
+    else { 
+        console.log("Geolocation isn't supported by your browser");
+    }
+
+    function logPosition(position) {
+        console.log("Lat: " + position.coords.latitude); 
+        console.log("Long: " + position.coords.longitude);
+      }
+}
+
+
 var canibike = angular.module('canibike', ['ui.router'])
 
 //ROUTES
