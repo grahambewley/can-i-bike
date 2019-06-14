@@ -4,7 +4,7 @@
   "description": "Web app used to quickly check whether the local weather forecast will allow for a particular activity",
   "main": "index.html",
   "scripts": {
-    "watch:sass": "node-sass sass/main.scss css/style.css -w",
+    "watch:sass": "node-sass styles/sass/main.scss styles/css/style.css -w",
     "devserver": "simple-server",
     "start": "npm-run-all --parallel devserver watch:sass",
     "compile:sass": "node-sass sass/main.scss css/style.comp.css",

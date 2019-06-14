@@ -1,0 +1,28 @@
+html {
+  font-size: 62.5%; }
+
+body {
+  box-sizing: border-box; }
+
+*,
+*::after,
+*::before {
+  margin: 0px;
+  padding: 0px;
+  box-sizing: inherit; }
+
+body {
+  font-family: 'Source Sans Pro', sans-serif; }
+
+.user-input {
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%); }
+  .user-input__plain-text {
+    font-size: 20rem; }
+  .user-input__activity-select {
+    font-size: 20rem; }
+
+.home-container {
+  position: relative; }

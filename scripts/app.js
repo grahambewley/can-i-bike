@@ -1,18 +1,18 @@
 'use strict';
 
 //TODO: Name your AngularJS app
-var myAppName = angular.module('myAppName', ['ui.router'])
+var canibike = angular.module('canibike', ['ui.router'])
 
 //ROUTES
-myAppName.config(function($stateProvider, $urlRouterProvider) {
+canibike.config(function($stateProvider, $urlRouterProvider) {
 
     $stateProvider
-        .state('myControllerName', {
-            url: '/myControllerName',
-            templateUrl: '/views/controllers/myControllerName.html',
-            controller: 'myControllerName'
+        .state('home', {
+            url: '/home',
+            templateUrl: '/views/controllers/home.html',
+            controller: 'home'
         });
 
-        $urlRouterProvider.otherwise('/myControllerName');
+        $urlRouterProvider.otherwise('/home');
 });
 

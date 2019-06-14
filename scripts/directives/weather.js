@@ -1,8 +1,8 @@
 //TODO: Re-name your first directive
-myAppName.directive("myDirectiveName", function() {
+canibike.directive("weather", function() {
     return {
         //TODO: Specify the correct templateUrl for this directive
-        templateUrl: '/views/directives/myDirectiveName.html',
+        templateUrl: '/views/directives/weather.html',
         replace: true,
         /*
         scope: {
