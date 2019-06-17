@@ -3,6 +3,16 @@ canibike.controller('home', function($scope, $http) {
     $scope.latString = '';
     $scope.longString = '';
 
+    $scope.workHours = {
+        start: 8,
+        end: 17
+    };
+
+    $scope.schoolHours = {
+        start: 7,
+        end: 15
+    }
+
     $scope.locate = function() {
         if (navigator.geolocation) {
             navigator.geolocation.getCurrentPosition(getWeatherFromPosition);
@@ -26,10 +36,18 @@ canibike.controller('home', function($scope, $http) {
             "url": "/getWeatherByPosition.php?lat="+lat+"&long="+long,
             "method": "GET",
             "success": function(res){
-                console.log(res);
+                processResponse(res);
             }
         });
         
+    }
+
+    function processResponse(res) {
+        var currentTime = new Date();
+        console.log("Work Start: " + $scope.workHours.start);
+        console.log("Work End: " + $scope.workHours.end);
+        console.log("Current Date Obj: " + currentTime);
+
     }
 });
 
