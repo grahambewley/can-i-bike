@@ -22,9 +22,9 @@ body {
   .user-input__plain-text {
     font-size: 10rem;
     color: #696969; }
-  .user-input__custom-select {
-    position: relative;
-    color: #696969; }
+  .user-input__activity-select {
+    color: #696969;
+    font-size: 10rem; }
 
 .home-container {
   height: 100vh;

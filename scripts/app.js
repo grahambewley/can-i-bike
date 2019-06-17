@@ -1,21 +1,6 @@
 'use strict';
 
-window.onload = function() {
-    if (navigator.geolocation) {
-        navigator.geolocation.getCurrentPosition(logPosition);
-    } 
-    else { 
-        console.log("Geolocation isn't supported by your browser");
-    }
-
-    function logPosition(position) {
-        console.log("Lat: " + position.coords.latitude); 
-        console.log("Long: " + position.coords.longitude);
-      }
-}
-
-
-var canibike = angular.module('canibike', ['ui.router'])
+var canibike = angular.module('canibike', ['ui.router']);
 
 //ROUTES
 canibike.config(function($stateProvider, $urlRouterProvider) {
@@ -27,6 +12,10 @@ canibike.config(function($stateProvider, $urlRouterProvider) {
             controller: 'home'
         });
 
-        $urlRouterProvider.otherwise('/home');
+    $urlRouterProvider.otherwise('/home');
+
+    //Set Dark Sky API key
+    //darkSkyProvider.setApiKey('04adbe5588e2386afb1df0da40f3439a');
+    
 });
 

@@ -1,4 +1,4 @@
-<div class="home-container">
+<div class="home-container" ng-init="locate()">
 
     <!--{{ helloWorld }}-->
     <section class="user-input">
@@ -11,8 +11,9 @@
                 <option value="sail" class="user-input__activity-option">sail</option>
             </select>
             
-            
         </form>
+
+        <p>Latitude: {{ latString }}</p>
 
     </section>
     <!--
