@@ -1,7 +1,7 @@
 <?php
+
 $lat =$_REQUEST['lat'];
 $long =$_REQUEST['long'];
-$API_KEY="0f1da707dc46c4911a1ff34945f722af"; //https://darksky.net/dev/account
 $curl = curl_init();
 
 curl_setopt_array($curl, array(
