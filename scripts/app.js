@@ -12,10 +12,6 @@ canibike.config(function($stateProvider, $urlRouterProvider) {
             controller: 'home'
         });
 
-    $urlRouterProvider.otherwise('/home');
-
-    //Set Dark Sky API key
-    //darkSkyProvider.setApiKey('04adbe5588e2386afb1df0da40f3439a');
-    
+    $urlRouterProvider.otherwise('/home'); 
 });
 
