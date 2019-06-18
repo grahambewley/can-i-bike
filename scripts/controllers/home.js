@@ -31,14 +31,20 @@ canibike.controller('home', function($scope, $http) {
 
     $scope.activityTimes = [
         {
-            name: 'work',
-            weatherCheckType: 'spread',
+            name: 'towork',
+            activityTimeType: 'split',
             startHour: '8',
             endHour: '17'
         },
         {
-            name: 'school',
-            weatherCheckType: 'spread',
+            name: 'toschool',
+            activityTimeType: 'split',
+            startHour: '7',
+            endHour: '15',
+        },
+        {
+            name: 'today',
+            activityTimeType: 'block',
             startHour: '7',
             endHour: '15',
         }
@@ -57,8 +63,8 @@ canibike.controller('home', function($scope, $http) {
 
     //TO-DO: make times change dynamically
     $scope.selectedActivityTimes = {
-        name: 'work',
-        weatherCheckType: 'spread',
+        name: 'towork',
+        activityTimeType: 'split',
         startHour: '8',
         endHour: '17'
     };
@@ -196,9 +202,9 @@ canibike.controller('home', function($scope, $http) {
         $scope.$apply(function() {
             if($scope.result.canI == '') {
                 console.log("Setting result.canI to YES");
-                $scope.result.canI = 'Yes';
+                $scope.result.canI = 'Yes.';
             } else {
-                $scope.result.canI = 'No';
+                $scope.result.canI = 'No.';
             }
         });
     }

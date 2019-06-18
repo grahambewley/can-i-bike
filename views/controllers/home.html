@@ -14,16 +14,29 @@
         <input id="wind" type="number" class="activity-options__wind-speed" min="0" max="25" ng-model="selectedActivityThresholds.windSpeedThreshold">
     </div>
 
-    <div class="centerdiv">
+    <div class="flex-container">
         <section class="section-input">
             <form action="#" class="section-input__form">
                 <span class="section-input__plain-text">Can I </span>
-                <select class="section-input__activity-select">
-                    <option value="bike" class="section-input__activity-option">bike</option>
+
+                <select class="section-input__select section-input__select--activity">
+                    <option value="bike" class="section-input__activity-option" selected>bike</option>
                     <option value="walk" class="section-input__activity-option">walk</option>
                     <option value="ski" class="section-input__activity-option">ski</option>
                     <option value="sail" class="section-input__activity-option">sail</option>
-                </select> 
+                </select>
+
+                <select class="section-input__select section-input__select--time">
+                    <option value="towork" class="section-input__activity-option" selected>to work</option>
+                    <option value="toschool" class="section-input__activity-option">to school</option>
+                    <option value="today" class="section-input__activity-option">today</option>
+                    <!--
+                    <option value="thisafternoon" class="section-input__activity-option">this afternoon</option>
+                    <option value="thisevening" class="section-input__activity-option">this evening</option>
+                    -->
+                </select>
+                
+                <span class="section-input__plain-text">?</span>
             </form>
         </section>
 
@@ -32,6 +45,8 @@
         </section>
 
         <section class="section-weather">
+
+
 
         </section>
     </div>

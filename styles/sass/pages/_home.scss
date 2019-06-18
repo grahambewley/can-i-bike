@@ -14,39 +14,42 @@
     }
 }
 
-.centerdiv {
-    position: absolute;
-    top: 50%;
-    left: 50%;
-    transform: translate(-50%, -50%);  
+.flex-container {
+    display:flex;
+    height: 100vh;
+    flex-direction: column;
+    justify-content: center;
 }
 
 .section-input {
-    background-color: red;
+    width: 100%;
+    text-align: center;
     color: $color-grey;
     font-weight: 200;
-    font-size: 10rem;
+    font-size: 8rem;
     word-spacing: 3rem;
 
-    &__activity-select {
+    &__select {
         color: $color-grey;
+        font-family: 'Muli', sans-serif;
         font-weight: 200;
-        font-size: 10rem;
+        font-size: 8rem;
     }
 }
 
 .section-canI {
-    background-color: orange;
+    height: $font-size-canI;
+    line-height: $font-size-canI;
     text-align: center;
     &__span {
-        font-size: 17rem;
+        font-size: $font-size-canI;
         font-weight: 400;
         color: $color-grey;
     }
 }
 
 .section-weather {
-    background-color: yellow;
+    background-color: lightyellow;
     min-height: 20rem;
 
 }

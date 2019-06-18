@@ -26,31 +26,34 @@ body {
   .activity-options label {
     margin: 0 0.5rem 0 2rem; }
 
-.centerdiv {
-  position: absolute;
-  top: 50%;
-  left: 50%;
-  transform: translate(-50%, -50%); }
+.flex-container {
+  display: flex;
+  height: 100vh;
+  flex-direction: column;
+  justify-content: center; }
 
 .section-input {
-  background-color: red;
+  width: 100%;
+  text-align: center;
   color: #828282;
   font-weight: 200;
-  font-size: 10rem;
+  font-size: 8rem;
   word-spacing: 3rem; }
-  .section-input__activity-select {
+  .section-input__select {
     color: #828282;
+    font-family: 'Muli', sans-serif;
     font-weight: 200;
-    font-size: 10rem; }
+    font-size: 8rem; }
 
 .section-canI {
-  background-color: orange;
+  height: 28rem;
+  line-height: 28rem;
   text-align: center; }
   .section-canI__span {
-    font-size: 17rem;
+    font-size: 28rem;
     font-weight: 400;
     color: #828282; }
 
 .section-weather {
-  background-color: yellow;
+  background-color: lightyellow;
   min-height: 20rem; }
