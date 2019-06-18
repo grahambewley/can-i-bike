@@ -3,6 +3,8 @@ canibike.controller('home', function($scope, $http) {
     $scope.latString = '';
     $scope.longString = '';
 
+    /*******DEFAULT THRESHOLDS*******/
+
     $scope.activityThresholds = [
         {
             name: 'bike',
@@ -35,12 +37,14 @@ canibike.controller('home', function($scope, $http) {
         }
     ];
     
+    /******* SELECTED ACTIVITY THRESHOLDS *******/
+
     //TO-DO: make thresholds change dynamically
     $scope.selectedActivityThresholds = {
         name: 'bike',
         highTempThreshold: 90,
         lowTempThreshold: 45,
-        precipProbThreshold: 0.01,
+        precipProbThreshold: 0.15,
         windSpeedThreshold: 15
     };
 
@@ -51,6 +55,7 @@ canibike.controller('home', function($scope, $http) {
         startHour: '8',
         endHour: '17'
     };
+    
     
     $scope.locate = function() {
         if (navigator.geolocation) {
