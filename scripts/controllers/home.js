@@ -87,6 +87,10 @@ canibike.controller('home', function($scope, $localStorage) {
     //*******WATCHERS**********
 
     //SELECTED ACTIVITY
+    $scope.$watch('selectedActivity', function(newVal, oldVal) {
+        $scope.$storage.selectedActivity = newVal;
+        //TO-DO: Get 
+    });
 
     //SELECTED TIME
 
