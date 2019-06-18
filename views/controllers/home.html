@@ -12,29 +12,27 @@
 
         <label for="wind">Miles Per Hour</label>
         <input id="wind" type="number" class="activity-options__wind-speed" min="0" max="25" ng-model="selectedActivityThresholds.windSpeedThreshold">
-
     </div>
 
     <div class="centerdiv">
-        <section class="user-input">
-            <form action="#" class="user-input__form">
-                <span class="user-input__plain-text">Can I </span>
-                <select class="user-input__activity-select">
-                    <option value="bike" class="user-input__activity-option">bike</option>
-                    <option value="walk" class="user-input__activity-option">walk</option>
-                    <option value="ski" class="user-input__activity-option">ski</option>
-                    <option value="sail" class="user-input__activity-option">sail</option>
-                </select>
-                
+        <section class="section-input">
+            <form action="#" class="section-input__form">
+                <span class="section-input__plain-text">Can I </span>
+                <select class="section-input__activity-select">
+                    <option value="bike" class="section-input__activity-option">bike</option>
+                    <option value="walk" class="section-input__activity-option">walk</option>
+                    <option value="ski" class="section-input__activity-option">ski</option>
+                    <option value="sail" class="section-input__activity-option">sail</option>
+                </select> 
             </form>
-
         </section>
 
-        <section class="response">
-            <span class="response__canI">{{ result.canI }}</span>
-            
+        <section class="section-canI">
+            <span class="section-canI__span">{{ result.canI }}</span>
+        </section>
+
+        <section class="section-weather">
+
         </section>
     </div>
-
-
 </div>

@@ -4,15 +4,6 @@
     position: relative;
 }
 
-.centerdiv {
-        
-    position: absolute;
-    top: 50%;
-    left: 50%;
-    transform: translate(-50%, -50%);
-    
-}
-
 .activity-options {
     display: flex;
     justify-content: flex-end;
@@ -21,5 +12,42 @@
     label {
         margin: 0 0.5rem 0 2rem;
     }
+}
+
+.centerdiv {
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);  
+}
+
+.section-input {
+    background-color: red;
+    color: $color-grey;
+    font-weight: 200;
+    font-size: 10rem;
+    word-spacing: 3rem;
+
+    &__activity-select {
+        color: $color-grey;
+        font-weight: 200;
+        font-size: 10rem;
+    }
+}
+
+.section-canI {
+    background-color: orange;
+    text-align: center;
+    &__span {
+        font-size: 17rem;
+        font-weight: 400;
+        color: $color-grey;
+    }
+}
+
+.section-weather {
+    background-color: yellow;
+    min-height: 20rem;
+
 }
 
