@@ -1,4 +1,16 @@
 .home-container {
     height: 100vh;
+    padding: 0.5rem;
     position: relative;
 }
+
+.activity-options {
+    display: flex;
+    justify-content: flex-end;
+    align-items: center;
+
+    label {
+        margin: 0 0.5rem 0 2rem;
+    }
+}
+
