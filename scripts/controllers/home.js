@@ -1,19 +1,48 @@
 canibike.controller('home', function($scope, $localStorage) {
 
     //LocalStorage scope handler (via ngStorage)
-    $scope.$storage = $localStorage;
+    //Set default values if there are not any already
+    $scope.$storage = $localStorage.$default({
+        selectedActivity: "bike",
+        selectedTime: "towork",
+
+        storedLat: '',
+        storedLong: '',
+
+        thresholds: {
+            bike: {
+                highTemp: 80,
+                lowTemp: 45,
+                precipProb: 0.20,
+                windSpeed: 15
+            },
+            run: {
+                highTemp: 80,
+                lowTemp: 30,
+                precipProb: 0.15,
+                windSpeed: 10
+            },
+            walk: {
+                highTemp: 80,
+                lowTemp: 30,
+                precipProb: 0.10,
+                windSpeed: 10
+            }
+        }
+        
+    });
 
     //Geolocation variables
-    $scope.latString = '';
-    $scope.longString = '';
+    $scope.latString = $localStorage.storedLat;
+    $scope.longString = $localStorage.storedLong;
 
     //Weather variables
     var darkSkyResponseObject;
     var hourlyWeatherArray;
 
-    //Current Activity variables
-    $scope.selectedActivity = "bike";
-    $scope.selectedTime = "towork";
+    //Current Activity/Time variables -- set via localStorage
+    $scope.selectedActivity = $localStorage.selectedActivity;
+    $scope.selectedTime = $localStorage.selectedTime;
 
     //CanI Result variables
     $scope.result = {
