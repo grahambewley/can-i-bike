@@ -1,8 +1,8 @@
 canibike.controller('home', function($scope, $localStorage) {
-
     //LocalStorage scope handler (via ngStorage)
     //Set default values if there are not any already
     $scope.$storage = $localStorage.$default({
+        
         selectedActivity: "bike",
         selectedTime: "towork",
 
@@ -28,15 +28,33 @@ canibike.controller('home', function($scope, $localStorage) {
                 precipProb: 0.10,
                 windSpeed: 10
             }
+        },
+
+        times: {
+            towork: {
+                start: 8,
+                end: 17,
+                type: 'split'
+            },
+            toschool: {
+                start: 7,
+                end: 15,
+                type: 'split'
+            },
+            today: {
+                start: 8,
+                end: 19,
+                type: 'block'
+            }
         }
         
     });
 
-    //Geolocation variables
+    //Geolocation variables -- set via localStorage -- change in locate() function later
     $scope.latString = $localStorage.storedLat;
     $scope.longString = $localStorage.storedLong;
 
-    //Weather variables
+    //Weather variables -- undefined for now
     var darkSkyResponseObject;
     var hourlyWeatherArray;
 
@@ -44,79 +62,34 @@ canibike.controller('home', function($scope, $localStorage) {
     $scope.selectedActivity = $localStorage.selectedActivity;
     $scope.selectedTime = $localStorage.selectedTime;
 
-    //CanI Result variables
+    //Set "Selected Activity Thresholds" using values stored in localStorage
+    $scope.selectedActivityThresholds = {
+        highTemp: $localStorage.thresholds[$scope.selectedActivity].highTemp,
+        lowTemp: $localStorage.thresholds[$scope.selectedActivity].lowTemp,
+        precipProb: $localStorage.thresholds[$scope.selectedActivity].precipProb,
+        windSpeed: $localStorage.thresholds[$scope.selectedActivity].windSpeed
+    };
+
+    //Set "Selected Activity Thresholds" using values stored in localStorage
+    $scope.selectedActivityTimes = {
+        start: $localStorage.times[$scope.selectedTime].start,
+        end: $localStorage.times[$scope.selectedTime].end,
+        type: $localStorage.times[$scope.selectedTime].type
+    };
+
+    //CanI Result variables -- empty for now
     $scope.result = {
         canI: '',
         reasonCondition: '',
         reasonTime: ''
     };
 
-
-    $scope.savedThresholds = [
-        {
-            name: 'bike',
-            highTempThreshold: 90,
-            lowTempThreshold: 45,
-            precipProbThreshold: 0.15,
-            windSpeedThreshold: 15
-        },
-        {
-            name: 'run',
-            highTempThreshold: 80,
-            lowTempThreshold: 30,
-            precipProbThreshold: 0.15,
-            windSpeedThreshold: 15
-        }
-    ];
-
-
-    $scope.savedTimes = [
-        {
-            name: 'towork',
-            activityTimeType: 'split',
-            startHour: '8',
-            endHour: '17'
-        },
-        {
-            name: 'toschool',
-            activityTimeType: 'split',
-            startHour: '7',
-            endHour: '15',
-        },
-        {
-            name: 'today',
-            activityTimeType: 'block',
-            startHour: '7',
-            endHour: '15',
-        }
-    ];
-    
-    /******* SELECTED ACTIVITY THRESHOLDS *******/
-
-    //TO-DO: make thresholds change dynamically
-    $scope.selectedActivityThresholds = {
-        name: 'bike',
-        highTempThreshold: 90,
-        lowTempThreshold: 45,
-        precipProbThreshold: 0.15,
-        windSpeedThreshold: 15
-    };
-
-    //TO-DO: make times change dynamically
-    $scope.selectedActivityTimes = {
-        name: 'towork',
-        activityTimeType: 'split',
-        startHour: '8',
-        endHour: '17'
-    };
-    
-
     //*******WATCHERS**********
-    //THRESHOLDS
 
-    //Watch Low Temp threshold for changes
-    //$scope.$watch('selectedActivityThresholds.lowTempThreshold')
-    
+    //SELECTED ACTIVITY
+
+    //SELECTED TIME
+
 
     //Determine geolocation if browser supports it, then call getWeatherFromPosition function as a callback
     $scope.locate = function() {
@@ -182,7 +155,7 @@ canibike.controller('home', function($scope, $localStorage) {
                 thisTimeObject.setUTCSeconds(element.time); 
                 
                 //If we have not yet hit our "start hour" and then we do...
-                if((hitStartHour == false) && (thisTimeObject.getHours() == $scope.selectedActivityTimes.startHour)) {
+                if((hitStartHour == false) && (thisTimeObject.getHours() == $scope.selectedActivityTimes.start)) {
                     //set flag to true so we don't do this again...
                     hitStartHour = true;
 
