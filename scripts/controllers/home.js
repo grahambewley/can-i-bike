@@ -1,4 +1,7 @@
-canibike.controller('home', function($scope, $http) {
+canibike.controller('home', function($scope, $localStorage) {
+
+    //LocalStorage scope handler (via ngStorage)
+    $scope.$storage = $localStorage;
 
     //Geolocation variables
     $scope.latString = '';
