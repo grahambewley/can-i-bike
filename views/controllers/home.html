@@ -16,18 +16,26 @@
 
     </div>
 
-    <!--{{ helloWorld }}-->
-    <section class="user-input">
-        <form action="#" class="user-input__form">
-            <span class="user-input__plain-text">Can I </span>
-            <select class="user-input__activity-select">
-                <option value="bike" class="user-input__activity-option">bike</option>
-                <option value="walk" class="user-input__activity-option">walk</option>
-                <option value="ski" class="user-input__activity-option">ski</option>
-                <option value="sail" class="user-input__activity-option">sail</option>
-            </select>
-            
-        </form>
+    <div class="centerdiv">
+        <section class="user-input">
+            <form action="#" class="user-input__form">
+                <span class="user-input__plain-text">Can I </span>
+                <select class="user-input__activity-select">
+                    <option value="bike" class="user-input__activity-option">bike</option>
+                    <option value="walk" class="user-input__activity-option">walk</option>
+                    <option value="ski" class="user-input__activity-option">ski</option>
+                    <option value="sail" class="user-input__activity-option">sail</option>
+                </select>
+                
+            </form>
 
-    </section>
+        </section>
+
+        <section class="response">
+            <span class="response__canI">{{ result.canI }}</span>
+            
+        </section>
+    </div>
+
+
 </div>

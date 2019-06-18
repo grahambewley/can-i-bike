@@ -14,24 +14,31 @@ body {
 body {
   font-family: 'Muli', sans-serif; }
 
-.user-input {
-  position: absolute;
-  top: 50%;
-  left: 50%;
-  transform: translate(-50%, -50%); }
-  .user-input__plain-text {
-    font-size: 10rem;
-    font-weight: 300;
-    color: #828282; }
-  .user-input__activity-select {
-    color: #828282;
-    font-weight: 300;
-    font-size: 10rem; }
+.user-input__plain-text {
+  font-size: 10rem;
+  font-weight: 300;
+  color: #828282; }
+
+.user-input__activity-select {
+  color: #828282;
+  font-weight: 300;
+  font-size: 10rem; }
+
+.response__canI {
+  font-size: 10rem;
+  font-weight: 300;
+  color: #828282; }
 
 .home-container {
   height: 100vh;
   padding: 0.5rem;
   position: relative; }
+
+.centerdiv {
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%); }
 
 .activity-options {
   display: flex;
