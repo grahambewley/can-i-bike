@@ -6,15 +6,17 @@ canibike.controller('home', function($scope, $http) {
     $scope.activityThresholds = [
         {
             name: 'bike',
-            highTempThreshold: '90',
-            lowTempThreshold: '45',
-            windSpeedThreshold: '15'
+            highTempThreshold: 90,
+            lowTempThreshold: 45,
+            precipProbThreshold: 0.15,
+            windSpeedThreshold: 15
         },
         {
             name: 'run',
-            highTempThreshold: '80',
-            lowTempThreshold: '35',
-            windSpeedThreshold: '10'
+            highTempThreshold: 80,
+            lowTempThreshold: 30,
+            precipProbThreshold: 0.15,
+            windSpeedThreshold: 15
         }
     ];
 
@@ -36,9 +38,10 @@ canibike.controller('home', function($scope, $http) {
     //TO-DO: make thresholds change dynamically
     $scope.selectedActivityThresholds = {
         name: 'bike',
-        highTempThreshold: '90',
-        lowTempThreshold: '45',
-        windSpeedThreshold: '15'
+        highTempThreshold: 90,
+        lowTempThreshold: 45,
+        precipProbThreshold: 0.01,
+        windSpeedThreshold: 15
     };
 
     //TO-DO: make times change dynamically
@@ -86,6 +89,12 @@ canibike.controller('home', function($scope, $http) {
         //Remains false until we've looped through and hit our activity "start time" for the first time
         //Keeps us from hitting start time twice in the 48 hours of response data
         var hitStartHour = false;
+        //Same thing for "end hour"...
+        var hitEndHour = false;
+
+        var canI = true;
+        var reasonCondition = '';
+        var reasonTime = '';
 
         var hourlyArray = responseObject.hourly.data;
         console.log(hourlyArray);
@@ -104,9 +113,72 @@ canibike.controller('home', function($scope, $http) {
                 //set flag to true so we don't do this again...
                 hitStartHour = true;
 
-                console.log("Temp at start hour: " + element.temperature);
-                console.log("Wind at start hour: " + element.windSpeed);
+                //Check start conditions against high temperature threshold
+                if(element.temperature > $scope.selectedActivityThresholds.highTempThreshold) {
+                    canI = false;
+                    reasonCondition = 'tempHigh';
+                    reasonTime = 'start';
+                    console.log("CANT! " + reasonCondition + " at " + reasonTime);
+                } 
+                //Check start conditions against low temperature threshold
+                else if(element.temperature < $scope.selectedActivityThresholds.lowTempThreshold) {
+                    canI = false;
+                    reasonCondition = 'tempLow';
+                    reasonTime = 'start';
+                    console.log("CANT! " + reasonCondition + " at " + reasonTime);
+                }
+
+                if(element.windSpeed > $scope.selectedActivityThresholds.windSpeedThreshold) {
+                    canI = false;
+                    reasonCondition = 'windSpeed';
+                    reasonTime = 'start';
+                    console.log("CANT! " + reasonCondition + " at " + reasonTime);
+                }
+
+                if(element.precipProbability > $scope.selectedActivityThresholds.precipProbThreshold) {
+                    canI = false;
+                    reasonCondition = 'precipProb';
+                    reasonTime = 'start';
+                    console.log("CANT! " + reasonCondition + " at " + reasonTime);
+                }
+
             };
+
+            //If we have not yet hit our "start hour" and then we do...
+            if((hitEndHour == false) && (thisTimeObject.getHours() == $scope.selectedActivityTimes.endHour)) {
+                //set flag to true so we don't do this again...
+                hitEndHour = true;
+
+                //Check end conditions against high temperature threshold
+                if(element.temperature > $scope.selectedActivityThresholds.highTempThreshold) {
+                    canI = false;
+                    reasonCondition = 'tempHigh';
+                    reasonTime = 'end';
+                    console.log("CANT! " + reasonCondition + " at " + reasonTime);
+                } 
+                //Check end conditions against low temperature threshold
+                else if(element.temperature < $scope.selectedActivityThresholds.lowTempThreshold) {
+                    canI = false;
+                    reasonCondition = 'tempLow';
+                    reasonTime = 'end';
+                    console.log("CANT! " + reasonCondition + " at " + reasonTime);
+                }
+
+                if(element.windSpeed > $scope.selectedActivityThresholds.windSpeedThreshold) {
+                    canI = false;
+                    reasonCondition = 'windSpeed';
+                    reasonTime = 'end';
+                    console.log("CANT! " + reasonCondition + " at " + reasonTime);
+                }
+
+                if(element.precipProbability > $scope.selectedActivityThresholds.precipProbThreshold) {
+                    canI = false;
+                    reasonCondition = 'precipProb';
+                    reasonTime = 'end';
+                    console.log("CANT! " + reasonCondition + " at " + reasonTime);
+                }
+
+            }
         });
     }
 });
