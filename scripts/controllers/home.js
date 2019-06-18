@@ -1,8 +1,18 @@
 canibike.controller('home', function($scope, $http) {
 
+    //Geolocation variables
     $scope.latString = '';
     $scope.longString = '';
 
+    //Weather variables
+    var darkSkyResponseObject;
+    var hourlyWeatherArray;
+
+    //Current Activity variables
+    $scope.selectedActivity = "bike";
+    $scope.selectedTime = "towork";
+
+    //CanI Result variables
     $scope.result = {
         canI: '',
         reasonCondition: '',
@@ -10,9 +20,7 @@ canibike.controller('home', function($scope, $http) {
     };
 
 
-    /*******DEFAULT THRESHOLDS*******/
-
-    $scope.activityThresholds = [
+    $scope.savedThresholds = [
         {
             name: 'bike',
             highTempThreshold: 90,
@@ -29,7 +37,8 @@ canibike.controller('home', function($scope, $http) {
         }
     ];
 
-    $scope.activityTimes = [
+
+    $scope.savedTimes = [
         {
             name: 'towork',
             activityTimeType: 'split',
@@ -69,7 +78,15 @@ canibike.controller('home', function($scope, $http) {
         endHour: '17'
     };
     
+
+    //*******WATCHERS**********
+    //THRESHOLDS
+
+    //Watch Low Temp threshold for changes
+    //$scope.$watch('selectedActivityThresholds.lowTempThreshold')
     
+
+    //Determine geolocation if browser supports it, then call getWeatherFromPosition function as a callback
     $scope.locate = function() {
         if (navigator.geolocation) {
             navigator.geolocation.getCurrentPosition(getWeatherFromPosition);
@@ -80,6 +97,8 @@ canibike.controller('home', function($scope, $http) {
     }
 
     function getWeatherFromPosition(position) {
+        console.log("Getting weather for current position...");
+        console.log("***CURRENT POSITION***");
         console.log("Lat: " + position.coords.latitude); 
         console.log("Long: " + position.coords.longitude);
     
@@ -88,38 +107,43 @@ canibike.controller('home', function($scope, $http) {
         $scope.latString = lat;
         $scope.longString = long;
         
+        //AJAX call to server-side API query, returns a weather forecast
         $.ajax({      
             "crossDomain": true,
             "url": "/getWeatherByPosition.php?lat="+lat+"&long="+long,
             "method": "GET",
             "success": function(res){
                 //Take response string and parse into JSON object
-                var responseObject = JSON.parse(res);
+                darkSkyResponseObject = JSON.parse(res);
+                console.log("***FULL WEATHER DATA RETURNED***");
+                console.log(darkSkyResponseObject);
+
+                hourlyWeatherArray = darkSkyResponseObject.hourly.data;
+                console.log("***NARROW DOWN TO HOURLY WEATHER ONLY***");
+                console.log(hourlyWeatherArray);
 
                 //Send response to handler function
-                processResponse(responseObject, $scope);
+                checkCanI(hourlyWeatherArray, $scope);
             }
         });
         
     }
 
-    function processResponse(responseObject, $scope) {
-
+    function checkCanI(darkSkyResponseObject, $scope) {
+        
+        console.log("***CURRENTLY SELECTED ACTIVITY***");
+        console.log("Activity: " + $scope.selectedActivity);
+        console.log("Time: " + $scope.selectedTime);
+        
         //Remains false until we've looped through and hit our activity "start time" for the first time
         //Keeps us from hitting start time twice in the 48 hours of response data
         var hitStartHour = false;
         //Same thing for "end hour"...
         var hitEndHour = false;
 
-
-        var hourlyArray = responseObject.hourly.data;
-        console.log(hourlyArray);
-
-        console.log("Current activity start: " + $scope.selectedActivityTimes.startHour);
-        console.log("Current activity end: " + $scope.selectedActivityTimes.endHour);
-        
         $scope.$apply(function() {
-            hourlyArray.forEach(element => {
+            //For each hour in the forecast...
+            hourlyWeatherArray.forEach(element => {
                 //Make a new data object at epoch 0 -- 00:00 Jan 1, 1970
                 thisTimeObject = new Date(0);
                 //Add the epoch time (in seconds) that we get from the API
