@@ -63,12 +63,9 @@ canibike.controller('home', function($scope, $localStorage) {
         reasonTime: ''
     };
 
-    //Big Word -- Displays the result after running the weather-checking function
-    $scope.bigWord = '';
-
     //*******WATCHERS**********
 
-    //SELECTED ACTIVITY
+    //Watch main user inputs -- selectedActivity and selectedTime
     $scope.$watchGroup(['$storage.selectedActivity', '$storage.selectedTime'], function(newVal, oldVal) {
         console.log("Changed Selection, emptying $scope.result...");
         $scope.result = {
@@ -86,6 +83,8 @@ canibike.controller('home', function($scope, $localStorage) {
         }
     });
 
+    //TO-DO: Watch settings bar -- trigger timeout (to catch multiple arrow clicks) then run canI function
+
 
     //Determine geolocation if browser supports it, then call getWeatherFromPosition function as a callback
     $scope.locate = function() {
@@ -98,20 +97,17 @@ canibike.controller('home', function($scope, $localStorage) {
     }
 
     function getWeatherFromPosition(position) {
-        console.log("Getting weather for current position...");
         console.log("***CURRENT POSITION***");
         console.log("Lat: " + position.coords.latitude); 
         console.log("Long: " + position.coords.longitude);
     
-        var lat = position.coords.latitude.toString();
-        var long = position.coords.longitude.toString();
-        $scope.latString = lat;
-        $scope.longString = long;
+        $scope.latString = position.coords.latitude.toString();
+        $scope.longString = position.coords.longitude.toString();
         
-        //AJAX call to server-side API query, returns a weather forecast
+        //AJAX call to server-side proxy -- queries API, returns a weather forecast
         $.ajax({      
             "crossDomain": true,
-            "url": "/getWeatherByPosition.php?lat="+lat+"&long="+long,
+            "url": "/getWeatherByPosition.php?lat="+$scope.latString+"&long="+$scope.longString,
             "method": "GET",
             "success": function(res){
                 //Take response string and parse into JSON object
@@ -124,6 +120,7 @@ canibike.controller('home', function($scope, $localStorage) {
                 console.log($scope.hourlyWeatherArray);
 
                 //Use weather data and check "Can I" function to test against thresholds
+                //Use evalAsync to trigger another digest cycle -- grabbing weather data eats up the first one...
                 $scope.$evalAsync($scope.checkCanI());
             }
         });
@@ -138,6 +135,8 @@ canibike.controller('home', function($scope, $localStorage) {
         console.log("Activity: " + $scope.$storage.selectedActivity);
         console.log("Time: " + $scope.$storage.selectedTime);
         
+        //TO-DO: Set up equivalent of hitStartHour/hitEndHour for 'block' style time types
+
         //Remains false until we've looped through and hit our activity "start time" for the first time
         //Keeps us from hitting start time twice in the 48 hours of response data
         var hitStartHour = false;
@@ -156,15 +155,14 @@ canibike.controller('home', function($scope, $localStorage) {
                 //set flag to true so we don't do this again...
                 hitStartHour = true;
 
-                //Check start conditions against high temperature threshold
+                //Check start-time temperature against the highTemp threshold the user has set for this activity...
                 if(element.temperature > $scope.$storage.thresholds[$scope.$storage.selectedActivity].highTemp) {
+                    //If the temparture is too high, set the "Can I?" result to No
                     $scope.result.canI = 'No.';
                     $scope.result.reasonCondition = 'tempHigh';
                     $scope.result.reasonTime = 'start';
                     console.log("Setting result.canI to NO -> " + $scope.result.reasonCondition + " at " + $scope.result.reasonTime);
-                } 
-                //Check start conditions against low temperature threshold
-                else if(element.temperature < $scope.$storage.thresholds[$scope.$storage.selectedActivity].lowTemp) {
+                } else if(element.temperature < $scope.$storage.thresholds[$scope.$storage.selectedActivity].lowTemp) {
                     $scope.result.canI = 'No.';
                     $scope.result.reasonCondition = 'tempLow';
                     $scope.result.reasonTime = 'start';
@@ -187,43 +185,39 @@ canibike.controller('home', function($scope, $localStorage) {
 
             };
 
-            //If we have not yet hit our "end hour" and then we do...
+            //...Same thing for the "end hour"
             if((hitEndHour == false) && (thisTimeObject.getHours() == $scope.$storage.times[$scope.$storage.selectedTime].end)) {
-                //set flag to true so we don't do this again...
                 hitEndHour = true;
 
-                //Check end conditions against high temperature threshold
                 if(element.temperature > $scope.$storage.thresholds[$scope.$storage.selectedActivity].highTemp) {
                     $scope.result.canI = 'No.';
                     $scope.result.reasonCondition = 'tempHigh';
                     $scope.result.reasonTime = 'end';
                     console.log("Setting result.canI to NO -> " + $scope.result.reasonCondition + " at " + $scope.result.reasonTime);
-                } 
-                //Check end conditions against low temperature threshold
-                else if(element.temperature < $scope.$storage.thresholds[$scope.$storage.selectedActivity].lowTemp) {
+                } else if(element.temperature < $scope.$storage.thresholds[$scope.$storage.selectedActivity].lowTemp) {
                     $scope.result.canI = 'No.';
                     $scope.result.reasonCondition = 'tempLow';
                     $scope.result.reasonTime = 'end';
                     console.log("Setting result.canI to NO -> " + $scope.result.reasonCondition + " at " + $scope.result.reasonTime);
                 }
-
+                
                 if(element.windSpeed > $scope.$storage.thresholds[$scope.$storage.selectedActivity].windSpeed) {
                     $scope.result.canI = 'No.';
                     $scope.result.reasonCondition = 'windSpeed';
                     $scope.result.reasonTime = 'end';
                     console.log("Setting result.canI to NO -> " + $scope.result.reasonCondition + " at " + $scope.result.reasonTime);
                 }
-
+                
                 if(element.precipProbability > $scope.$storage.thresholds[$scope.$storage.selectedActivity].precipProb) {
                     $scope.result.canI = 'No.';
                     $scope.result.reasonCondition = 'precipProb';
                     $scope.result.reasonTime = 'end';
                     console.log("Setting result.canI to NO -> " + $scope.result.reasonCondition + " at " + $scope.result.reasonTime);
                 }
-
             }
         });
-                
+        
+        //If result is still empty, set "Can I?" to Yes
         if($scope.result.canI == '') {
             console.log("Setting result.canI to YES");
             $scope.result.canI = 'Yes.';
