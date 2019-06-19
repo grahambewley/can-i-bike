@@ -63,23 +63,27 @@ canibike.controller('home', function($scope, $localStorage) {
         reasonTime: ''
     };
 
+    //Stores the weather data we want to display on screen -- empty to start
+    $scope.displayedWeatherData = [];
+
     //*******WATCHERS**********
 
     //Watch main user inputs -- selectedActivity and selectedTime
     $scope.$watchGroup(['$storage.selectedActivity', '$storage.selectedTime'], function(newVal, oldVal) {
-        console.log("Changed Selection, emptying $scope.result...");
+        console.log("Changed Selection, emptying $scope.result and $scope.changedWeatherData...");
         $scope.result = {
             canI: '',
             reasonCondition: '',
             reasonTime: ''
         };
+
+        $scope.displayedWeatherData = [];
         
         //Watch is triggered immediately on page load
         //This if.. statement keeps the checkCanI function from running until the weather data has loaded
         if($scope.hourlyWeatherArray != undefined) {
             console.log("..and running checkCanI function again")
             $scope.checkCanI();
-        
         }
     });
 
@@ -97,6 +101,7 @@ canibike.controller('home', function($scope, $localStorage) {
     }
 
     function getWeatherFromPosition(position) {
+        //TO-DO: Trigger some sort of weather check based on the $localStorage version of lat and long -- so we don't need that to come back first every time
         console.log("***CURRENT POSITION***");
         console.log("Lat: " + position.coords.latitude); 
         console.log("Long: " + position.coords.longitude);
@@ -155,6 +160,12 @@ canibike.controller('home', function($scope, $localStorage) {
                 //set flag to true so we don't do this again...
                 hitStartHour = true;
 
+                //Store the weather data for this hour to display on screen
+                console.log("Adding weather data to be displayed...");
+                $scope.displayedWeatherData.push(element);
+                console.log("$scope.displayedWeatherData is now: ");
+                console.log($scope.displayedWeatherData);
+
                 //Check start-time temperature against the highTemp threshold the user has set for this activity...
                 if(element.temperature > $scope.$storage.thresholds[$scope.$storage.selectedActivity].highTemp) {
                     //If the temparture is too high, set the "Can I?" result to No
@@ -189,6 +200,12 @@ canibike.controller('home', function($scope, $localStorage) {
             if((hitEndHour == false) && (thisTimeObject.getHours() == $scope.$storage.times[$scope.$storage.selectedTime].end)) {
                 hitEndHour = true;
 
+                //Store the weather data for this hour to display on screen
+                console.log("Adding weather data to be displayed...");
+                $scope.displayedWeatherData.push(element);
+                console.log("$scope.displayedWeatherData is now: ");
+                console.log($scope.displayedWeatherData);
+
                 if(element.temperature > $scope.$storage.thresholds[$scope.$storage.selectedActivity].highTemp) {
                     $scope.result.canI = 'No.';
                     $scope.result.reasonCondition = 'tempHigh';
@@ -222,6 +239,13 @@ canibike.controller('home', function($scope, $localStorage) {
             console.log("Setting result.canI to YES");
             $scope.result.canI = 'Yes.';
         }
+
+        formatWeatherData();
+
+    }
+
+    function formatWeatherData() {
+        console.log("* * * Entered formatWeatherData function * * *");
     }
 });
 
