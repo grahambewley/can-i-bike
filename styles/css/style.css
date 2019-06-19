@@ -1,5 +1,11 @@
 html {
   font-size: 62.5%; }
+  @media (max-width: 75em) {
+    html {
+      font-size: 56.25%; } }
+  @media (max-width: 900px) {
+    html {
+      font-size: 50%; } }
 
 body {
   box-sizing: border-box; }
@@ -36,29 +42,54 @@ body {
   justify-content: center; }
 
 .section-input {
-  width: 100%;
   text-align: center;
   color: #828282;
   font-weight: 200;
   font-size: 8rem;
-  word-spacing: 3rem; }
+  word-spacing: 2rem; }
+  @media (max-width: 900px) {
+    .section-input {
+      font-size: 6rem;
+      word-spacing: inherit; } }
   .section-input__select {
     color: #828282;
     font-family: 'Muli', sans-serif;
     font-weight: 200;
     font-size: 8rem; }
+    @media (max-width: 900px) {
+      .section-input__select {
+        font-size: 6rem; } }
   .section-input__select-option {
     font-weight: 200; }
 
 .section-canI {
-  height: 28rem;
-  line-height: 28rem;
   text-align: center; }
   .section-canI__span {
-    font-size: 28rem;
+    font-size: 32rem;
     font-weight: 400;
-    color: #828282; }
+    color: #4f4f4f; }
+    @media (max-width: 900px) {
+      .section-canI__span {
+        font-size: 24rem; } }
 
 .section-weather {
-  background-color: lightyellow;
-  min-height: 20rem; }
+  color: #4f4f4f; }
+  .section-weather__weather-box {
+    background-color: whitesmoke;
+    max-width: 100rem;
+    margin: 0 auto;
+    padding: 2rem; }
+  .section-weather__header {
+    font-size: 3rem;
+    font-weight: 200;
+    text-align: center;
+    text-transform: uppercase;
+    margin-bottom: 3rem; }
+  .section-weather__forecast-table {
+    font-size: 2rem;
+    font-weight: 300;
+    width: 100%; }
+    .section-weather__forecast-table td {
+      text-align: left; }
+    .section-weather__forecast-table th {
+      text-align: left !important; }

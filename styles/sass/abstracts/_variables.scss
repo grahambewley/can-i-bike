@@ -1,10 +1,12 @@
 //COLORS
 $color-grey: #828282;
+$color-light-grey: lighten($color-grey, 45%);
+$color-dark-grey: darken($color-grey, 20%);
+
 
 
 //LAYOUT
 
 //FONT SIZES
-$font-size-canI: 28rem;
 
 //...ETC

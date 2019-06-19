@@ -28,18 +28,27 @@
 }
 
 .section-input {
-    width: 100%;
+    //width: 100%;
     text-align: center;
     color: $color-grey;
     font-weight: 200;
     font-size: 8rem;
-    word-spacing: 3rem;
+    word-spacing: 2rem;
+
+    @include respond('tab-port') {
+        font-size: 6rem;
+        word-spacing: inherit;
+    }
 
     &__select {
         color: $color-grey;
         font-family: 'Muli', sans-serif;
         font-weight: 200;
         font-size: 8rem;
+
+        @include respond('tab-port') {
+            font-size: 6rem;
+        }
     }
 
     &__select-option {
@@ -48,19 +57,54 @@
 }
 
 .section-canI {
-    height: $font-size-canI;
-    line-height: $font-size-canI;
+    //height: $font-size-canI;
+    //line-height: $font-size-canI;
     text-align: center;
     &__span {
-        font-size: $font-size-canI;
+        font-size: 32rem;;
         font-weight: 400;
-        color: $color-grey;
+        color: $color-dark-grey;
+
+        @include respond('tab-port') {
+            font-size: 24rem;
+        }
     }
 }
 
 .section-weather {
-    background-color: lightyellow;
-    min-height: 20rem;
+
+    color: $color-dark-grey;
+
+    &__weather-box {
+        background-color: $color-light-grey;
+        max-width: 100rem;
+        margin: 0 auto;
+        padding: 2rem;
+    }
+    
+    &__header {
+        font-size: 3rem;
+        font-weight: 200;
+        text-align: center;
+        text-transform: uppercase;
+        margin-bottom: 3rem;
+    }
+
+    &__forecast-table {
+        font-size: 2rem;
+        font-weight: 300;
+        width: 100%;
+
+        td {
+            text-align: left;
+            //padding: 2rem;
+        }
+
+        th {
+            text-align: left !important;
+            //padding: 2rem;
+        }
+    }
     
 }
 

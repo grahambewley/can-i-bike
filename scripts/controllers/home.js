@@ -191,8 +191,8 @@ canibike.controller('home', function($scope, $localStorage) {
 
             };
 
-            //...Same thing for the "end hour"
-            if((hitEndHour == false) && (thisTimeObject.getHours() == $scope.$storage.times[$scope.$storage.selectedTime].end)) {
+            //...Same thing for the "end hour", but also make sure we've hit the "start hour" as well
+            if((hitStartHour == true) && (hitEndHour == false) && (thisTimeObject.getHours() == $scope.$storage.times[$scope.$storage.selectedTime].end)) {
                 hitEndHour = true;
 
                 //Store the weather data for this hour to be formatted and displayed later
@@ -238,6 +238,42 @@ canibike.controller('home', function($scope, $localStorage) {
 
     function formatWeatherData() {
         console.log("* * * Entered formatWeatherData function * * *");
+        console.log("Relevant Weather Data: ");
+        console.log($scope.relevantWeatherData);
+
+
+        $scope.relevantWeatherData.forEach(element => {
+            //Instantiate an empty object to push data into
+            let weatherEntry = {};
+
+            //Get the date/time from the forecast element
+            tempTimeObject = new Date(0);
+            tempTimeObject.setUTCSeconds(element.time); 
+
+            let hours = tempTimeObject.getHours();
+            let ampm = hours >= 12 ? 'PM' : 'AM';
+            hours = hours % 12;
+            hours = hours ? hours : 12;
+            
+            let date = tempTimeObject.getDate();
+            let month = tempTimeObject.getMonth();
+
+            weatherEntry.time = hours + ' ' + ampm;
+            weatherEntry.date = month + " " + date;
+            weatherEntry.todtom = date > new Date().getDate() ? 'Tomorrow' : 'Today';
+
+            //Get weather data
+            weatherEntry.summary = element.summary;
+            weatherEntry.temperature = element.temperature;
+            weatherEntry.precipProb = element.precipProbability * 100; 
+            weatherEntry.windSpeed = element.windSpeed;
+
+            //Push this entry into the displayedWeatherData array
+            $scope.displayedWeatherData.push(weatherEntry);
+        });
+
+        console.log("Displayed Weather Data: ");
+        console.log($scope.displayedWeatherData);
 
     }
 });

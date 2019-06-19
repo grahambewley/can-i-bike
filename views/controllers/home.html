@@ -15,7 +15,7 @@
 
         <label for="wind">Max Wind Speed</label>
         <input id="wind" type="number" class="activity-options__wind-speed" min="0" max="25" ng-model="$storage.thresholds[$storage.selectedActivity].windSpeed">
-        <span>MPG</span>
+        <span>MPH</span>
     </div>
 
     <div class="flex-container">
@@ -45,8 +45,44 @@
 
         <section class="section-weather">
 
-            <div ng-show="$storage.times[$storage.selectedTime].type == 'commute'">
-                COMMUTE STUFF
+            <div class="section-weather__weather-box">
+                <!-- Displays only if the "time type" is "commute" (i.e. to work, to school) -->
+                <div class="section-weather__forecast" ng-show="$storage.times[$storage.selectedTime].type == 'commute'">
+                    <h2 class="section-weather__header">Weather during your commute ({{ displayedWeatherData[0].todtom }})</h2>
+
+                    <table class="section-weather__forecast-table">
+                        <tr>
+                            <th>Time</th>
+                            <th>Summary</th>
+                            <th>Temp</th>
+                            <th>Precip</th>
+                            <th>Wind</th>
+                        </tr>
+
+                        <tr>
+                            <td>{{ displayedWeatherData[0].time }}</td>
+                            <td>{{ displayedWeatherData[0].summary }}</td>
+                            <td>{{ displayedWeatherData[0].temperature }} &deg;F</td>
+                            <td>{{ displayedWeatherData[0].precipProb }}%</td>
+                            <td>{{ displayedWeatherData[0].windSpeed }} MPH</td>
+                        </tr>
+
+                        <tr>
+                            <td>{{ displayedWeatherData[1].time }}</td>
+                            <td>{{ displayedWeatherData[1].summary }}</td>
+                            <td>{{ displayedWeatherData[1].temperature }} &deg;F</td>
+                            <td>{{ displayedWeatherData[1].precipProb }}%</td>
+                            <td>{{ displayedWeatherData[1].windSpeed }} MPH</td>
+                        </tr>
+
+                    </table>
+
+                </div>
+
+                <!-- Displays only if the "time type" is "block" (i.e. this evening, today) -->
+                <div class="section-weather__forecast" ng-show="$storage.times[$storage.selectedTime].type == 'block'">
+                    <h2 class="section-weather__header">Weather during your commute</h2>
+                </div>
             </div>
 
         </section>
