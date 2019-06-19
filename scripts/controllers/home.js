@@ -62,22 +62,18 @@ canibike.controller('home', function($scope, $localStorage) {
     //Stores the formatted weather data we will display on screen
     $scope.displayedWeatherData = [];
 
-    //CanI Result variables -- empty for now
-    $scope.result = {
-        canI: '',
-        reasonCondition: '',
-        reasonTime: ''
-    };
+    //CanI Result variable -- empty for now
+    $scope.canI = '';
+    
+    //Will hold data about the things we can't 
+    $scope.triggers = [];
 
     //*******WATCHERS**********
 
     //Watch main user inputs -- selectedActivity and selectedTime
     $scope.$watchGroup(['$storage.selectedActivity', '$storage.selectedTime'], function(newVal, oldVal) {
-        $scope.result = {
-            canI: '',
-            reasonCondition: '',
-            reasonTime: ''
-        };
+        $scope.canI = '';
+        $scope.triggers = [];
 
         $scope.relevantWeatherData = [];
         $scope.displayedWeatherData = [];
@@ -164,29 +160,33 @@ canibike.controller('home', function($scope, $localStorage) {
                 //Check start-time temperature against the highTemp threshold the user has set for this activity...
                 if(element.temperature > $scope.$storage.thresholds[$scope.$storage.selectedActivity].highTemp) {
                     //If the temparture is too high, set the "Can I?" result to No
-                    $scope.result.canI = 'No.';
-                    $scope.result.reasonCondition = 'tempHigh';
-                    $scope.result.reasonTime = 'start';
-                    console.log("Setting result.canI to NO -> " + $scope.result.reasonCondition + " at " + $scope.result.reasonTime);
+                    $scope.canI = 'No.';
+                    $scope.triggers.push({
+                        time: element.time,
+                        reason: 'tempHigh'
+                    });
                 } else if(element.temperature < $scope.$storage.thresholds[$scope.$storage.selectedActivity].lowTemp) {
-                    $scope.result.canI = 'No.';
-                    $scope.result.reasonCondition = 'tempLow';
-                    $scope.result.reasonTime = 'start';
-                    console.log("Setting result.canI to NO -> " + $scope.result.reasonCondition + " at " + $scope.result.reasonTime);
+                    $scope.canI = 'No.';
+                    $scope.triggers.push({
+                        time: element.time,
+                        reason: 'tempLow'
+                    });
                 }
 
                 if(element.windSpeed > $scope.$storage.thresholds[$scope.$storage.selectedActivity].windSpeed) {
-                    $scope.result.canI = 'No.';
-                    $scope.result.reasonCondition = 'windSpeed';
-                    $scope.result.reasonTime = 'start';
-                    console.log("Setting result.canI to NO -> " + $scope.result.reasonCondition + " at " + $scope.result.reasonTime);
+                    $scope.canI = 'No.';
+                    $scope.triggers.push({
+                        time: element.time,
+                        reason: 'wind'
+                    });
                 }
 
                 if(element.precipProbability > $scope.$storage.thresholds[$scope.$storage.selectedActivity].precipProb) {
-                    $scope.result.canI = 'No.';
-                    $scope.result.reasonCondition = 'precipProb';
-                    $scope.result.reasonTime = 'start';
-                    console.log("Setting result.canI to NO -> " + $scope.result.reasonCondition + " at " + $scope.result.reasonTime);
+                    $scope.canI = 'No.';
+                    $scope.triggers.push({
+                        time: element.time,
+                        reason: 'precip'
+                    });
                 }
 
             };
@@ -199,37 +199,41 @@ canibike.controller('home', function($scope, $localStorage) {
                 $scope.relevantWeatherData.push(element);
 
                 if(element.temperature > $scope.$storage.thresholds[$scope.$storage.selectedActivity].highTemp) {
-                    $scope.result.canI = 'No.';
-                    $scope.result.reasonCondition = 'tempHigh';
-                    $scope.result.reasonTime = 'end';
-                    console.log("Setting result.canI to NO -> " + $scope.result.reasonCondition + " at " + $scope.result.reasonTime);
+                    $scope.canI = 'No.';
+                    $scope.triggers.push({
+                        time: element.time,
+                        reason: 'tempHigh'
+                    });
                 } else if(element.temperature < $scope.$storage.thresholds[$scope.$storage.selectedActivity].lowTemp) {
-                    $scope.result.canI = 'No.';
-                    $scope.result.reasonCondition = 'tempLow';
-                    $scope.result.reasonTime = 'end';
-                    console.log("Setting result.canI to NO -> " + $scope.result.reasonCondition + " at " + $scope.result.reasonTime);
+                    $scope.canI = 'No.';
+                    $scope.triggers.push({
+                        time: element.time,
+                        reason: 'tempLow'
+                    });
                 }
                 
                 if(element.windSpeed > $scope.$storage.thresholds[$scope.$storage.selectedActivity].windSpeed) {
-                    $scope.result.canI = 'No.';
-                    $scope.result.reasonCondition = 'windSpeed';
-                    $scope.result.reasonTime = 'end';
-                    console.log("Setting result.canI to NO -> " + $scope.result.reasonCondition + " at " + $scope.result.reasonTime);
+                    $scope.canI = 'No.';
+                    $scope.triggers.push({
+                        time: element.time,
+                        reason: 'wind'
+                    });
                 }
                 
                 if(element.precipProbability > $scope.$storage.thresholds[$scope.$storage.selectedActivity].precipProb) {
-                    $scope.result.canI = 'No.';
-                    $scope.result.reasonCondition = 'precipProb';
-                    $scope.result.reasonTime = 'end';
-                    console.log("Setting result.canI to NO -> " + $scope.result.reasonCondition + " at " + $scope.result.reasonTime);
+                    $scope.canI = 'No.';
+                    $scope.triggers.push({
+                        time: element.time,
+                        reason: 'precip'
+                    });
                 }
             }
         });
         
         //If result is still empty, set "Can I?" to Yes
-        if($scope.result.canI == '') {
+        if($scope.canI == '') {
             console.log("Setting result.canI to YES");
-            $scope.result.canI = 'Yes.';
+            $scope.canI = 'Yes.';
         }
 
         formatWeatherData();
