@@ -1,10 +1,11 @@
 .home-container {
     height: 100vh;
-    padding: 0.5rem;
+    padding: .75rem;
     position: relative;
 }
 
 .activity-options {
+    font-size: 1.2rem;
     display: flex;
     justify-content: flex-end;
     align-items: center;
@@ -12,11 +13,16 @@
     label {
         margin: 0 0.5rem 0 2rem;
     }
+
+    span {
+        margin-left: .5rem;
+    }
+
 }
 
 .flex-container {
     display:flex;
-    height: 100vh;
+    height: 100%;
     flex-direction: column;
     justify-content: center;
 }
@@ -35,6 +41,10 @@
         font-weight: 200;
         font-size: 8rem;
     }
+
+    &__select-option {
+        font-weight: 200;
+    }
 }
 
 .section-canI {
@@ -51,6 +61,6 @@
 .section-weather {
     background-color: lightyellow;
     min-height: 20rem;
-
+    
 }
 

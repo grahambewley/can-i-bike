@@ -16,19 +16,22 @@ body {
 
 .home-container {
   height: 100vh;
-  padding: 0.5rem;
+  padding: .75rem;
   position: relative; }
 
 .activity-options {
+  font-size: 1.2rem;
   display: flex;
   justify-content: flex-end;
   align-items: center; }
   .activity-options label {
     margin: 0 0.5rem 0 2rem; }
+  .activity-options span {
+    margin-left: .5rem; }
 
 .flex-container {
   display: flex;
-  height: 100vh;
+  height: 100%;
   flex-direction: column;
   justify-content: center; }
 
@@ -44,6 +47,8 @@ body {
     font-family: 'Muli', sans-serif;
     font-weight: 200;
     font-size: 8rem; }
+  .section-input__select-option {
+    font-weight: 200; }
 
 .section-canI {
   height: 28rem;

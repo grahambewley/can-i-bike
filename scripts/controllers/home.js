@@ -36,12 +36,12 @@ canibike.controller('home', function($scope, $localStorage) {
             towork: {
                 start: 8,
                 end: 17,
-                type: 'split'
+                type: 'commute'
             },
             toschool: {
                 start: 7,
                 end: 15,
-                type: 'split'
+                type: 'commute'
             },
             today: {
                 start: 8,

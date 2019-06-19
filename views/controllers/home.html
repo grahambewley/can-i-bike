@@ -1,17 +1,21 @@
 <div class="home-container" ng-init="locate()">
 
     <div class="activity-options">
-        <label for="lTemp">Low Temperature (&deg;F)</label>
+        <label for="lTemp">Minimum Temp:</label>
         <input id="lTemp" type="number" class="activity-options__low-temp" min="0" max="130" ng-model="$storage.thresholds[$storage.selectedActivity].lowTemp">
+        <span>&deg;F</span>
 
-        <label for="hTemp">High Temperature (&deg;F)</label>
+        <label for="hTemp">Maximum Temp:</label>
         <input id="hTemp" type="number" class="activity-options__high-temp" min="0" max="130" ng-model="$storage.thresholds[$storage.selectedActivity].highTemp">
+        <span>&deg;F</span>
 
-        <label for="precip">Precipitation Probability (%)</label>
+        <label for="precip">Max Chance of Rain:</label>
         <input id="precip" type="number" class="activity-options__precip-prob" min="0" max="100" ng-model="$storage.thresholds[$storage.selectedActivity].precipProb">
+        <span>%</span>
 
-        <label for="wind">Miles Per Hour</label>
+        <label for="wind">Max Wind Speed</label>
         <input id="wind" type="number" class="activity-options__wind-speed" min="0" max="25" ng-model="$storage.thresholds[$storage.selectedActivity].windSpeed">
+        <span>MPG</span>
     </div>
 
     <div class="flex-container">
@@ -19,16 +23,16 @@
             <form action="#" class="section-input__form">
                 <span class="section-input__plain-text">Can I </span>
 
-                <select ng-model="$storage.selectedActivity" class="section-input__select section-input__select--activity">
-                    <option value="bike" class="section-input__activity-option" selected>bike</option>
-                    <option value="run" class="section-input__activity-option" selected>run</option>
-                    <option value="walk" class="section-input__activity-option">walk</option>
+                <select ng-model="$storage.selectedActivity" class="section-input__select">
+                    <option value="bike" class="section-input__select-option" selected>bike</option>
+                    <option value="run" class="section-input__select-option" selected>run</option>
+                    <option value="walk" class="section-input__select-option">walk</option>
                 </select>
 
-                <select ng-model="$storage.selectedTime" class="section-input__select section-input__select--time">
-                    <option value="towork" class="section-input__activity-option" selected>to work</option>
-                    <option value="toschool" class="section-input__activity-option">to school</option>
-                    <option value="today" class="section-input__activity-option">today</option>
+                <select ng-model="$storage.selectedTime" class="section-input__select">
+                    <option value="towork" class="section-input__select-option" selected>to work</option>
+                    <option value="toschool" class="section-input__select-option">to school</option>
+                    <option value="today" class="section-input__select-option">today</option>
                 </select>
                 
                 <span class="section-input__plain-text">?</span>
@@ -41,7 +45,9 @@
 
         <section class="section-weather">
 
-
+            <div ng-show="$storage.times[$storage.selectedTime].type == 'commute'">
+                COMMUTE STUFF
+            </div>
 
         </section>
     </div>
