@@ -63,14 +63,18 @@ body {
     font-weight: 200; }
 
 .section-canI {
+  height: 32rem;
+  line-height: 32rem;
   text-align: center; }
   .section-canI__span {
     font-size: 32rem;
     font-weight: 400;
     color: #4f4f4f; }
-    @media (max-width: 900px) {
+    @media (max-width: 600px) {
       .section-canI__span {
-        font-size: 24rem; } }
+        height: 20rem;
+        line-height: 20rem;
+        font-size: 20rem; } }
 
 .section-weather {
   color: #4f4f4f; }

@@ -57,16 +57,18 @@
 }
 
 .section-canI {
-    //height: $font-size-canI;
-    //line-height: $font-size-canI;
+    height: 32rem;
+    line-height: 32rem;
     text-align: center;
     &__span {
         font-size: 32rem;;
         font-weight: 400;
         color: $color-dark-grey;
 
-        @include respond('tab-port') {
-            font-size: 24rem;
+        @include respond('phone') {
+            height: 20rem;
+            line-height: 20rem;
+            font-size: 20rem;
         }
     }
 }
