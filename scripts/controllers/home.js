@@ -12,19 +12,19 @@ canibike.controller('home', function($scope, $localStorage) {
         thresholds: {
             bike: {
                 highTemp: 80,
-                lowTemp: 45,
+                lowTemp: 70,
                 precipProb: 0.20,
-                windSpeed: 15
+                windSpeed: 3
             },
             run: {
-                highTemp: 80,
-                lowTemp: 30,
+                highTemp: 70,
+                lowTemp: 60,
                 precipProb: 0.15,
-                windSpeed: 10
+                windSpeed: 5
             },
             walk: {
-                highTemp: 80,
-                lowTemp: 30,
+                highTemp: 60,
+                lowTemp: 50,
                 precipProb: 0.10,
                 windSpeed: 10
             }
@@ -51,31 +51,40 @@ canibike.controller('home', function($scope, $localStorage) {
     });
 
     //Geolocation variables -- set via localStorage -- change in locate() function later
-    $scope.latString = $localStorage.storedLat;
-    $scope.longString = $localStorage.storedLong;
+    /*
+    $scope.latString = $scope.$storage.storedLat;
+    $scope.longString = $scope.$storage.storedLong;
+    */
 
     //Weather variables -- undefined for now
     var darkSkyResponseObject;
     var hourlyWeatherArray;
 
-    //Current Activity/Time variables -- set via localStorage
-    $scope.selectedActivity = $localStorage.selectedActivity;
-    $scope.selectedTime = $localStorage.selectedTime;
+    //Current Activity/Time variables -- set via scope.storage
+    /*
+    $scope.selectedActivity = $scope.$storage.selectedActivity;
+    $scope.selectedTime = $scope.$storage.selectedTime;
+    */
 
-    //Set "Selected Activity Thresholds" using values stored in localStorage
+    //Set "Selected Activity Thresholds" using values stored in scope.storage
+    
+    /*
     $scope.selectedActivityThresholds = {
-        highTemp: $localStorage.thresholds[$scope.selectedActivity].highTemp,
-        lowTemp: $localStorage.thresholds[$scope.selectedActivity].lowTemp,
-        precipProb: $localStorage.thresholds[$scope.selectedActivity].precipProb,
-        windSpeed: $localStorage.thresholds[$scope.selectedActivity].windSpeed
+        highTemp: $scope.$storage.thresholds[$scope.$storage.selectedActivity].highTemp,
+        lowTemp: $scope.$storage.thresholds[$scope.$storage.selectedActivity].lowTemp,
+        precipProb: $scope.$storage.thresholds[$scope.$storage.selectedActivity].precipProb,
+        windSpeed: $scope.$storage.thresholds[$scope.$storage.selectedActivity].windSpeed
     };
+    */
 
-    //Set "Selected Activity Thresholds" using values stored in localStorage
+    //Set "Selected Activity Thresholds" using values stored in scope.storage
+    /*
     $scope.selectedActivityTimes = {
-        start: $localStorage.times[$scope.selectedTime].start,
-        end: $localStorage.times[$scope.selectedTime].end,
-        type: $localStorage.times[$scope.selectedTime].type
+        start: $scope.$storage.times[$scope.$storage.selectedTime].start,
+        end: $scope.$storage.times[$scope.$storage.selectedTime].end,
+        type: $scope.$storage.times[$scope.$storage.selectedTime].type
     };
+    */
 
     //CanI Result variables -- empty for now
     $scope.result = {
@@ -87,9 +96,9 @@ canibike.controller('home', function($scope, $localStorage) {
     //*******WATCHERS**********
 
     //SELECTED ACTIVITY
-    $scope.$watch('selectedActivity', function(newVal, oldVal) {
-        $scope.$storage.selectedActivity = newVal;
-        //TO-DO: Get 
+    $scope.$watch('$scope.$storage.selectedActivity', function(newVal, oldVal) {
+        //$scope.$storage.selectedActivity = newVal;
+        console.log('Changed Selected Activity to ' + $scope.$storage.selectedActivity);
     });
 
     //SELECTED TIME
@@ -138,11 +147,11 @@ canibike.controller('home', function($scope, $localStorage) {
         
     }
 
-    function checkCanI(darkSkyResponseObject, $scope) {
+    function checkCanI(hourlyWeatherArray, $scope) {
         
         console.log("***CURRENTLY SELECTED ACTIVITY***");
-        console.log("Activity: " + $scope.selectedActivity);
-        console.log("Time: " + $scope.selectedTime);
+        console.log("Activity: " + $scope.$storage.selectedActivity);
+        console.log("Time: " + $scope.$storage.selectedTime);
         
         //Remains false until we've looped through and hit our activity "start time" for the first time
         //Keeps us from hitting start time twice in the 48 hours of response data
@@ -159,33 +168,33 @@ canibike.controller('home', function($scope, $localStorage) {
                 thisTimeObject.setUTCSeconds(element.time); 
                 
                 //If we have not yet hit our "start hour" and then we do...
-                if((hitStartHour == false) && (thisTimeObject.getHours() == $scope.selectedActivityTimes.start)) {
+                if((hitStartHour == false) && (thisTimeObject.getHours() == $scope.$storage.times[$scope.$storage.selectedTime].start)) {
                     //set flag to true so we don't do this again...
                     hitStartHour = true;
 
                     //Check start conditions against high temperature threshold
-                    if(element.temperature > $scope.selectedActivityThresholds.highTempThreshold) {
+                    if(element.temperature > $scope.$storage.thresholds[$scope.$storage.selectedActivity].highTemp) {
                         $scope.result.canI = 'No';
                         $scope.result.reasonCondition = 'tempHigh';
                         $scope.result.reasonTime = 'start';
                         console.log("CANT! " + $scope.result.reasonCondition + " at " + $scope.result.reasonTime);
                     } 
                     //Check start conditions against low temperature threshold
-                    else if(element.temperature < $scope.selectedActivityThresholds.lowTempThreshold) {
+                    else if(element.temperature < $scope.$storage.thresholds[$scope.$storage.selectedActivity].lowTemp) {
                         $scope.result.canI = 'No';
                         $scope.result.reasonCondition = 'tempLow';
                         $scope.result.reasonTime = 'start';
                         console.log("CANT! " + $scope.result.reasonCondition + " at " + $scope.result.reasonTime);
                     }
 
-                    if(element.windSpeed > $scope.selectedActivityThresholds.windSpeedThreshold) {
+                    if(element.windSpeed > $scope.$storage.thresholds[$scope.$storage.selectedActivity].windSpeed) {
                         $scope.result.canI = 'No';
                         $scope.result.reasonCondition = 'windSpeed';
                         $scope.result.reasonTime = 'start';
                         console.log("CANT! " + $scope.result.reasonCondition + " at " + $scope.result.reasonTime);
                     }
 
-                    if(element.precipProbability > $scope.selectedActivityThresholds.precipProbThreshold) {
+                    if(element.precipProbability > $scope.$storage.thresholds[$scope.$storage.selectedActivity].precipProb) {
                         $scope.result.canI = 'No';
                         $scope.result.reasonCondition = 'precipProb';
                         $scope.result.reasonTime = 'start';
@@ -195,33 +204,33 @@ canibike.controller('home', function($scope, $localStorage) {
                 };
 
                 //If we have not yet hit our "end hour" and then we do...
-                if((hitEndHour == false) && (thisTimeObject.getHours() == $scope.selectedActivityTimes.endHour)) {
+                if((hitEndHour == false) && (thisTimeObject.getHours() == $scope.$storage.times[$scope.$storage.selectedTime].end)) {
                     //set flag to true so we don't do this again...
                     hitEndHour = true;
 
                     //Check end conditions against high temperature threshold
-                    if(element.temperature > $scope.selectedActivityThresholds.highTempThreshold) {
+                    if(element.temperature > $scope.$storage.thresholds[$scope.$storage.selectedActivity].highTemp) {
                         $scope.result.canI = 'No';
                         $scope.result.reasonCondition = 'tempHigh';
                         $scope.result.reasonTime = 'end';
                         console.log("CANT! " + $scope.result.reasonCondition + " at " + $scope.result.reasonTime);
                     } 
                     //Check end conditions against low temperature threshold
-                    else if(element.temperature < $scope.selectedActivityThresholds.lowTempThreshold) {
+                    else if(element.temperature < $scope.$storage.thresholds[$scope.$storage.selectedActivity].lowTemp) {
                         $scope.result.canI = 'No';
                         $scope.result.reasonCondition = 'tempLow';
                         $scope.result.reasonTime = 'end';
                         console.log("CANT! " + $scope.result.reasonCondition + " at " + $scope.result.reasonTime);
                     }
 
-                    if(element.windSpeed > $scope.selectedActivityThresholds.windSpeedThreshold) {
+                    if(element.windSpeed > $scope.$storage.thresholds[$scope.$storage.selectedActivity].windSpeed) {
                         $scope.result.canI = 'No';
                         $scope.result.reasonCondition = 'windSpeed';
                         $scope.result.reasonTime = 'end';
                         console.log("CANT! " + $scope.result.reasonCondition + " at " + $scope.result.reasonTime);
                     }
 
-                    if(element.precipProbability > $scope.selectedActivityThresholds.precipProbThreshold) {
+                    if(element.precipProbability > $scope.$storage.thresholds[$scope.$storage.selectedActivity].precipProb) {
                         $scope.result.canI = 'No';
                         $scope.result.reasonCondition = 'precipProb';
                         $scope.result.reasonTime = 'end';
