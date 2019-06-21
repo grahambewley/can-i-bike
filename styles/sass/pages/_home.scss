@@ -4,26 +4,10 @@
     position: relative;
 }
 
-/*
-.activity-options {
-    font-size: 1.2rem;
-    display: flex;
-    justify-content: flex-end;
-    align-items: center;
-
-    label {
-        margin: 0 0.5rem 0 2rem;
-    }
-
-    span {
-        margin-left: .5rem;
-    }
-
-}
-*/
-
 .settings-area {
-
+    display: flex;
+    flex-direction: column;
+    align-items: flex-end;
     position:absolute;
     top: 2rem;
     right: 2rem;
@@ -57,8 +41,19 @@
         }
 
     }
-    
-    
+
+    &__current-settings {
+        margin-top: 1rem ;
+        color: $color-dark-grey;
+        font-size: 1.1rem;
+        vertical-align: center;
+        text-align: right;
+    }
+    &__setting-icon {
+        font-size: 1.4rem;
+        text-align: center;
+        padding-left: 1rem;
+    }
 }
 
 .flex-container {

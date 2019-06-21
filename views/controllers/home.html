@@ -2,9 +2,20 @@
     
     <div class="settings-area">
         <button ng-click="displaySettings()" class="settings-area__button">Settings</button>
-        <div class="settings-area__current-settings">
-            <i class="wi wi-night-sleet"></i>
-        </div>
+        <table class="settings-area__current-settings">
+            <tr>
+                <td>{{ $storage.thresholds[$storage.selectedActivity].lowTemp }} - {{ $storage.thresholds[$storage.selectedActivity].highTemp }} &deg;F</td>
+                <td class="settings-area__setting-icon"><i class="wi wi-thermometer"></i></td>
+            </tr>
+            <tr>
+                <td>&lt; {{ $storage.thresholds[$storage.selectedActivity].precipProb }}%</td>
+                <td class="settings-area__setting-icon"><i class="wi wi-rain"></i></td>
+            </tr>
+            <tr>
+                <td>&lt; {{ $storage.thresholds[$storage.selectedActivity].windSpeed }} MPH</td>
+                <td class="settings-area__setting-icon"><i class="wi wi-strong-wind"></i></td>
+            </tr>
+        </table>
     </div>
     
     <div class="popup" id="popup">
