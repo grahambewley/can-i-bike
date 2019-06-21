@@ -20,52 +20,47 @@
     
     <div class="popup" id="popup">
         <div class="popup__content">
-                <button ng-click="hideSettings()" class="popup__close">&times;</button>
+            <button ng-click="hideSettings()" class="popup__close">&times;</button>
 
-                <h2 class="popup__header">Settings</h2>
+            <h2 class="popup__header">Settings</h2>
 
-                <h3 class="popup__sub-header">Weather Conditions</h3>
+            <h3 class="popup__sub-header">Weather Conditions</h3>
 
-                <div class="popup__settings-item">
-                    <label for="lTemp">Minimum Temp (&deg;F)</label>
-                    <input id="lTemp" type="number" class="activity-options__low-temp" min="0" max="130" ng-model="$storage.thresholds[$storage.selectedActivity].lowTemp">
-                </div>
+            <div class="popup__settings-item">
+                <label for="lTemp">Minimum Temp (&deg;F)</label>
+                <input id="lTemp" type="number" class="activity-options__low-temp" min="0" max="130" ng-model="$storage.thresholds[$storage.selectedActivity].lowTemp">
+            </div>
 
-                <div class="popup__settings-item">
-                    <label for="hTemp">Maximum Temp (&deg;F)</label>
-                    <input id="hTemp" type="number" class="activity-options__high-temp" min="0" max="130" ng-model="$storage.thresholds[$storage.selectedActivity].highTemp">
-                </div>
+            <div class="popup__settings-item">
+                <label for="hTemp">Maximum Temp (&deg;F)</label>
+                <input id="hTemp" type="number" class="activity-options__high-temp" min="0" max="130" ng-model="$storage.thresholds[$storage.selectedActivity].highTemp">
+            </div>
 
-                <div class="popup__settings-item">
-                    <label for="precip">Max Chance of Rain (%)</label>
-                    <input id="precip" type="number" class="activity-options__precip-prob" min="0" max="100" ng-model="$storage.thresholds[$storage.selectedActivity].precipProb">
-                </div>
+            <div class="popup__settings-item">
+                <label for="precip">Max Chance of Rain (%)</label>
+                <input id="precip" type="number" class="activity-options__precip-prob" min="0" max="100" ng-model="$storage.thresholds[$storage.selectedActivity].precipProb">
+            </div>
 
-                <div class="popup__settings-item">
-                    <label for="wind">Max Wind Speed (MPH)</label>
-                    <input id="wind" type="number" class="activity-options__wind-speed" min="0" max="25" ng-model="$storage.thresholds[$storage.selectedActivity].windSpeed">
-                </div>
+            <div class="popup__settings-item">
+                <label for="wind">Max Wind Speed (MPH)</label>
+                <input id="wind" type="number" class="activity-options__wind-speed" min="0" max="25" ng-model="$storage.thresholds[$storage.selectedActivity].windSpeed">
+            </div>
 
-                <h3 class="popup__sub-header u-margin-top-small">Activity Times</h3>
+            <h3 class="popup__sub-header">Activity Times</h3>
 
-                <div class="popup__settings-item">
-                    <label for="activity_start">Depart</label>
-                    <input id="activity_start" type="number" min="0" max="24" ng-model="$storage.times[$storage.selectedTime].start">
-                </div>
-                <div class="popup__settings-item">
-                    <label for="activity_end">Return</label>
-                    <input id="activity_return" type="number" min="0" max="24" ng-model="$storage.times[$storage.selectedTime].end">
-                </div>
+            <div class="popup__settings-item">
+                <label for="activity_start">Depart</label>
+                <input id="activity_start" type="number" min="0" max="24" ng-model="$storage.times[$storage.selectedTime].start">
+            </div>
+            <div class="popup__settings-item">
+                <label for="activity_end">Return</label>
+                <input id="activity_return" type="number" min="0" max="24" ng-model="$storage.times[$storage.selectedTime].end">
+            </div>
+
+
 
         </div>
     </div>
-
-    <!--
-    <div class="activity-options">
-        
-    </div>
-
-    -->
 
     <div class="flex-container">
         <section class="section-input">
@@ -130,10 +125,14 @@
 
                 <!-- Displays only if the "time type" is "block" (i.e. this evening, today) -->
                 <div class="section-weather__forecast" ng-show="$storage.times[$storage.selectedTime].type == 'block'">
-                    <h2 class="section-weather__header">Weather during your commute</h2>
+                    <h2 class="section-weather__header">Weather Forecast for</h2>
                 </div>
             </div>
 
         </section>
+    </div>
+
+    <div class="attribution">
+        <p class="attribution__dark-sky">powered by <a href="https://darksky.net/poweredby/">Dark Sky</a></p>
     </div>
 </div>

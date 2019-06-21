@@ -89,6 +89,7 @@ body {
     text-align: center;
     font-size: 3rem;
     text-transform: uppercase;
+    margin-top: 4rem;
     margin-bottom: 1.5rem; }
   .popup__settings-item {
     display: flex;
@@ -214,6 +215,18 @@ body {
       text-align: left; }
     .section-weather__forecast-table th {
       text-align: left !important; }
+
+.attribution {
+  color: #4f4f4f;
+  display: flex;
+  flex-direction: column;
+  width: 100%;
+  position: absolute;
+  bottom: 5px;
+  font-size: 1.2rem;
+  text-align: center; }
+  .attribution a {
+    color: #4f4f4f; }
 
 /* The starting CSS styles for the enter animation */
 .fade.ng-enter {

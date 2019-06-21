@@ -1,6 +1,5 @@
 .home-container {
     height: 100vh;
-    //padding: .75rem;
     position: relative;
 }
 
@@ -156,6 +155,21 @@
         }
     }
     
+}
+
+.attribution {
+    color: $color-dark-grey;
+    display: flex;
+    flex-direction: column;
+    width: 100%;
+    position: absolute;
+    bottom: 5px;
+    font-size: 1.2rem;
+    text-align: center;
+
+    a {
+        color: $color-dark-grey;
+    }
 }
 
 /* The starting CSS styles for the enter animation */

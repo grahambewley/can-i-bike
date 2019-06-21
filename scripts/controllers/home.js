@@ -72,12 +72,9 @@ canibike.controller('home', function($scope, $localStorage) {
 
     //Watch main user inputs -- selectedActivity and selectedTime
     $scope.$watchGroup(['$storage.selectedActivity', '$storage.selectedTime'], function(newVal, oldVal) {
-        $scope.canI = '';
-        $scope.triggers = [];
-
-        $scope.relevantWeatherData = [];
-        $scope.displayedWeatherData = [];
         
+        clearWeatherData();
+
         //Watch is triggered immediately on page load
         //This if statement keeps the checkCanI function from running until the weather data has loaded
         if($scope.hourlyWeatherArray != undefined) {
@@ -128,13 +125,36 @@ canibike.controller('home', function($scope, $localStorage) {
         
     }
 
-    //function checkCanI(hourlyWeatherArray, $scope) {
+    function clearWeatherData() {
+        //Clear our result fields
+        $scope.canI = '';
+        $scope.triggers = [];
+
+        //Clear the arrays that store our forecast data to be displayed
+        $scope.relevantWeatherData = [];
+        $scope.displayedWeatherData = [];
+    }
+
     $scope.checkCanI = function() {
+        //Determine what 'time type' we're looking at (e.g. commute, block)
+        var timeType = $scope.$storage.times[$scope.$storage.selectedTime].type;
+
+        switch(timeType) {
+            case 'commute':
+                $scope.checkCanI_commute();
+                break;
+            case 'block':
+                $scope.checkCanI_block();
+                break;
+        }
+
+    }
+
+    //Function for handling 'commute' style time types like "to work" or "to school"
+    $scope.checkCanI_commute = function() {
          
-        console.log("* * * Entered checkCanI Function * * *");
+        console.log("* * * Entered checkCanI_commute Function * * *");
         console.log("***CURRENTLY SELECTED ACTIVITY: " + $scope.$storage.selectedActivity + ", TIME: " + $scope.$storage.selectedTime);
-        
-        //TO-DO: Set up equivalent of hitStartHour/hitEndHour for 'block' style time types
 
         //Remains false until we've looped through and hit our activity "start time" for the first time
         //Keeps us from hitting start time twice in the 48 hours of response data
@@ -241,6 +261,75 @@ canibike.controller('home', function($scope, $localStorage) {
 
     }
 
+    //Function for handling 'block' style time types like "this afternoon" or "today"
+    $scope.checkCanI_block = function() {
+        console.log("* * * Entered checkCanI_block Function * * *");
+        console.log("***CURRENTLY SELECTED ACTIVITY: " + $scope.$storage.selectedActivity + ", TIME: " + $scope.$storage.selectedTime);
+
+        $scope.hourlyWeatherArray.forEach(element => {
+            
+            let hitStartHour = false;
+            let hitEndHour = false;
+            
+            let todaysDate = new Date().getDate();
+            console.info("Today's Date is " + todaysDate);
+            
+            //Make a new data object at epoch 0 -- 00:00 Jan 1, 1970
+            let thisTimeObject = new Date(0);
+            //Add the epoch time (in seconds) that we get from the API
+            thisTimeObject.setUTCSeconds(element.time); 
+
+            //If thisTimeObject is for today's date 
+            //AND the hour is greater than or equal to the start hour of the selected Time
+            //AND the hour is less than or equal to the end hour of the selected Time
+            if((thisTimeObject.getDate() == todaysDate) 
+                && (thisTimeObject.getHours() >= $scope.$storage.times[$scope.$storage.selectedTime].start)
+                && (thisTimeObject.getHours() <= $scope.$storage.times[$scope.$storage.selectedTime].end)) {
+
+                 //Store the weather data for this hour to be formatted and displayed later
+                 $scope.relevantWeatherData.push(element);
+
+                if(element.temperature > $scope.$storage.thresholds[$scope.$storage.selectedActivity].highTemp) {
+                    $scope.canI = 'No.';
+                    $scope.triggers.push({
+                        time: element.time,
+                        reason: 'tempHigh'
+                    });
+                } else if(element.temperature < $scope.$storage.thresholds[$scope.$storage.selectedActivity].lowTemp) {
+                    $scope.canI = 'No.';
+                    $scope.triggers.push({
+                        time: element.time,
+                        reason: 'tempLow'
+                    });
+                }
+                
+                if(element.windSpeed > $scope.$storage.thresholds[$scope.$storage.selectedActivity].windSpeed) {
+                    $scope.canI = 'No.';
+                    $scope.triggers.push({
+                        time: element.time,
+                        reason: 'wind'
+                    });
+                }
+                
+                if(element.precipProbability > ($scope.$storage.thresholds[$scope.$storage.selectedActivity].precipProb / 100)) {
+                    $scope.canI = 'No.';
+                    $scope.triggers.push({
+                        time: element.time,
+                        reason: 'precip'
+                    });
+                }
+            }
+        });
+
+        //If result is still empty, set "Can I?" to Yes
+        if($scope.canI == '') {
+            console.log("Setting result.canI to YES");
+            $scope.canI = 'Yes.';
+        }
+
+        formatWeatherData();
+    }
+
     function formatWeatherData() {
         console.log("* * * Entered formatWeatherData function * * *");
         console.log("Relevant Weather Data: ");
@@ -273,6 +362,8 @@ canibike.controller('home', function($scope, $localStorage) {
             weatherEntry.precipProb = element.precipProbability * 100; 
             weatherEntry.windSpeed = element.windSpeed;
 
+            //weatherEntry.icon = 
+
             //Push this entry into the displayedWeatherData array
             $scope.displayedWeatherData.push(weatherEntry);
         });
@@ -291,17 +382,9 @@ canibike.controller('home', function($scope, $localStorage) {
         $(".popup").css({'opacity': '0', 'visibility': 'hidden'});
         $(".popup__content").css({'opacity': '0', 'transform': 'translate(-50%, -50%) scale(0)'});
 
-        $scope.canI = '';
-        $scope.triggers = [];
-
-        $scope.relevantWeatherData = [];
-        $scope.displayedWeatherData = [];
-        
-        //Watch is triggered immediately on page load
-        //This if statement keeps the checkCanI function from running until the weather data has loaded
-        if($scope.hourlyWeatherArray != undefined) {
-            $scope.checkCanI();
-        }    }
+        clearWeatherData();
+        $scope.checkCanI();
+    }
 });
 
 
