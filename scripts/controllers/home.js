@@ -401,6 +401,68 @@ canibike.controller('home', function($scope, $localStorage) {
         clearWeatherData();
         $scope.checkCanI();
     }
+
+    $scope.setDefaults = function() {
+        $scope.$storage.selectedActivity = "bike";
+        $scope.$storage.selectedTime = "towork";
+    
+        $scope.storage.storedLat = '';
+        $scope.storage.storedLong = '';
+    
+        $scope.storage.thresholds = {
+            bike: {
+                highTemp: 85,
+                lowTemp: 45,
+                precipProb: 20,
+                windSpeed: 15
+            },
+            run: {
+                highTemp: 80,
+                lowTemp: 40,
+                precipProb: 30,
+                windSpeed: 10
+            },
+            walk: {
+                highTemp: 90,
+                lowTemp: 55,
+                precipProb: 30,
+                windSpeed: 10
+            }
+        };
+    
+        $scope.storage.times = {
+            towork: {
+                start: 8,
+                end: 17,
+                type: 'commute'
+            },
+            toschool: {
+                start: 7,
+                end: 15,
+                type: 'commute'
+            },
+            today: {
+                start: 8,
+                end: 19,
+                type: 'block'
+            },
+            thismorning: {
+                start: 7,
+                end: 12,
+                type: 'block'
+            },
+            thisafternoon: {
+                start: 12,
+                end: 18,
+                type: 'block'
+            },
+            thisevening: {
+                start: 18,
+                end: 22,
+                type: 'block'
+            }
+        }
+    }
 });
 
 

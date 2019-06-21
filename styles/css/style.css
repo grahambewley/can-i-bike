@@ -49,7 +49,6 @@ body {
     background-color: #FFF;
     box-shadow: 0 2rem 4rem rgba(79, 79, 79, 0.2);
     border-radius: 3px;
-    display: table;
     overflow: hidden;
     padding: 3rem;
     color: #4f4f4f;
@@ -102,9 +101,29 @@ body {
       border-bottom: 1px solid #4f4f4f;
       text-align: right;
       width: 4rem; }
+  .popup__reset-button {
+    display: block;
+    margin: 2rem auto 0 auto;
+    text-decoration: none;
+    background-color: #828282;
+    color: #ededed;
+    font-size: 1.5rem;
+    padding: 1rem;
+    border: none;
+    outline: none;
+    border-radius: 3px;
+    box-shadow: 0 0.5rem 1rem rgba(0, 0, 0, 0.2);
+    transition: all 0.2s;
+    cursor: pointer; }
+    .popup__reset-button:hover {
+      transform: translateY(-2px);
+      box-shadow: 0 1rem 2rem rgba(0, 0, 0, 0.2); }
+    .popup__reset-button:active, .popup__reset-button:focus {
+      transform: translateY(-1px);
+      box-shadow: 0 0.5rem 1rem rgba(0, 0, 0, 0.2);
+      outline: none; }
 
 .home-container {
-  height: 100vh;
   position: relative; }
 
 .settings-area {
@@ -146,7 +165,6 @@ body {
 
 .flex-container {
   display: flex;
-  height: 100%;
   flex-direction: column;
   justify-content: center; }
 
@@ -155,11 +173,11 @@ body {
   color: #828282;
   font-weight: 200;
   font-size: 8rem;
-  word-spacing: 2rem; }
+  word-spacing: 1.5rem;
+  padding-top: 12rem; }
   @media (max-width: 900px) {
     .section-input {
-      font-size: 6rem;
-      word-spacing: inherit; } }
+      font-size: 6rem; } }
   .section-input__select {
     color: #828282;
     font-family: 'Muli', sans-serif;
@@ -191,7 +209,8 @@ body {
         font-size: 20rem; } }
 
 .section-weather {
-  color: #4f4f4f; }
+  color: #4f4f4f;
+  margin-bottom: 5rem; }
   @media (max-width: 900px) {
     .section-weather {
       padding: 1rem; } }
@@ -224,10 +243,9 @@ body {
   display: flex;
   flex-direction: column;
   width: 100%;
-  position: absolute;
-  bottom: 5px;
   font-size: 1.2rem;
-  text-align: center; }
+  text-align: center;
+  margin-bottom: 5px; }
   .attribution a {
     color: #4f4f4f; }
 

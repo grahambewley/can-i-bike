@@ -11,7 +11,6 @@
     transition: all .3s;
 
     @supports (-webkit-backdrop-filter: blur(10px)) or (backdrop-filter: blur(10px)) {
-
         backdrop-filter: blur(10px);
         -webkit-backdrop-filter: blur(10px);
         background-color: rgba($color-dark-grey, .3);
@@ -24,7 +23,7 @@
         background-color: $color-white;
         box-shadow: 0 2rem 4rem rgba($color-dark-grey, .2);
         border-radius: 3px;
-        display: table;
+        //display: table;
         overflow: hidden;
         padding: 3rem;
         color: $color-dark-grey;
@@ -94,6 +93,37 @@
             border-bottom: 1px solid $color-dark-grey;
             text-align: right;
             width: 4rem;
+        }
+    }
+
+    &__reset-button {
+        display: block;
+        margin: 2rem auto 0 auto;
+        text-decoration: none;
+        background-color: $color-grey;
+        color: $color-light-grey;
+        font-size: 1.5rem;
+        padding: 1rem;
+        border: none;
+        outline: none;
+        border-radius: 3px;
+        box-shadow: 0 .5rem 1rem rgba($color-black, .2);
+        transition: all 0.2s;
+        cursor: pointer;
+
+        &:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 1rem 2rem rgba($color-black, .2);
+        }
+
+        &:active,
+        &:focus {
+            transform: translateY(-1px);
+            box-shadow: 0 .5rem 1rem rgba($color-black, .2);
+
+            //Styling for the <button> element
+            //Requires the &:focus selector above
+            outline: none;
         }
     }
 }

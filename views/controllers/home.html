@@ -20,7 +20,7 @@
     
     <div class="popup" id="popup">
         <div class="popup__content">
-            <button ng-click="hideSettings()" class="popup__close">&times;</button>
+            <button ng-click="hideSettings()" class="btn popup__close">&times;</button>
 
             <h2 class="popup__header">Settings</h2>
 
@@ -57,8 +57,7 @@
                 <input id="activity_return" type="number" min="0" max="23" ng-model="$storage.times[$storage.selectedTime].end">
             </div>
 
-
-
+            <button ng-click="resetDefaults()" class="popup__reset-button">Reset to Defaults</button>
         </div>
     </div>
 
