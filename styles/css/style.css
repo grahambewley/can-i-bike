@@ -210,11 +210,14 @@ body {
   .section-weather__forecast-table {
     font-size: 2rem;
     font-weight: 300;
-    width: 100%; }
+    width: 100%;
+    vertical-align: center; }
     .section-weather__forecast-table td {
       text-align: left; }
     .section-weather__forecast-table th {
       text-align: left !important; }
+  .section-weather__forecast-icon {
+    height: 3rem; }
 
 .attribution {
   color: #4f4f4f;

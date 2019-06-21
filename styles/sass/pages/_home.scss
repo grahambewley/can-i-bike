@@ -1,6 +1,7 @@
 .home-container {
     height: 100vh;
     position: relative;
+    
 }
 
 .settings-area {
@@ -143,6 +144,7 @@
         font-size: 2rem;
         font-weight: 300;
         width: 100%;
+        vertical-align: center;
 
         td {
             text-align: left;
@@ -153,6 +155,10 @@
             text-align: left !important;
             //padding: 2rem;
         }
+    }
+
+    &__forecast-icon {
+        height: 3rem;
     }
     
 }

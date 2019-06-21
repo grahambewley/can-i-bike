@@ -99,6 +99,7 @@
 
                     <table class="section-weather__forecast-table">
                         <tr>
+                            <th></th>
                             <th>Time</th>
                             <th>Summary</th>
                             <th>Temp</th>
@@ -107,6 +108,7 @@
                         </tr>
 
                         <tr ng-repeat="forecastObject in displayedWeatherData">
+                            <td><img class="section-weather__forecast-icon"ng-src="/images/{{ forecastObject.icon }}.svg" alt="Icon"></td>
                             <td>{{ forecastObject.time }}</td>
                             <td>{{ forecastObject.summary }}</td>
                             <td>{{ forecastObject.temperature }} &deg;F</td>
@@ -124,6 +126,7 @@
 
                     <table class="section-weather__forecast-table">
                         <tr>
+                            <th></th>
                             <th>Time</th>
                             <th>Summary</th>
                             <th>Temp</th>
@@ -131,7 +134,8 @@
                             <th>Wind</th>
                         </tr>
 
-                        <tr ng-repeat="forecastObject in displayedWeatherData">
+                        <tr ng-repeat="forecastObject in displayedWeatherData">     
+                            <td><img class="section-weather__forecast-icon" ng-src="/images/{{ forecastObject.icon }}.svg" alt="icon"></td>                       
                             <td>{{ forecastObject.time }}</td>
                             <td>{{ forecastObject.summary }}</td>
                             <td>{{ forecastObject.temperature }} &deg;F</td>
@@ -147,5 +151,6 @@
 
     <div class="attribution">
         <p class="attribution__dark-sky">powered by <a href="https://darksky.net/poweredby/">Dark Sky</a></p>
+        <p class="attribution__flaticon">Weather icons by <a href="https://www.flaticon.com/authors/iconixar">iconixar</a> from <a href="https://www.flaticon.com">www.flaticon.com</a></p>
     </div>
 </div>

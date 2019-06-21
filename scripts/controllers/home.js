@@ -376,6 +376,7 @@ canibike.controller('home', function($scope, $localStorage) {
             weatherEntry.temperature = element.temperature;
             weatherEntry.precipProb = element.precipProbability * 100; 
             weatherEntry.windSpeed = element.windSpeed;
+            weatherEntry.icon = element.icon;
 
             //weatherEntry.icon = 
 
