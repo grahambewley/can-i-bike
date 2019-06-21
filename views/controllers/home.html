@@ -1,6 +1,11 @@
 <div class="home-container" ng-init="locate()">
     
-    <button ng-click="displaySettings()" class="settings-button">Settings</button>
+    <div class="settings-area">
+        <button ng-click="displaySettings()" class="settings-area__button">Settings</button>
+        <div class="settings-area__current-settings">
+            <i class="wi wi-night-sleet"></i>
+        </div>
+    </div>
     
     <div class="popup" id="popup">
         <div class="popup__content">
