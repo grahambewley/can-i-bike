@@ -13,22 +13,22 @@ canibike.controller('home', function($scope, $localStorage) {
 
         thresholds: {
             bike: {
-                highTemp: 80,
-                lowTemp: 70,
-                precipProb: 0.20,
-                windSpeed: 3
+                highTemp: 85,
+                lowTemp: 45,
+                precipProb: 20,
+                windSpeed: 15
             },
             run: {
-                highTemp: 70,
-                lowTemp: 60,
-                precipProb: 0.15,
-                windSpeed: 5
+                highTemp: 80,
+                lowTemp: 40,
+                precipProb: 30,
+                windSpeed: 10
             },
             walk: {
-                highTemp: 100,
-                lowTemp: 10,
-                precipProb: 0.90,
-                windSpeed: 50
+                highTemp: 90,
+                lowTemp: 55,
+                precipProb: 30,
+                windSpeed: 10
             }
         },
 
@@ -181,7 +181,8 @@ canibike.controller('home', function($scope, $localStorage) {
                     });
                 }
 
-                if(element.precipProbability > $scope.$storage.thresholds[$scope.$storage.selectedActivity].precipProb) {
+                //Precipitation probability is stored in a more user-friendly percentage format, so divide by 100
+                if(element.precipProbability > ($scope.$storage.thresholds[$scope.$storage.selectedActivity].precipProb / 100)) {
                     $scope.canI = 'No.';
                     $scope.triggers.push({
                         time: element.time,
@@ -220,7 +221,7 @@ canibike.controller('home', function($scope, $localStorage) {
                     });
                 }
                 
-                if(element.precipProbability > $scope.$storage.thresholds[$scope.$storage.selectedActivity].precipProb) {
+                if(element.precipProbability > ($scope.$storage.thresholds[$scope.$storage.selectedActivity].precipProb / 100)) {
                     $scope.canI = 'No.';
                     $scope.triggers.push({
                         time: element.time,
@@ -280,6 +281,27 @@ canibike.controller('home', function($scope, $localStorage) {
         console.log($scope.displayedWeatherData);
 
     }
+
+    $scope.displaySettings = function() {
+        $(".popup").css({'opacity': '1', 'visibility': 'visible'});
+        $(".popup__content").css({'opacity': '1', 'transform': 'translate(-50%, -50%) scale(1)'});
+    };
+
+    $scope.hideSettings = function() {
+        $(".popup").css({'opacity': '0', 'visibility': 'hidden'});
+        $(".popup__content").css({'opacity': '0', 'transform': 'translate(-50%, -50%) scale(0)'});
+
+        $scope.canI = '';
+        $scope.triggers = [];
+
+        $scope.relevantWeatherData = [];
+        $scope.displayedWeatherData = [];
+        
+        //Watch is triggered immediately on page load
+        //This if statement keeps the checkCanI function from running until the weather data has loaded
+        if($scope.hourlyWeatherArray != undefined) {
+            $scope.checkCanI();
+        }    }
 });
 
 

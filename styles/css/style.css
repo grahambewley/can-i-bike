@@ -20,6 +20,9 @@ body {
 body {
   font-family: 'Muli', sans-serif; }
 
+.u-margin-top-small {
+  margin-top: 3rem; }
+
 .popup {
   height: 100vh;
   width: 100%;
@@ -41,48 +44,66 @@ body {
     top: 50%;
     left: 50%;
     transform: translate(-50%, -50%);
-    width: 75%;
+    width: 45rem;
     height: 75%;
     background-color: #FFF;
     box-shadow: 0 2rem 4rem rgba(79, 79, 79, 0.2);
     border-radius: 3px;
     display: table;
     overflow: hidden;
+    padding: 3rem;
+    color: #4f4f4f;
     opacity: 0;
     transform: translate(-50%, -50%) scale(0);
     transition: all .3s .2s; }
     @media (max-width: 900px) {
       .popup__content {
         display: relative;
-        width: 100%; } }
+        width: 100%;
+        height: 100vh; } }
     @media (max-width: 600px) {
       .popup__content {
         display: relative; } }
-  .popup:target {
-    opacity: 1;
-    visibility: visible; }
-  .popup:target .popup__content {
-    opacity: 1;
-    transform: translate(-50%, -50%) scale(1); }
-  .popup__close:link, .popup__close:visited {
-    color: #4f4f4f;
+  .popup__close {
     position: absolute;
-    top: 2.5rem;
-    right: 2.5rem;
-    font-size: 3rem;
+    top: 1.5rem;
+    right: 1.5rem;
+    background-color: #4f4f4f;
+    border: none;
+    border-radius: 2px;
+    color: whitesmoke;
+    padding: .75rem 1.5rem 1rem 1.5rem;
+    text-align: center;
     text-decoration: none;
     display: inline-block;
-    transition: all .2s;
-    line-height: 1; }
-    @media (max-width: 900px) {
-      .popup__close:link, .popup__close:visited {
-        font-size: 6rem; } }
-  .popup__close:hover {
-    color: blue; }
+    font-size: 3rem;
+    line-height: 3rem; }
+  .popup__header {
+    font-size: 4rem;
+    text-align: center;
+    font-weight: 300;
+    text-transform: uppercase;
+    margin-bottom: 1rem; }
+  .popup__sub-header {
+    font-weight: 200;
+    text-align: center;
+    font-size: 3rem;
+    text-transform: uppercase;
+    margin-bottom: 1.5rem; }
+  .popup__settings-item {
+    display: flex;
+    justify-content: space-between;
+    font-size: 2rem; }
+    .popup__settings-item:not(:last-child) {
+      margin-bottom: 1rem; }
+    .popup__settings-item input {
+      border: none;
+      border-bottom: 1px solid #4f4f4f;
+      text-align: right;
+      width: 4rem; }
 
 .home-container {
   height: 100vh;
-  padding: .75rem;
   position: relative; }
 
 /*
@@ -107,12 +128,35 @@ body {
   top: 2rem;
   right: 2rem;
   text-decoration: none;
-  background-color: #4f4f4f;
+  background-color: #828282;
   color: whitesmoke;
-  font-size: 2rem;
-  padding: 1.5rem;
+  font-size: 1.5rem;
+  padding: 1rem;
   border-radius: 3px;
-  box-shadow: 0 1.5rem 4rem rgba(0, 0, 0, 0.2); }
+  box-shadow: 0 1rem 2rem rgba(0, 0, 0, 0.2);
+  transition: all 0.2s;
+  cursor: pointer; }
+  .settings-button:hover {
+    transform: translateY(-3px);
+    box-shadow: 0 2rem 3rem rgba(0, 0, 0, 0.3); }
+    .settings-button:hover::after {
+      transform: scaleX(1.4) scaleY(1.6);
+      opacity: 0; }
+  .settings-button:active, .settings-button:focus {
+    transform: translateY(-1px);
+    box-shadow: 0 0.5rem 1rem rgba(0, 0, 0, 0.2);
+    outline: none; }
+  .settings-button::after {
+    content: "";
+    display: inline-block;
+    height: 100%;
+    width: 100%;
+    border-radius: 100rem;
+    position: absolute;
+    top: 0;
+    left: 0;
+    z-index: -1;
+    transition: all 0.4s; }
 
 .flex-container {
   display: flex;
@@ -142,6 +186,7 @@ body {
     font-weight: 200; }
 
 .section-canI {
+  margin: 3rem 0;
   height: 32rem;
   line-height: 32rem;
   text-align: center;
@@ -178,3 +223,12 @@ body {
       text-align: left; }
     .section-weather__forecast-table th {
       text-align: left !important; }
+
+/* The starting CSS styles for the enter animation */
+.fade.ng-enter {
+  transition: 0.5s linear all;
+  opacity: 0; }
+
+/* The finishing CSS styles for the enter animation */
+.fade.ng-enter.ng-enter-active {
+  opacity: 1; }

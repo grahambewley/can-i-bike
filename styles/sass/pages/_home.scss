@@ -1,6 +1,6 @@
 .home-container {
     height: 100vh;
-    padding: .75rem;
+    //padding: .75rem;
     position: relative;
 }
 
@@ -27,12 +27,47 @@
     top: 2rem;
     right: 2rem;
     text-decoration: none;
-    background-color: $color-dark-grey;
+    background-color: $color-grey;
     color: $color-light-grey;
-    font-size: 2rem;
-    padding: 1.5rem;
+    font-size: 1.5rem;
+    padding: 1rem;
     border-radius: 3px;
-    box-shadow: 0 1.5rem 4rem rgba($color-black, .2);
+    box-shadow: 0 1rem 2rem rgba($color-black, .2);
+    transition: all 0.2s;
+    cursor: pointer;
+
+    &:hover {
+        transform: translateY(-3px);
+        box-shadow: 0 2rem 3rem rgba($color-black, .3);
+
+        &::after {
+            transform: scaleX(1.4) scaleY(1.6);
+            opacity: 0;
+        }
+    }
+
+    &:active,
+    &:focus {
+        transform: translateY(-1px);
+        box-shadow: 0 .5rem 1rem rgba($color-black, .2);
+
+        //Styling for the <button> element
+        //Requires the &:focus selector above
+        outline: none;
+    }
+
+    &::after {
+        content: "";
+        display: inline-block;
+        height: 100%;
+        width: 100%;
+        border-radius: 100rem;
+        position:absolute;
+        top: 0;
+        left: 0;
+        z-index: -1;
+        transition: all 0.4s
+    }
 }
 
 .flex-container {
@@ -72,6 +107,7 @@
 }
 
 .section-canI {
+    margin: 3rem 0;
     height: 32rem;
     line-height: 32rem;
     text-align: center;
@@ -127,4 +163,15 @@
     }
     
 }
+
+/* The starting CSS styles for the enter animation */
+.fade.ng-enter {
+    transition:0.5s linear all;
+    opacity:0;
+  }
+  
+  /* The finishing CSS styles for the enter animation */
+  .fade.ng-enter.ng-enter-active {
+    opacity:1;
+  }
 

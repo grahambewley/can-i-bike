@@ -1,6 +1,6 @@
 'use strict';
 
-var canibike = angular.module('canibike', ['ui.router', 'ngStorage']);
+var canibike = angular.module('canibike', ['ui.router', 'ngStorage', 'ngAnimate']);
 
 //ROUTES
 canibike.config(function($stateProvider, $urlRouterProvider) {
