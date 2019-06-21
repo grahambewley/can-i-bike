@@ -47,6 +47,21 @@ canibike.controller('home', function($scope, $localStorage) {
                 start: 8,
                 end: 19,
                 type: 'block'
+            },
+            thismorning: {
+                start: 7,
+                end: 12,
+                type: 'block'
+            },
+            thisafternoon: {
+                start: 12,
+                end: 18,
+                type: 'block'
+            },
+            thisevening: {
+                start: 18,
+                end: 22,
+                type: 'block'
             }
         }
         

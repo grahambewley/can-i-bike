@@ -68,15 +68,18 @@
                 <span class="section-input__plain-text">Can I </span>
 
                 <select ng-model="$storage.selectedActivity" class="section-input__select">
-                    <option value="bike" class="section-input__select-option" selected>bike</option>
-                    <option value="run" class="section-input__select-option" selected>run</option>
+                    <option value="bike" class="section-input__select-option">bike</option>
+                    <option value="run" class="section-input__select-option">run</option>
                     <option value="walk" class="section-input__select-option">walk</option>
                 </select>
 
                 <select ng-model="$storage.selectedTime" class="section-input__select">
-                    <option value="towork" class="section-input__select-option" selected>to work</option>
+                    <option value="towork" class="section-input__select-option">to work</option>
                     <option value="toschool" class="section-input__select-option">to school</option>
                     <option value="today" class="section-input__select-option">today</option>
+                    <option value="thismorning" class="section-input__select-option">this morning</option>
+                    <option value="thisafternoon" class="section-input__select-option">this afternoon</option>
+                    <option value="thisevening" class="section-input__select-option">this evening</option>
                 </select>
                 
                 <span class="section-input__plain-text">?</span>
@@ -103,20 +106,12 @@
                             <th>Wind</th>
                         </tr>
 
-                        <tr>
-                            <td>{{ displayedWeatherData[0].time }}</td>
-                            <td>{{ displayedWeatherData[0].summary }}</td>
-                            <td>{{ displayedWeatherData[0].temperature }} &deg;F</td>
-                            <td>{{ displayedWeatherData[0].precipProb }}%</td>
-                            <td>{{ displayedWeatherData[0].windSpeed }} MPH</td>
-                        </tr>
-
-                        <tr>
-                            <td>{{ displayedWeatherData[1].time }}</td>
-                            <td>{{ displayedWeatherData[1].summary }}</td>
-                            <td>{{ displayedWeatherData[1].temperature }} &deg;F</td>
-                            <td>{{ displayedWeatherData[1].precipProb }}%</td>
-                            <td>{{ displayedWeatherData[1].windSpeed }} MPH</td>
+                        <tr ng-repeat="forecastObject in displayedWeatherData">
+                            <td>{{ forecastObject.time }}</td>
+                            <td>{{ forecastObject.summary }}</td>
+                            <td>{{ forecastObject.temperature }} &deg;F</td>
+                            <td>{{ forecastObject.precipProb }}%</td>
+                            <td>{{ forecastObject.windSpeed }} MPH</td>
                         </tr>
 
                     </table>
@@ -125,7 +120,25 @@
 
                 <!-- Displays only if the "time type" is "block" (i.e. this evening, today) -->
                 <div class="section-weather__forecast" ng-show="$storage.times[$storage.selectedTime].type == 'block'">
-                    <h2 class="section-weather__header">Weather Forecast for</h2>
+                    <h2 class="section-weather__header">Weather Forecast for {{ $storage.selectedTime }}</h2>
+
+                    <table class="section-weather__forecast-table">
+                        <tr>
+                            <th>Time</th>
+                            <th>Summary</th>
+                            <th>Temp</th>
+                            <th>Precip</th>
+                            <th>Wind</th>
+                        </tr>
+
+                        <tr ng-repeat="forecastObject in displayedWeatherData">
+                            <td>{{ forecastObject.time }}</td>
+                            <td>{{ forecastObject.summary }}</td>
+                            <td>{{ forecastObject.temperature }} &deg;F</td>
+                            <td>{{ forecastObject.precipProb }}%</td>
+                            <td>{{ forecastObject.windSpeed }} MPH</td>
+                        </tr>
+                    </table>
                 </div>
             </div>
 
