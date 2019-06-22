@@ -169,7 +169,6 @@ canibike.controller('home', function($scope, $localStorage) {
     $scope.checkCanI_commute = function() {
          
         console.log("* * * Entered checkCanI_commute Function * * *");
-        console.log("***CURRENTLY SELECTED ACTIVITY: " + $scope.$storage.selectedActivity + ", TIME: " + $scope.$storage.selectedTime);
 
         //Remains false until we've looped through and hit our activity "start time" for the first time
         //Keeps us from hitting start time twice in the 48 hours of response data
@@ -198,13 +197,13 @@ canibike.controller('home', function($scope, $localStorage) {
                     $scope.canI = 'No.';
                     $scope.triggers.push({
                         time: element.time,
-                        reason: 'tempHigh'
+                        reason: 'temp'
                     });
                 } else if(element.temperature < $scope.$storage.thresholds[$scope.$storage.selectedActivity].lowTemp) {
                     $scope.canI = 'No.';
                     $scope.triggers.push({
                         time: element.time,
-                        reason: 'tempLow'
+                        reason: 'temp'
                     });
                 }
 
@@ -238,13 +237,13 @@ canibike.controller('home', function($scope, $localStorage) {
                     $scope.canI = 'No.';
                     $scope.triggers.push({
                         time: element.time,
-                        reason: 'tempHigh'
+                        reason: 'temp'
                     });
                 } else if(element.temperature < $scope.$storage.thresholds[$scope.$storage.selectedActivity].lowTemp) {
                     $scope.canI = 'No.';
                     $scope.triggers.push({
                         time: element.time,
-                        reason: 'tempLow'
+                        reason: 'temp'
                     });
                 }
                 
@@ -350,6 +349,7 @@ canibike.controller('home', function($scope, $localStorage) {
         console.log("Relevant Weather Data: ");
         console.log($scope.relevantWeatherData);
 
+        console.log("Current 'No' triggers: " + $scope.triggers);
 
         $scope.relevantWeatherData.forEach(element => {
             //Instantiate an empty object to push data into
@@ -367,6 +367,7 @@ canibike.controller('home', function($scope, $localStorage) {
             let date = tempTimeObject.getDate();
             let month = tempTimeObject.getMonth();
 
+            weatherEntry.epochTime = element.time;
             weatherEntry.time = hours + ' ' + ampm;
             weatherEntry.date = month + " " + date;
             weatherEntry.todtom = date > new Date().getDate() ? 'Tomorrow' : 'Today';
@@ -376,9 +377,17 @@ canibike.controller('home', function($scope, $localStorage) {
             weatherEntry.temperature = element.temperature;
             weatherEntry.precipProb = element.precipProbability * 100; 
             weatherEntry.windSpeed = element.windSpeed;
-            weatherEntry.icon = element.icon;
+            weatherEntry.icon = element.icon; 
 
-            //weatherEntry.icon = 
+            //Push triggers if there are any
+            weatherEntry.triggers = [];
+
+            //For each 'trigger' in $scope.triggers array...
+            $scope.triggers.forEach(element => {
+                if (element.time == weatherEntry.epochTime) {
+                    weatherEntry.triggers.push(element.reason);
+                }
+            });
 
             //Push this entry into the displayedWeatherData array
             $scope.displayedWeatherData.push(weatherEntry);

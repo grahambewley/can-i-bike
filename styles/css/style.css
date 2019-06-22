@@ -241,6 +241,9 @@ body {
     .section-weather__forecast-summary {
       display: none; } }
 
+.highlighted span {
+  background-color: rgba(255, 0, 0, 0.3); }
+
 .attribution {
   color: #4f4f4f;
   display: flex;

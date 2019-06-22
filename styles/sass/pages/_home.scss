@@ -168,6 +168,11 @@
     
 }
 
+.highlighted span {
+    background-color: rgba($color-red, 0.3);
+    
+}
+
 .attribution {
     color: $color-dark-grey;
     display: flex;
