@@ -159,6 +159,12 @@
     &__forecast-icon {
         height: 3rem;
     }
+
+    &__forecast-summary {
+        @include respond('phone') {
+            display: none;
+        }
+    }
     
 }
 

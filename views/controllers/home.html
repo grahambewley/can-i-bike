@@ -100,7 +100,7 @@
                         <tr>
                             <th></th>
                             <th>Time</th>
-                            <th>Summary</th>
+                            <th class="section-weather__summary">Summary</th>
                             <th>Temp</th>
                             <th>Precip</th>
                             <th>Wind</th>
@@ -109,7 +109,7 @@
                         <tr ng-repeat="forecastObject in displayedWeatherData">
                             <td><img class="section-weather__forecast-icon"ng-src="/images/{{ forecastObject.icon }}.svg" alt="Icon"></td>
                             <td>{{ forecastObject.time }}</td>
-                            <td>{{ forecastObject.summary }}</td>
+                            <td class="section-weather__summary">{{ forecastObject.summary }}</td>
                             <td>{{ forecastObject.temperature }} &deg;F</td>
                             <td>{{ forecastObject.precipProb }}%</td>
                             <td>{{ forecastObject.windSpeed }} MPH</td>
@@ -127,7 +127,7 @@
                         <tr>
                             <th></th>
                             <th>Time</th>
-                            <th>Summary</th>
+                            <th class="section-weather__summary">Summary</th>
                             <th>Temp</th>
                             <th>Precip</th>
                             <th>Wind</th>
@@ -136,7 +136,7 @@
                         <tr ng-repeat="forecastObject in displayedWeatherData">     
                             <td><img class="section-weather__forecast-icon" ng-src="/images/{{ forecastObject.icon }}.svg" alt="icon"></td>                       
                             <td>{{ forecastObject.time }}</td>
-                            <td>{{ forecastObject.summary }}</td>
+                            <td class="section-weather__forecast-summary">{{ forecastObject.summary }}</td>
                             <td>{{ forecastObject.temperature }} &deg;F</td>
                             <td>{{ forecastObject.precipProb }}%</td>
                             <td>{{ forecastObject.windSpeed }} MPH</td>

@@ -237,6 +237,9 @@ body {
       text-align: left !important; }
   .section-weather__forecast-icon {
     height: 3rem; }
+  @media (max-width: 600px) {
+    .section-weather__forecast-summary {
+      display: none; } }
 
 .attribution {
   color: #4f4f4f;
