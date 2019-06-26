@@ -411,14 +411,15 @@ canibike.controller('home', function($scope, $localStorage) {
         $scope.checkCanI();
     }
 
-    $scope.setDefaults = function() {
+    $scope.resetDefaults = function() {
+        console.log("Setting thresholds and times back to default values.");
         $scope.$storage.selectedActivity = "bike";
         $scope.$storage.selectedTime = "towork";
     
-        $scope.storage.storedLat = '';
-        $scope.storage.storedLong = '';
+        $scope.$storage.storedLat = '';
+        $scope.$storage.storedLong = '';
     
-        $scope.storage.thresholds = {
+        $scope.$storage.thresholds = {
             bike: {
                 highTemp: 85,
                 lowTemp: 45,
@@ -439,7 +440,7 @@ canibike.controller('home', function($scope, $localStorage) {
             }
         };
     
-        $scope.storage.times = {
+        $scope.$storage.times = {
             towork: {
                 start: 8,
                 end: 17,

@@ -98,6 +98,9 @@
     font-family: 'Merriweather', serif;
     font-weight: 700;
 
+    transition: opacity 0.4s;
+    opacity: 1; 
+
     @include respond('phone') {
         height: 20rem;
         line-height: 20rem;
@@ -154,6 +157,11 @@
             text-align: left !important;
             //padding: 2rem;
         }
+
+        span {
+            padding: 0.5rem;
+            border-radius: 2px;
+        }
     }
 
     &__forecast-icon {
@@ -170,7 +178,7 @@
 
 .highlighted span {
     background-color: rgba($color-red, 0.3);
-    
+
 }
 
 .attribution {

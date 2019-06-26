@@ -195,7 +195,9 @@ body {
   line-height: 32rem;
   text-align: center;
   font-family: 'Merriweather', serif;
-  font-weight: 700; }
+  font-weight: 700;
+  transition: opacity 0.4s;
+  opacity: 1; }
   @media (max-width: 600px) {
     .section-canI {
       height: 20rem;
@@ -235,6 +237,9 @@ body {
       text-align: left; }
     .section-weather__forecast-table th {
       text-align: left !important; }
+    .section-weather__forecast-table span {
+      padding: 0.5rem;
+      border-radius: 2px; }
   .section-weather__forecast-icon {
     height: 3rem; }
   @media (max-width: 600px) {
