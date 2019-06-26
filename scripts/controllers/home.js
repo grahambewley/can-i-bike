@@ -71,6 +71,9 @@ canibike.controller('home', function($scope, $localStorage) {
     var darkSkyResponseObject;
     //Stores an array containing the hourly forecast only, chopped from darkSkyResponseObject
     $scope.hourlyWeatherArray;
+    //Stores the full reverse-geocode JSON object returned by Mapquest API
+    var revGeocodeObject;
+
 
     //Stores the full hourly forecast object for data we want to display on screen
     $scope.relevantWeatherData = [];
@@ -116,7 +119,7 @@ canibike.controller('home', function($scope, $localStorage) {
     
         $scope.latString = position.coords.latitude.toString();
         $scope.longString = position.coords.longitude.toString();
-        
+            
         //AJAX call to server-side proxy -- queries API, returns a weather forecast
         $.ajax({      
             "crossDomain": true,
@@ -134,7 +137,35 @@ canibike.controller('home', function($scope, $localStorage) {
 
                 //Use weather data and check "Can I" function to test against thresholds
                 //Use evalAsync to trigger another digest cycle -- grabbing weather data eats up the first one...
-                $scope.$evalAsync($scope.checkCanI());
+                $scope.$evalAsync($scope.checkCanI());    
+                
+            }
+        });
+
+        // DISPLAYING ADDRESS ON PAGE
+        //Mapquest API allows max of 6 digits after decimal point
+        let lat = position.coords.latitude.toFixed(6);
+        let long = position.coords.longitude.toFixed(6);
+
+        console.log("About to Reverse Geocode using lat: " + lat + " and long: " + long );
+        //AJAX call to get address from geographical position
+        $.ajax({      
+            "crossDomain": true,
+            "url": "/geocode.php?lat="+lat+"&long="+long,
+            "method": "GET",
+            "success": function(res2){
+                //Take response string and parse into JSON object
+                revGeocodeObject = JSON.parse(res2);
+                console.log("***GEOCODE DATA RETURNED:");
+                console.log(revGeocodeObject);
+
+                //Store city and state to be displayed for the user
+                let street = revGeocodeObject.results[0].locations[0].street;
+                let city = revGeocodeObject.results[0].locations[0].adminArea5;
+                let state = revGeocodeObject.results[0].locations[0].adminArea3;
+
+                $scope.address = street + ', ' + city + ', ' + state;
+                console.log("Address we got was: " + $scope.address);
             }
         });
         

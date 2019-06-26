@@ -139,7 +139,19 @@
         font-weight: 200;
         text-align: center;
         text-transform: uppercase;
+    }
+
+    &__location {
+        font-size: 1.8rem;
+        font-weight: 200;
+        text-align: center;
+        text-transform: uppercase;
         margin-bottom: 3rem;
+
+        span {
+            font-weight: 400;
+            text-transform: none;
+        }
     }
 
     &__forecast-table {

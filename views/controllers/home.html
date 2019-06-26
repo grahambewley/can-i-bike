@@ -92,9 +92,15 @@
         <section class="section-weather">
 
             <div class="section-weather__weather-box">
-                <!-- Displays only if the "time type" is "commute" (i.e. to work, to school) -->
-                <div class="section-weather__forecast" ng-show="$storage.times[$storage.selectedTime].type == 'commute'">
-                    <h2 class="section-weather__header">Weather during your commute ({{ displayedWeatherData[0].todtom }})</h2>
+                
+                <div class="section-weather__forecast" >
+                    
+                    <!-- Displays only if the "time type" is "commute" (i.e. to work, to school) -->
+                    <h2 class="section-weather__header" ng-show="$storage.times[$storage.selectedTime].type == 'commute'">Weather during your commute ({{ displayedWeatherData[0].todtom }})</h2>
+                    <!-- Displays only if the "time type" is "block" (i.e. this afternoon, today) -->
+                    <h2 class="section-weather__header" ng-show="$storage.times[$storage.selectedTime].type == 'block'">Weather Forecast for {{ $storage.selectedTime }}</h2>
+
+                    <h3 class="section-weather__location">Location: <span>{{ address }}</span></h3>
 
                     <table class="section-weather__forecast-table">
                         <tr>
@@ -119,7 +125,7 @@
 
                 </div>
 
-                <!-- Displays only if the "time type" is "block" (i.e. this evening, today) -->
+                <!-- Displays only if the "time type" is "block" (i.e. this evening, today) 
                 <div class="section-weather__forecast" ng-show="$storage.times[$storage.selectedTime].type == 'block'">
                     <h2 class="section-weather__header">Weather Forecast for {{ $storage.selectedTime }}</h2>
 
@@ -143,6 +149,7 @@
                         </tr>
                     </table>
                 </div>
+                -->
             </div>
 
         </section>

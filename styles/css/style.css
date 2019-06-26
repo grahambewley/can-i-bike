@@ -226,8 +226,16 @@ body {
     font-size: 3rem;
     font-weight: 200;
     text-align: center;
+    text-transform: uppercase; }
+  .section-weather__location {
+    font-size: 1.8rem;
+    font-weight: 200;
+    text-align: center;
     text-transform: uppercase;
     margin-bottom: 3rem; }
+    .section-weather__location span {
+      font-weight: 400;
+      text-transform: none; }
   .section-weather__forecast-table {
     font-size: 2rem;
     font-weight: 300;
