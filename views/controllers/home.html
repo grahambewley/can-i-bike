@@ -125,38 +125,13 @@
 
                 </div>
 
-                <!-- Displays only if the "time type" is "block" (i.e. this evening, today) 
-                <div class="section-weather__forecast" ng-show="$storage.times[$storage.selectedTime].type == 'block'">
-                    <h2 class="section-weather__header">Weather Forecast for {{ $storage.selectedTime }}</h2>
-
-                    <table class="section-weather__forecast-table">
-                        <tr>
-                            <th></th>
-                            <th>Time</th>
-                            <th class="section-weather__summary">Summary</th>
-                            <th>Temp</th>
-                            <th>Precip</th>
-                            <th>Wind</th>
-                        </tr>
-
-                        <tr ng-repeat="forecastObject in displayedWeatherData">     
-                            <td><img class="section-weather__forecast-icon" ng-src="/images/{{ forecastObject.icon }}.svg" alt="icon"></td>                       
-                            <td class="section-weather__forecast-time">{{ forecastObject.time }}</td>
-                            <td class="section-weather__forecast-summary">{{ forecastObject.summary }}</td>
-                            <td ng-class="{'highlighted' : forecastObject.triggers.includes('temp')}"><span>{{ forecastObject.temperature }} &deg;F</span></td>
-                            <td ng-class="{'highlighted' : forecastObject.triggers.includes('precip')}"><span>{{ forecastObject.precipProb }}%</span></td>
-                            <td ng-class="{'highlighted' : forecastObject.triggers.includes('wind')}"><span>{{ forecastObject.windSpeed }} MPH</span></td>
-                        </tr>
-                    </table>
-                </div>
-                -->
             </div>
 
         </section>
     </div>
 
     <div class="attribution">
-        <p class="attribution__dark-sky">powered by <a href="https://darksky.net/poweredby/">Dark Sky</a></p>
+        <p class="attribution__dark-sky">Forecast powered by <a href="https://darksky.net/poweredby/">Dark Sky</a></p>
         <p class="attribution__flaticon">Weather icons by <a href="https://www.flaticon.com/authors/iconixar">iconixar</a> from <a href="https://www.flaticon.com">www.flaticon.com</a></p>
     </div>
 </div>
