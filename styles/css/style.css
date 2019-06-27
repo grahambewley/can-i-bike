@@ -97,10 +97,13 @@ body {
     .popup__settings-item:not(:last-child) {
       margin-bottom: 1rem; }
     .popup__settings-item input {
+      font-size: 1.3rem;
       border: none;
       border-bottom: 1px solid #4f4f4f;
       text-align: right;
       width: 4rem; }
+    .popup__settings-item span {
+      font-size: 1.3rem; }
   .popup__reset-button {
     display: block;
     margin: 2rem auto 0 auto;

@@ -58,12 +58,22 @@
             <h3 class="popup__sub-header">Activity Times</h3>
 
             <div class="popup__settings-item">
-                <label for="activity_start">Depart</label>
-                <input id="activity_start" type="number" min="0" max="23" ng-model="$storage.times[$storage.selectedTime].start">
+                <div>
+                    <label ng-show="$storage.times[$storage.selectedTime].type == 'commute'" for="activity_start">Depart Time (24hr Format)</label>
+                    <label ng-show="$storage.times[$storage.selectedTime].type == 'block'" for="activity_start">Begin Time (24hr Format)</label>
+                </div>
+                <div>
+                    <input id="activity_start" type="number" min="0" max="23" ng-model="$storage.times[$storage.selectedTime].start"><span>:00</span>
+                </div>
             </div>
             <div class="popup__settings-item">
-                <label for="activity_end">Return</label>
-                <input id="activity_return" type="number" min="0" max="23" ng-model="$storage.times[$storage.selectedTime].end">
+                <div>
+                    <label ng-show="$storage.times[$storage.selectedTime].type == 'commute'" for="activity_end">Return Time (24hr Format)</label>
+                    <label ng-show="$storage.times[$storage.selectedTime].type == 'block'" for="activity_start">End Time (24hr Format)</label>
+                </div>
+                <div>
+                    <input id="activity_return" type="number" min="0" max="23" ng-model="$storage.times[$storage.selectedTime].end"><span>:00</span>
+                </div>
             </div>
 
             <button ng-click="resetDefaults()" class="popup__reset-button">Reset to Defaults</button>

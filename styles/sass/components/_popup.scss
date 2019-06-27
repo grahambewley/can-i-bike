@@ -89,10 +89,15 @@
         }
 
         input {
+            font-size: 1.3rem;
             border: none;
             border-bottom: 1px solid $color-dark-grey;
             text-align: right;
             width: 4rem;
+        }
+
+        span {
+            font-size: 1.3rem;
         }
     }
 
