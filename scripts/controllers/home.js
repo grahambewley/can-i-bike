@@ -16,19 +16,22 @@ canibike.controller('home', function($scope, $localStorage) {
                 highTemp: 85,
                 lowTemp: 45,
                 precipProb: 20,
-                windSpeed: 15
+                windSpeed: 15,
+                humidity: 60
             },
             run: {
                 highTemp: 80,
                 lowTemp: 40,
                 precipProb: 30,
-                windSpeed: 10
+                windSpeed: 10,
+                humidity: 50
             },
             walk: {
                 highTemp: 90,
                 lowTemp: 55,
                 precipProb: 30,
-                windSpeed: 10
+                windSpeed: 10,
+                humidity: 70
             }
         },
 
@@ -253,6 +256,15 @@ canibike.controller('home', function($scope, $localStorage) {
                     });
                 }
 
+                //Humidity is stored in a more user-friendly percentage format, so divide by 100
+                if(element.humidity > ($scope.$storage.thresholds[$scope.$storage.selectedActivity].humidity / 100)) {
+                    $scope.canI = 'No.';
+                    $scope.triggers.push({
+                        time: element.time,
+                        reason: 'humid'
+                    });
+                }
+
             };
 
             //...Same thing for the "end hour", but also make sure we've hit the "start hour" as well
@@ -291,6 +303,14 @@ canibike.controller('home', function($scope, $localStorage) {
                         reason: 'precip'
                     });
                 }
+
+                if(element.humidity > ($scope.$storage.thresholds[$scope.$storage.selectedActivity].humidity / 100)) {
+                    $scope.canI = 'No.';
+                    $scope.triggers.push({
+                        time: element.time,
+                        reason: 'humid'
+                    });
+                }
             }
         });
         
@@ -307,9 +327,6 @@ canibike.controller('home', function($scope, $localStorage) {
     //Function for handling 'block' style time types like "this afternoon" or "today"
     $scope.checkCanI_block = function() {
         $scope.hourlyWeatherArray.forEach(element => {
-            
-            let hitStartHour = false;
-            let hitEndHour = false;
             
             let todaysDate = new Date().getDate();
             console.info("Today's Date is " + todaysDate);
@@ -358,6 +375,14 @@ canibike.controller('home', function($scope, $localStorage) {
                         reason: 'precip'
                     });
                 }
+
+                if(element.humidity > ($scope.$storage.thresholds[$scope.$storage.selectedActivity].humidity / 100)) {
+                    $scope.canI = 'No.';
+                    $scope.triggers.push({
+                        time: element.time,
+                        reason: 'humid'
+                    });
+                }
             }
         });
 
@@ -401,8 +426,9 @@ canibike.controller('home', function($scope, $localStorage) {
             //Get weather data
             weatherEntry.summary = element.summary;
             weatherEntry.temperature = element.temperature;
-            weatherEntry.precipProb = element.precipProbability * 100; 
+            weatherEntry.precipProb = (element.precipProbability * 100).toFixed(0); 
             weatherEntry.windSpeed = element.windSpeed;
+            weatherEntry.humidity = (element.humidity * 100).toFixed(0);
             weatherEntry.icon = element.icon; 
 
             //Push triggers if there are any
@@ -450,19 +476,22 @@ canibike.controller('home', function($scope, $localStorage) {
                 highTemp: 85,
                 lowTemp: 45,
                 precipProb: 20,
-                windSpeed: 15
+                windSpeed: 15,
+                humidity: 60
             },
             run: {
                 highTemp: 80,
                 lowTemp: 40,
                 precipProb: 30,
-                windSpeed: 10
+                windSpeed: 10,
+                humidity: 50
             },
             walk: {
                 highTemp: 90,
                 lowTemp: 55,
                 precipProb: 30,
-                windSpeed: 10
+                windSpeed: 10,
+                humidity: 70
             }
         };
     

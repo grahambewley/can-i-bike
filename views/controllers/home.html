@@ -12,6 +12,10 @@
                 <td class="settings-area__setting-icon"><i class="wi wi-rain"></i></td>
             </tr>
             <tr>
+                <td>&lt; {{ $storage.thresholds[$storage.selectedActivity].humidity }}%</td>
+                <td class="settings-area__setting-icon"><i class="wi wi-humidity"></i></td>
+            </tr>
+            <tr>
                 <td>&lt; {{ $storage.thresholds[$storage.selectedActivity].windSpeed }} MPH</td>
                 <td class="settings-area__setting-icon"><i class="wi wi-strong-wind"></i></td>
             </tr>
@@ -39,6 +43,11 @@
             <div class="popup__settings-item">
                 <label for="precip">Max Chance of Rain (%)</label>
                 <input id="precip" type="number" class="activity-options__precip-prob" min="0" max="100" ng-model="$storage.thresholds[$storage.selectedActivity].precipProb">
+            </div>
+
+            <div class="popup__settings-item">
+                <label for="humid">Max Humidity (%)</label>
+                <input id="humid" type="number" class="activity-options__humidity" min="0" max="100" ng-model="$storage.thresholds[$storage.selectedActivity].humidity">
             </div>
 
             <div class="popup__settings-item">
@@ -109,6 +118,7 @@
                             <th class="section-weather__summary">Summary</th>
                             <th>Temp</th>
                             <th>Precip</th>
+                            <th>Humidity</th>
                             <th>Wind</th>
                         </tr>
 
@@ -118,6 +128,7 @@
                             <td class="section-weather__summary">{{ forecastObject.summary }}</td>
                             <td ng-class="{'highlighted' : forecastObject.triggers.includes('temp')}"><span>{{ forecastObject.temperature }} &deg;F</span></td>
                             <td ng-class="{'highlighted' : forecastObject.triggers.includes('precip')}"><span>{{ forecastObject.precipProb }}%</span></td>
+                            <td ng-class="{'highlighted' : forecastObject.triggers.includes('humid')}"><span>{{ forecastObject.humidity }}%</span></td>
                             <td ng-class="{'highlighted' : forecastObject.triggers.includes('wind')}"><span>{{ forecastObject.windSpeed }} MPH</span></td>
                         </tr>
 
