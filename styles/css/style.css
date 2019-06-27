@@ -45,7 +45,6 @@ body {
     left: 50%;
     transform: translate(-50%, -50%);
     width: 45rem;
-    height: 75%;
     background-color: #FFF;
     box-shadow: 0 2rem 4rem rgba(79, 79, 79, 0.2);
     border-radius: 3px;
@@ -93,7 +92,7 @@ body {
   .popup__settings-item {
     display: flex;
     justify-content: space-between;
-    font-size: 2rem; }
+    font-size: 1.5rem; }
     .popup__settings-item:not(:last-child) {
       margin-bottom: 1rem; }
     .popup__settings-item input {
@@ -106,7 +105,7 @@ body {
       font-size: 1.3rem; }
   .popup__reset-button {
     display: block;
-    margin: 2rem auto 0 auto;
+    margin: 4rem auto 0 auto;
     text-decoration: none;
     background-color: #828282;
     color: #ededed;

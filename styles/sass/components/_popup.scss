@@ -19,7 +19,7 @@
     &__content {
         @include absolute-center;
         width: 45rem;
-        height: 75%;
+        //height: 75%;
         background-color: $color-white;
         box-shadow: 0 2rem 4rem rgba($color-dark-grey, .2);
         border-radius: 3px;
@@ -82,7 +82,7 @@
     &__settings-item {
         display: flex;
         justify-content: space-between;
-        font-size: 2rem;
+        font-size: 1.5rem;
 
         &:not(:last-child) {
             margin-bottom: 1rem;
@@ -103,7 +103,7 @@
 
     &__reset-button {
         display: block;
-        margin: 2rem auto 0 auto;
+        margin: 4rem auto 0 auto;
         text-decoration: none;
         background-color: $color-grey;
         color: $color-light-grey;

@@ -28,8 +28,19 @@
 
             <h2 class="popup__header">Settings</h2>
 
+            <!-- ACTIVITY WEATHER SETTINGS -->
             <h3 class="popup__sub-header">Weather Conditions</h3>
 
+            <div class="popup__settings-item">
+                <label for="selectedActivity">Selected Activity</label>
+
+                <select id="selectedActivity" ng-model="$storage.selectedActivity" class="popup__select">
+                    <option value="bike" class="popup__select-option">bike</option>
+                    <option value="run" class="popup__select-option">run</option>
+                    <option value="walk" class="popup__select-option">walk</option>
+                </select>
+            </div>
+            
             <div class="popup__settings-item">
                 <label for="lTemp">Minimum Temp (&deg;F)</label>
                 <input id="lTemp" type="number" class="activity-options__low-temp" min="0" max="130" ng-model="$storage.thresholds[$storage.selectedActivity].lowTemp">
@@ -55,12 +66,26 @@
                 <input id="wind" type="number" class="activity-options__wind-speed" min="0" max="25" ng-model="$storage.thresholds[$storage.selectedActivity].windSpeed">
             </div>
 
+            <!-- ACTIVITY TIME SETTINGS -->
             <h3 class="popup__sub-header">Activity Times</h3>
 
             <div class="popup__settings-item">
+                <label for="selectedTime">Selected Time</label>
+
+                <select id="selectedTime" ng-model="$storage.selectedTime" class="popup__select">
+                    <option value="towork" class="popup__select-option">to work</option>
+                    <option value="toschool" class="popup__select-option">to school</option>
+                    <option value="today" class="popup__select-option">today</option>
+                    <option value="thismorning" class="popup__select-option">this morning</option>
+                    <option value="thisafternoon" class="popup__select-option">this afternoon</option>
+                    <option value="thisevening" class="popup__select-option">this evening</option>
+                </select>
+            </div>
+
+            <div class="popup__settings-item">
                 <div>
-                    <label ng-show="$storage.times[$storage.selectedTime].type == 'commute'" for="activity_start">Depart Time (24hr Format)</label>
-                    <label ng-show="$storage.times[$storage.selectedTime].type == 'block'" for="activity_start">Begin Time (24hr Format)</label>
+                    <label ng-show="$storage.times[$storage.selectedTime].type == 'commute'" for="activity_start">Depart Time (24-hour Format)</label>
+                    <label ng-show="$storage.times[$storage.selectedTime].type == 'block'" for="activity_start">Begin Time (24-hour Format)</label>
                 </div>
                 <div>
                     <input id="activity_start" type="number" min="0" max="23" ng-model="$storage.times[$storage.selectedTime].start"><span>:00</span>
@@ -68,8 +93,8 @@
             </div>
             <div class="popup__settings-item">
                 <div>
-                    <label ng-show="$storage.times[$storage.selectedTime].type == 'commute'" for="activity_end">Return Time (24hr Format)</label>
-                    <label ng-show="$storage.times[$storage.selectedTime].type == 'block'" for="activity_start">End Time (24hr Format)</label>
+                    <label ng-show="$storage.times[$storage.selectedTime].type == 'commute'" for="activity_end">Return Time (24-hour Format)</label>
+                    <label ng-show="$storage.times[$storage.selectedTime].type == 'block'" for="activity_start">End Time (24-hour Format)</label>
                 </div>
                 <div>
                     <input id="activity_return" type="number" min="0" max="23" ng-model="$storage.times[$storage.selectedTime].end"><span>:00</span>
