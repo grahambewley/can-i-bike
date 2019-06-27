@@ -199,8 +199,6 @@ canibike.controller('home', function($scope, $localStorage) {
     //Function for handling 'commute' style time types like "to work" or "to school"
     $scope.checkCanI_commute = function() {
          
-        console.log("* * * Entered checkCanI_commute Function * * *");
-
         //Remains false until we've looped through and hit our activity "start time" for the first time
         //Keeps us from hitting start time twice in the 48 hours of response data
         var hitStartHour = false;
@@ -308,9 +306,6 @@ canibike.controller('home', function($scope, $localStorage) {
 
     //Function for handling 'block' style time types like "this afternoon" or "today"
     $scope.checkCanI_block = function() {
-        console.log("* * * Entered checkCanI_block Function * * *");
-        console.log("***CURRENTLY SELECTED ACTIVITY: " + $scope.$storage.selectedActivity + ", TIME: " + $scope.$storage.selectedTime);
-
         $scope.hourlyWeatherArray.forEach(element => {
             
             let hitStartHour = false;
@@ -338,13 +333,13 @@ canibike.controller('home', function($scope, $localStorage) {
                     $scope.canI = 'No.';
                     $scope.triggers.push({
                         time: element.time,
-                        reason: 'tempHigh'
+                        reason: 'temp'
                     });
                 } else if(element.temperature < $scope.$storage.thresholds[$scope.$storage.selectedActivity].lowTemp) {
                     $scope.canI = 'No.';
                     $scope.triggers.push({
                         time: element.time,
-                        reason: 'tempLow'
+                        reason: 'temp'
                     });
                 }
                 
