@@ -145,6 +145,9 @@ body {
     box-shadow: 0 0.5rem 1rem rgba(0, 0, 0, 0.2);
     transition: all 0.2s;
     cursor: pointer; }
+    @media (max-width: 900px) {
+      .settings-area__button {
+        font-size: 2rem; } }
     .settings-area__button:hover {
       transform: translateY(-2px);
       box-shadow: 0 1rem 2rem rgba(0, 0, 0, 0.2); }
@@ -158,6 +161,9 @@ body {
     font-size: 1.1rem;
     vertical-align: center;
     text-align: right; }
+    @media (max-width: 900px) {
+      .settings-area__current-settings {
+        display: none; } }
   .settings-area__setting-icon {
     font-size: 1.4rem;
     text-align: center;
@@ -177,7 +183,7 @@ body {
   padding-top: 12rem; }
   @media (max-width: 900px) {
     .section-input {
-      font-size: 6rem; } }
+      font-size: 4rem; } }
   .section-input__select {
     color: #828282;
     font-family: 'Muli', sans-serif;
@@ -185,7 +191,7 @@ body {
     font-size: 8rem; }
     @media (max-width: 900px) {
       .section-input__select {
-        font-size: 6rem; } }
+        font-size: 4rem; } }
   .section-input__select-option {
     font-weight: 200; }
 
@@ -215,7 +221,7 @@ body {
   margin-bottom: 5rem; }
   @media (max-width: 900px) {
     .section-weather {
-      padding: 1rem; } }
+      padding: 2rem; } }
   .section-weather__weather-box {
     background-color: #ededed;
     max-width: 100rem;
@@ -227,6 +233,9 @@ body {
     font-weight: 200;
     text-align: center;
     text-transform: uppercase; }
+    @media (max-width: 900px) {
+      .section-weather__header {
+        font-size: 2.5rem; } }
   .section-weather__location {
     font-size: 1.8rem;
     font-weight: 200;
@@ -241,6 +250,9 @@ body {
     font-weight: 300;
     width: 100%;
     vertical-align: center; }
+    @media (max-width: 900px) {
+      .section-weather__forecast-table {
+        font-size: 1.6rem; } }
     .section-weather__forecast-table td {
       text-align: left; }
     .section-weather__forecast-table th {
@@ -250,8 +262,8 @@ body {
       border-radius: 2px; }
   .section-weather__forecast-icon {
     height: 3rem; }
-  @media (max-width: 600px) {
-    .section-weather__forecast-summary {
+  @media (max-width: 900px) {
+    .section-weather__summary {
       display: none; } }
 
 .highlighted span {

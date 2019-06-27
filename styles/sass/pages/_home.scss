@@ -25,6 +25,10 @@
         transition: all 0.2s;
         cursor: pointer;
 
+        @include respond('tab-port') {
+            font-size: 2rem;
+        }
+
         &:hover {
             transform: translateY(-2px);
             box-shadow: 0 1rem 2rem rgba($color-black, .2);
@@ -48,6 +52,10 @@
         font-size: 1.1rem;
         vertical-align: center;
         text-align: right;
+
+        @include respond('tab-port') {
+            display: none;
+        }
     }
     &__setting-icon {
         font-size: 1.4rem;
@@ -62,6 +70,7 @@
     justify-content: center;
 }
 
+
 .section-input {
     text-align: center;
     color: $color-grey;
@@ -71,7 +80,7 @@
     padding-top: 12rem;
 
     @include respond('tab-port') {
-        font-size: 6rem;
+        font-size: 4rem;
     }
 
     &__select {
@@ -81,7 +90,7 @@
         font-size: 8rem;
 
         @include respond('tab-port') {
-            font-size: 6rem;
+            font-size: 4rem;
         }
     }
 
@@ -123,7 +132,7 @@
     margin-bottom: 5rem;
 
     @include respond('tab-port') {
-        padding: 1rem;
+        padding: 2rem;
     }
 
     &__weather-box {
@@ -139,6 +148,10 @@
         font-weight: 200;
         text-align: center;
         text-transform: uppercase;
+
+        @include respond('tab-port') {
+            font-size: 2.5rem;
+        }
     }
 
     &__location {
@@ -160,6 +173,10 @@
         width: 100%;
         vertical-align: center;
 
+        @include respond('tab-port') {
+            font-size: 1.6rem;
+        }
+
         td {
             text-align: left;
             //padding: 2rem;
@@ -180,8 +197,8 @@
         height: 3rem;
     }
 
-    &__forecast-summary {
-        @include respond('phone') {
+    &__summary {
+        @include respond('tab-port') {
             display: none;
         }
     }
