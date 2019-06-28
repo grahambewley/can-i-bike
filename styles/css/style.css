@@ -119,8 +119,8 @@ body {
   height: 7rem;
   width: 7rem;
   position: fixed;
-  top: 6rem;
-  right: 6rem;
+  top: 4rem;
+  right: 4rem;
   border-radius: 50%;
   z-index: 900;
   box-shadow: 0 1rem 3rem rgba(0, 0, 0, 0.1);
@@ -186,30 +186,8 @@ body {
   position: absolute;
   top: 2rem;
   right: 2rem; }
-  .settings-area__button {
-    text-decoration: none;
-    background-color: #828282;
-    color: #ededed;
-    font-size: 1.5rem;
-    padding: 1rem;
-    border: none;
-    outline: none;
-    border-radius: 3px;
-    box-shadow: 0 0.5rem 1rem rgba(0, 0, 0, 0.2);
-    transition: all 0.2s;
-    cursor: pointer; }
-    @media (max-width: 900px) {
-      .settings-area__button {
-        font-size: 2rem; } }
-    .settings-area__button:hover {
-      transform: translateY(-2px);
-      box-shadow: 0 1rem 2rem rgba(0, 0, 0, 0.2); }
-    .settings-area__button:active, .settings-area__button:focus {
-      transform: translateY(-1px);
-      box-shadow: 0 0.5rem 1rem rgba(0, 0, 0, 0.2);
-      outline: none; }
   .settings-area__current-settings {
-    margin-top: 1rem;
+    margin-top: 12rem;
     color: #4f4f4f;
     font-size: 1.1rem;
     vertical-align: center;

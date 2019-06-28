@@ -12,42 +12,8 @@
     top: 2rem;
     right: 2rem;
 
-    &__button {
-        text-decoration: none;
-        background-color: $color-grey;
-        color: $color-light-grey;
-        font-size: 1.5rem;
-        padding: 1rem;
-        border: none;
-        outline: none;
-        border-radius: 3px;
-        box-shadow: 0 .5rem 1rem rgba($color-black, .2);
-        transition: all 0.2s;
-        cursor: pointer;
-
-        @include respond('tab-port') {
-            font-size: 2rem;
-        }
-
-        &:hover {
-            transform: translateY(-2px);
-            box-shadow: 0 1rem 2rem rgba($color-black, .2);
-        }
-
-        &:active,
-        &:focus {
-            transform: translateY(-1px);
-            box-shadow: 0 .5rem 1rem rgba($color-black, .2);
-
-            //Styling for the <button> element
-            //Requires the &:focus selector above
-            outline: none;
-        }
-
-    }
-
     &__current-settings {
-        margin-top: 1rem ;
+        margin-top: 12rem ;
         color: $color-dark-grey;
         font-size: 1.1rem;
         vertical-align: center;
