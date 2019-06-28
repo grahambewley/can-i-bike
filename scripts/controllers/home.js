@@ -452,6 +452,7 @@ canibike.controller('home', function($scope, $localStorage) {
     }
 
     $scope.displaySettings = function() {
+        
         $(".popup").css({'opacity': '1', 'visibility': 'visible'});
         $(".popup__content").css({'opacity': '1', 'transform': 'translate(-50%, -50%) scale(1)'});
     };

@@ -1,7 +1,9 @@
 <div class="home-container" ng-init="locate()">
     
     <div class="settings-area">
-        <button ng-click="displaySettings()" class="settings-area__button">Settings</button>
+        
+        <!--<button ng-click="displaySettings()" class="settings-area__button">Settings</button>-->
+        
         <table class="settings-area__current-settings">
             <tr>
                 <td>{{ $storage.thresholds[$storage.selectedActivity].lowTemp }} - {{ $storage.thresholds[$storage.selectedActivity].highTemp }} &deg;F</td>
@@ -22,10 +24,16 @@
         </table>
     </div>
     
-    <div class="popup" id="popup">
-        <div class="popup__content">
-            <button ng-click="hideSettings()" class="btn popup__close">&times;</button>
 
+    <input type="checkbox" class="settings__checkbox" id="navi-toggle"> 
+        
+    <label for="navi-toggle" class="settings__button">
+        <span class="settings__icon">&nbsp;</span>    
+    </label>
+
+    <div class="popup" id="popup">
+
+        <div class="popup__content">
             <h2 class="popup__header">Settings</h2>
 
             <!-- ACTIVITY WEATHER SETTINGS -->

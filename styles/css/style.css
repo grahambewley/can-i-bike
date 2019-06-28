@@ -62,20 +62,6 @@ body {
     @media (max-width: 600px) {
       .popup__content {
         display: relative; } }
-  .popup__close {
-    position: absolute;
-    top: 1.5rem;
-    right: 1.5rem;
-    background-color: #4f4f4f;
-    border: none;
-    border-radius: 2px;
-    color: #ededed;
-    padding: .75rem 1.5rem 1rem 1.5rem;
-    text-align: center;
-    text-decoration: none;
-    display: inline-block;
-    font-size: 3rem;
-    line-height: 3rem; }
   .popup__header {
     font-size: 4rem;
     text-align: center;
@@ -124,6 +110,71 @@ body {
       transform: translateY(-1px);
       box-shadow: 0 0.5rem 1rem rgba(0, 0, 0, 0.2);
       outline: none; }
+
+.settings__checkbox {
+  display: none; }
+
+.settings__button {
+  background-color: #ededed;
+  height: 7rem;
+  width: 7rem;
+  position: fixed;
+  top: 6rem;
+  right: 6rem;
+  border-radius: 50%;
+  z-index: 900;
+  box-shadow: 0 1rem 3rem rgba(0, 0, 0, 0.1);
+  text-align: center;
+  cursor: pointer; }
+  @media (max-width: 900px) {
+    .settings__button {
+      top: 4rem;
+      right: 4rem; } }
+  @media (max-width: 600px) {
+    .settings__button {
+      top: 3rem;
+      right: 3rem; } }
+
+.settings__checkbox:checked ~ .popup {
+  opacity: 1;
+  visibility: visible; }
+
+.settings__checkbox:checked ~ .popup .popup__content {
+  opacity: 1;
+  transform: translate(-50%, -50%) scale(1); }
+
+.settings__icon {
+  position: relative;
+  margin-top: 3.5rem; }
+  .settings__icon, .settings__icon::before, .settings__icon::after {
+    width: 3rem;
+    height: 2px;
+    background-color: #4f4f4f;
+    display: inline-block; }
+  .settings__icon::before, .settings__icon::after {
+    content: "";
+    position: absolute;
+    left: 0;
+    transition: all .2s; }
+  .settings__icon::before {
+    top: -.8rem; }
+  .settings__icon::after {
+    top: .8rem; }
+
+.settings__button:hover .settings__icon::before {
+  top: -1rem; }
+
+.settings__button:hover .settings__icon::after {
+  top: 1rem; }
+
+.settings__checkbox:checked + .settings__button .settings__icon {
+  background-color: transparent; }
+  .settings__checkbox:checked + .settings__button .settings__icon::before {
+    top: 0;
+    transform: rotate(135deg); }
+  .settings__checkbox:checked + .settings__button .settings__icon::after {
+    top: 0;
+    transform: rotate(-135deg); }
 
 .home-container {
   position: relative; }

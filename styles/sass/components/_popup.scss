@@ -46,22 +46,6 @@
         }
     }
 
-    &__close {
-        position:absolute;
-        top: 1.5rem;
-        right: 1.5rem;
-        background-color: $color-dark-grey;
-        border: none;
-        border-radius: 2px;
-        color: $color-light-grey;
-        padding: .75rem 1.5rem 1rem 1.5rem;
-        text-align: center;
-        text-decoration: none;
-        display: inline-block;
-        font-size: 3rem;
-        line-height: 3rem;
-    }
-
     &__header {
         font-size: 4rem;
         text-align: center;
@@ -129,6 +113,113 @@
             //Styling for the <button> element
             //Requires the &:focus selector above
             outline: none;
+        }
+    }
+
+}
+
+.settings {
+    &__checkbox {
+        display: none;
+    }
+    
+
+    &__button {
+        background-color: $color-light-grey;
+        //We want the button slightly larger than the background so that the background (in initial state) sits underneath
+        height: 7rem;
+        width: 7rem;
+        position: fixed;
+        top: 4rem;
+        right: 4rem;
+        border-radius: 50%;
+        z-index: 900;
+        box-shadow: 0 1rem 3rem rgba($color-black, .1);
+        text-align: center;
+        cursor: pointer;
+    
+        @include respond(tab-port) {
+            top: 4rem;
+            right: 4rem;
+        }
+    
+        @include respond(phone) {
+            top: 3rem;
+            right: 3rem;
+        }
+    }
+    
+    //FUNCTIONALITY
+    
+    &__checkbox:checked ~ .popup {
+        opacity: 1;
+        visibility: visible;
+    }
+
+
+    &__checkbox:checked ~ .popup .popup__content {
+        opacity: 1; 
+        transform: translate(-50%, -50%) scale(1);
+    }
+    
+    //ICON
+    &__icon {
+    
+        position: relative;
+        margin-top: 3.5rem;
+    
+        &,
+        &::before,
+        &::after {
+            width: 3rem;
+            height: 2px;
+            background-color: $color-dark-grey;
+            display: inline-block;
+        }
+    
+        &::before,
+        &::after {
+            content: "";
+            position: absolute;
+            left: 0;
+            transition: all .2s;
+        }
+    
+        &::before {
+            top: -.8rem;
+        }
+    
+        &::after {
+            top: .8rem;
+        }
+    }
+    
+    &__button:hover &__icon::before {
+        top: -1rem;
+    }
+    
+    &__button:hover &__icon::after {
+        top: 1rem;
+    }
+    
+    
+    //Using the checkbox hack... when the nav button is clicked do something to the icon
+    &__checkbox:checked + &__button &__icon {
+        //Make the "central" menu line transparent
+        background-color: transparent;
+    
+        //Rotate the "top" menu line 45 degrees
+        //Set the basis of the line to the top so that the X isn't skewed
+        &::before {
+            top:0;
+            transform: rotate(135deg);
+        }
+    
+        //Rotate the "bottom" menu line 45 degrees the opposite direction
+        //Set the basis of the line to the top so that the X isn't skewed
+        &::after {
+            top: 0;
+            transform: rotate(-135deg);
         }
     }
 }
