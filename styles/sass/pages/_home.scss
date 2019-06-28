@@ -107,9 +107,6 @@
     font-family: 'Merriweather', serif;
     font-weight: 700;
 
-    transition: opacity 0.4s;
-    opacity: 1; 
-
     @include respond('phone') {
         height: 20rem;
         line-height: 20rem;
@@ -120,12 +117,19 @@
         font-weight: 400;
         color: $color-dark-grey;
 
+        -webkit-transition:all linear 0.5s;
+        transition:all linear 0.5s;
+
         @include respond('phone') {
             font-size: 20rem;
         }
+
+        //Handles animation when canI is set to a value
+        &.ng-hide {
+            opacity: 0;
+        }
     }
 }
-
 .section-weather {
 
     color: $color-dark-grey;

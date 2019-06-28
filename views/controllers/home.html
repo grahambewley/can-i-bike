@@ -130,7 +130,7 @@
         </section>
 
         <section class="section-canI">
-            <span model="{{ canI }}" class="section-canI__span fade">{{ canI }}</span>
+            <span model="{{ canI }}" class="section-canI__span" ng-show="canI != ''">{{ canI }}</span>
         </section>
 
         <section class="section-weather">

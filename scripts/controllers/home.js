@@ -1,5 +1,6 @@
 canibike.controller('home', function($scope, $localStorage) {
-    
+
+
     //LocalStorage scope handler (via ngStorage)
     //This will store most of the variables we're using, since we want these to persist between sessions
     //Set default values if there are not any already

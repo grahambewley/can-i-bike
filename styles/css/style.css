@@ -203,9 +203,7 @@ body {
   line-height: 32rem;
   text-align: center;
   font-family: 'Merriweather', serif;
-  font-weight: 700;
-  transition: opacity 0.4s;
-  opacity: 1; }
+  font-weight: 700; }
   @media (max-width: 600px) {
     .section-canI {
       height: 20rem;
@@ -213,10 +211,14 @@ body {
   .section-canI__span {
     font-size: 32rem;
     font-weight: 400;
-    color: #4f4f4f; }
+    color: #4f4f4f;
+    -webkit-transition: all linear 0.5s;
+    transition: all linear 0.5s; }
     @media (max-width: 600px) {
       .section-canI__span {
         font-size: 20rem; } }
+    .section-canI__span.ng-hide {
+      opacity: 0; }
 
 .section-weather {
   color: #4f4f4f;
