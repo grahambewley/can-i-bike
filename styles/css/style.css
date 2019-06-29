@@ -23,6 +23,87 @@ body {
 .u-margin-top-small {
   margin-top: 3rem; }
 
+.current-settings {
+  display: flex;
+  flex-direction: column;
+  align-items: flex-end;
+  position: fixed;
+  top: 14rem;
+  right: 4rem; }
+  @media (max-width: 900px) {
+    .current-settings {
+      display: none; } }
+  .current-settings__table {
+    color: #4f4f4f;
+    font-size: 1.1rem;
+    vertical-align: center;
+    text-align: right; }
+  .current-settings__icon {
+    font-size: 1.4rem;
+    text-align: center;
+    padding-left: 1rem; }
+
+.settings-button__checkbox {
+  display: none; }
+
+.settings-button__button {
+  background-color: #828282;
+  height: 6rem;
+  width: 6rem;
+  position: fixed;
+  top: 4rem;
+  right: 4rem;
+  border-radius: 50%;
+  z-index: 900;
+  box-shadow: 0 1rem 3rem rgba(0, 0, 0, 0.1);
+  text-align: center;
+  cursor: pointer; }
+  @media (max-width: 600px) {
+    .settings-button__button {
+      top: 2rem;
+      right: 2rem; } }
+
+.settings-button__checkbox:checked ~ .popup {
+  opacity: 1;
+  visibility: visible; }
+
+.settings-button__checkbox:checked ~ .popup .popup__content {
+  opacity: 1;
+  transform: translate(-50%, -50%) scale(1); }
+
+.settings-button__icon {
+  position: relative;
+  margin-top: 3rem; }
+  .settings-button__icon, .settings-button__icon::before, .settings-button__icon::after {
+    width: 3rem;
+    height: 2px;
+    background-color: #4f4f4f;
+    display: inline-block; }
+  .settings-button__icon::before, .settings-button__icon::after {
+    content: "";
+    position: absolute;
+    left: 0;
+    transition: all .2s; }
+  .settings-button__icon::before {
+    top: -.8rem; }
+  .settings-button__icon::after {
+    top: .8rem; }
+
+.settings-button__button:hover .settings-button__icon::before {
+  top: -1rem; }
+
+.settings-button__button:hover .settings-button__icon::after {
+  top: 1rem; }
+
+.settings-button__checkbox:checked + .settings-button__button .settings-button__icon {
+  background-color: transparent; }
+  .settings-button__checkbox:checked + .settings-button__button .settings-button__icon::before {
+    top: 0;
+    transform: rotate(135deg); }
+  .settings-button__checkbox:checked + .settings-button__button .settings-button__icon::after {
+    top: 0;
+    transform: rotate(-135deg); }
+
 .popup {
   height: 100vh;
   width: 100%;
@@ -39,6 +120,9 @@ body {
       backdrop-filter: blur(10px);
       -webkit-backdrop-filter: blur(10px);
       background-color: rgba(79, 79, 79, 0.3); } }
+  @media (max-width: 900px) {
+    .popup {
+      padding: 2rem; } }
   .popup__content {
     position: absolute;
     top: 50%;
@@ -59,9 +143,6 @@ body {
         display: relative;
         width: 100%;
         height: 100vh; } }
-    @media (max-width: 600px) {
-      .popup__content {
-        display: relative; } }
   .popup__header {
     font-size: 4rem;
     text-align: center;
@@ -69,26 +150,31 @@ body {
     text-transform: uppercase;
     margin-bottom: 1rem; }
   .popup__sub-header {
-    font-weight: 200;
-    text-align: center;
     font-size: 3rem;
+    text-align: center;
+    font-weight: 200;
     text-transform: uppercase;
     margin-top: 4rem;
     margin-bottom: 1.5rem; }
   .popup__settings-item {
     display: flex;
     justify-content: space-between;
-    font-size: 1.5rem; }
+    font-size: 2rem; }
     .popup__settings-item:not(:last-child) {
       margin-bottom: 1rem; }
     .popup__settings-item input {
-      font-size: 1.3rem;
+      font-size: 2rem;
+      color: #4f4f4f;
       border: none;
-      border-bottom: 1px solid #4f4f4f;
+      border-bottom: 1px solid #828282;
       text-align: right;
       width: 4rem; }
+    .popup__settings-item select {
+      font-size: 2rem;
+      color: #4f4f4f; }
     .popup__settings-item span {
-      font-size: 1.3rem; }
+      font-size: 2rem;
+      color: #828282; }
   .popup__reset-button {
     display: block;
     margin: 4rem auto 0 auto;
@@ -111,94 +197,12 @@ body {
       box-shadow: 0 0.5rem 1rem rgba(0, 0, 0, 0.2);
       outline: none; }
 
-.settings__checkbox {
-  display: none; }
-
-.settings__button {
-  background-color: #ededed;
-  height: 7rem;
-  width: 7rem;
-  position: fixed;
-  top: 4rem;
-  right: 4rem;
-  border-radius: 50%;
-  z-index: 900;
-  box-shadow: 0 1rem 3rem rgba(0, 0, 0, 0.1);
-  text-align: center;
-  cursor: pointer; }
-  @media (max-width: 900px) {
-    .settings__button {
-      top: 4rem;
-      right: 4rem; } }
-  @media (max-width: 600px) {
-    .settings__button {
-      top: 3rem;
-      right: 3rem; } }
-
-.settings__checkbox:checked ~ .popup {
-  opacity: 1;
-  visibility: visible; }
-
-.settings__checkbox:checked ~ .popup .popup__content {
-  opacity: 1;
-  transform: translate(-50%, -50%) scale(1); }
-
-.settings__icon {
-  position: relative;
-  margin-top: 3.5rem; }
-  .settings__icon, .settings__icon::before, .settings__icon::after {
-    width: 3rem;
-    height: 2px;
-    background-color: #4f4f4f;
-    display: inline-block; }
-  .settings__icon::before, .settings__icon::after {
-    content: "";
-    position: absolute;
-    left: 0;
-    transition: all .2s; }
-  .settings__icon::before {
-    top: -.8rem; }
-  .settings__icon::after {
-    top: .8rem; }
-
-.settings__button:hover .settings__icon::before {
-  top: -1rem; }
-
-.settings__button:hover .settings__icon::after {
-  top: 1rem; }
-
-.settings__checkbox:checked + .settings__button .settings__icon {
-  background-color: transparent; }
-  .settings__checkbox:checked + .settings__button .settings__icon::before {
-    top: 0;
-    transform: rotate(135deg); }
-  .settings__checkbox:checked + .settings__button .settings__icon::after {
-    top: 0;
-    transform: rotate(-135deg); }
-
 .home-container {
-  position: relative; }
-
-.settings-area {
-  display: flex;
-  flex-direction: column;
-  align-items: flex-end;
-  position: absolute;
-  top: 2rem;
-  right: 2rem; }
-  .settings-area__current-settings {
-    margin-top: 12rem;
-    color: #4f4f4f;
-    font-size: 1.1rem;
-    vertical-align: center;
-    text-align: right; }
-    @media (max-width: 900px) {
-      .settings-area__current-settings {
-        display: none; } }
-  .settings-area__setting-icon {
-    font-size: 1.4rem;
-    text-align: center;
-    padding-left: 1rem; }
+  position: relative;
+  margin: 0 16rem; }
+  @media (max-width: 900px) {
+    .home-container {
+      margin: 0 2rem; } }
 
 .flex-container {
   display: flex;
@@ -211,10 +215,13 @@ body {
   font-weight: 200;
   font-size: 8rem;
   word-spacing: 1.5rem;
+  line-height: 12rem;
   padding-top: 12rem; }
   @media (max-width: 900px) {
     .section-input {
-      font-size: 4rem; } }
+      font-size: 4rem;
+      line-height: 6rem;
+      padding-top: 8rem; } }
   .section-input__select {
     color: #828282;
     font-family: 'Muli', sans-serif;
@@ -251,9 +258,6 @@ body {
 .section-weather {
   color: #4f4f4f;
   margin-bottom: 5rem; }
-  @media (max-width: 900px) {
-    .section-weather {
-      padding: 2rem; } }
   .section-weather__weather-box {
     background-color: #ededed;
     max-width: 100rem;
@@ -268,11 +272,11 @@ body {
     font-weight: 200;
     text-align: center;
     text-transform: uppercase; }
-    @media (max-width: 900px) {
+    @media (max-width: 600px) {
       .section-weather__header {
-        font-size: 2.5rem; } }
+        font-size: 1.8rem; } }
   .section-weather__location {
-    font-size: 1.8rem;
+    font-size: 2rem;
     font-weight: 200;
     text-align: center;
     text-transform: uppercase;
@@ -280,12 +284,16 @@ body {
     .section-weather__location span {
       font-weight: 400;
       text-transform: none; }
+    @media (max-width: 600px) {
+      .section-weather__location {
+        font-size: 1.4rem;
+        margin-bottom: 2rem; } }
   .section-weather__forecast-table {
     font-size: 2rem;
     font-weight: 300;
     width: 100%;
     vertical-align: center; }
-    @media (max-width: 900px) {
+    @media (max-width: 600px) {
       .section-weather__forecast-table {
         font-size: 1.6rem; } }
     .section-weather__forecast-table td {
@@ -297,7 +305,7 @@ body {
       border-radius: 2px; }
   .section-weather__forecast-icon {
     height: 3rem; }
-  @media (max-width: 900px) {
+  @media (max-width: 600px) {
     .section-weather__summary {
       display: none; } }
 

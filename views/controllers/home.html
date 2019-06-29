@@ -1,34 +1,34 @@
 <div class="home-container" ng-init="locate()">
     
-    <div class="settings-area">
+    <div class="current-settings">
         
         <!--<button ng-click="displaySettings()" class="settings-area__button">Settings</button>-->
         
-        <table class="settings-area__current-settings">
+        <table class="current-settings__table">
             <tr>
                 <td>{{ $storage.thresholds[$storage.selectedActivity].lowTemp }} - {{ $storage.thresholds[$storage.selectedActivity].highTemp }} &deg;F</td>
-                <td class="settings-area__setting-icon"><i class="wi wi-thermometer"></i></td>
+                <td class="current-settings__icon"><i class="wi wi-thermometer"></i></td>
             </tr>
             <tr>
                 <td>&lt; {{ $storage.thresholds[$storage.selectedActivity].precipProb }}%</td>
-                <td class="settings-area__setting-icon"><i class="wi wi-rain"></i></td>
+                <td class="current-settings__icon"><i class="wi wi-rain"></i></td>
             </tr>
             <tr>
                 <td>&lt; {{ $storage.thresholds[$storage.selectedActivity].humidity }}%</td>
-                <td class="settings-area__setting-icon"><i class="wi wi-humidity"></i></td>
+                <td class="current-settings__icon"><i class="wi wi-humidity"></i></td>
             </tr>
             <tr>
                 <td>&lt; {{ $storage.thresholds[$storage.selectedActivity].windSpeed }} MPH</td>
-                <td class="settings-area__setting-icon"><i class="wi wi-strong-wind"></i></td>
+                <td class="current-settings__icon"><i class="wi wi-strong-wind"></i></td>
             </tr>
         </table>
     </div>
     
 
-    <input type="checkbox" class="settings__checkbox" id="navi-toggle"> 
+    <input type="checkbox" class="settings-button__checkbox" id="navi-toggle"> 
         
-    <label for="navi-toggle" class="settings__button">
-        <span class="settings__icon">&nbsp;</span>    
+    <label for="navi-toggle" class="settings-button__button">
+        <span class="settings-button__icon">&nbsp;</span>    
     </label>
 
     <div class="popup" id="popup">
