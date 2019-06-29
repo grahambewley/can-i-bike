@@ -12,6 +12,14 @@ canibike.controller('home', function($scope, $localStorage) {
         storedLat: '',
         storedLong: '',
 
+        ignores: {
+            lowTemp: false,
+            highTemp: false,
+            precipProb: false,
+            windSpeed: false,
+            humidity: false
+        },
+
         thresholds: {
             bike: {
                 highTemp: 85,
@@ -71,13 +79,14 @@ canibike.controller('home', function($scope, $localStorage) {
         
     });
 
+    $scope.loadingStatus = '';
+
     //Stores the full JSON object returned by Dark Sky API
     var darkSkyResponseObject;
     //Stores an array containing the hourly forecast only, chopped from darkSkyResponseObject
     $scope.hourlyWeatherArray;
     //Stores the full reverse-geocode JSON object returned by Mapquest API
     var revGeocodeObject;
-
 
     //Stores the full hourly forecast object for data we want to display on screen
     $scope.relevantWeatherData = [];
@@ -109,6 +118,9 @@ canibike.controller('home', function($scope, $localStorage) {
 
     //Determine geolocation if browser supports it, then call getWeatherFromPosition function as a callback
     $scope.locate = function() {
+
+        $scope.loadingStatus = "Gathering location data";
+
         if (navigator.geolocation) {
             navigator.geolocation.getCurrentPosition(getWeatherFromPosition);
         } 
@@ -118,6 +130,9 @@ canibike.controller('home', function($scope, $localStorage) {
     }
 
     function getWeatherFromPosition(position) {
+
+        $scope.loadingStatus = "Gathering weather forecast";
+
         //TO-DO: Trigger some sort of weather check based on the $localStorage version of lat and long -- so we don't need that to come back first every time
         console.log("***CURRENT POSITION: LAT: " + position.coords.latitude + ", LONG: " + position.coords.longitude);
     
@@ -176,6 +191,9 @@ canibike.controller('home', function($scope, $localStorage) {
     }
 
     function clearWeatherData() {
+        //Clear out loading status
+        //$scope.loadingStatus = '';
+        
         //Clear our result fields
         $scope.canI = '';
         $scope.triggers = [];
@@ -186,6 +204,8 @@ canibike.controller('home', function($scope, $localStorage) {
     }
 
     $scope.checkCanI = function() {
+        $scope.loadingStatus = 'Checking weather conditions against your personal preferences';
+
         //Determine what 'time type' we're looking at (e.g. commute, block)
         var timeType = $scope.$storage.times[$scope.$storage.selectedTime].type;
 
@@ -225,14 +245,14 @@ canibike.controller('home', function($scope, $localStorage) {
                 $scope.relevantWeatherData.push(element);
 
                 //Check start-time temperature against the highTemp threshold the user has set for this activity...
-                if(element.temperature > $scope.$storage.thresholds[$scope.$storage.selectedActivity].highTemp) {
+                if(($scope.$storage.ignores.highTemp == false) && (element.temperature > $scope.$storage.thresholds[$scope.$storage.selectedActivity].highTemp)) {
                     //If the temparture is too high, set the "Can I?" result to No
                     $scope.canI = 'No.';
                     $scope.triggers.push({
                         time: element.time,
                         reason: 'temp'
                     });
-                } else if(element.temperature < $scope.$storage.thresholds[$scope.$storage.selectedActivity].lowTemp) {
+                } else if(($scope.$storage.ignores.lowTemp == false) && (element.temperature < $scope.$storage.thresholds[$scope.$storage.selectedActivity].lowTemp)) {
                     $scope.canI = 'No.';
                     $scope.triggers.push({
                         time: element.time,
@@ -240,7 +260,7 @@ canibike.controller('home', function($scope, $localStorage) {
                     });
                 }
 
-                if(element.windSpeed > $scope.$storage.thresholds[$scope.$storage.selectedActivity].windSpeed) {
+                if(($scope.$storage.ignores.windSpeed == false) && (element.windSpeed > $scope.$storage.thresholds[$scope.$storage.selectedActivity].windSpeed)) {
                     $scope.canI = 'No.';
                     $scope.triggers.push({
                         time: element.time,
@@ -249,7 +269,7 @@ canibike.controller('home', function($scope, $localStorage) {
                 }
 
                 //Precipitation probability is stored in a more user-friendly percentage format, so divide by 100
-                if(element.precipProbability > ($scope.$storage.thresholds[$scope.$storage.selectedActivity].precipProb / 100)) {
+                if(($scope.$storage.ignores.precipProb == false) && (element.precipProbability > ($scope.$storage.thresholds[$scope.$storage.selectedActivity].precipProb / 100))) {
                     $scope.canI = 'No.';
                     $scope.triggers.push({
                         time: element.time,
@@ -258,7 +278,7 @@ canibike.controller('home', function($scope, $localStorage) {
                 }
 
                 //Humidity is stored in a more user-friendly percentage format, so divide by 100
-                if(element.humidity > ($scope.$storage.thresholds[$scope.$storage.selectedActivity].humidity / 100)) {
+                if(($scope.$storage.ignores.humidity == false) && (element.humidity > ($scope.$storage.thresholds[$scope.$storage.selectedActivity].humidity / 100))) {
                     $scope.canI = 'No.';
                     $scope.triggers.push({
                         time: element.time,
@@ -275,13 +295,13 @@ canibike.controller('home', function($scope, $localStorage) {
                 //Store the weather data for this hour to be formatted and displayed later
                 $scope.relevantWeatherData.push(element);
 
-                if(element.temperature > $scope.$storage.thresholds[$scope.$storage.selectedActivity].highTemp) {
+                if(($scope.$storage.ignores.highTemp == false) && (element.temperature > $scope.$storage.thresholds[$scope.$storage.selectedActivity].highTemp)) {
                     $scope.canI = 'No.';
                     $scope.triggers.push({
                         time: element.time,
                         reason: 'temp'
                     });
-                } else if(element.temperature < $scope.$storage.thresholds[$scope.$storage.selectedActivity].lowTemp) {
+                } else if(($scope.$storage.ignores.lowTemp == false) && (element.temperature < $scope.$storage.thresholds[$scope.$storage.selectedActivity].lowTemp)) {
                     $scope.canI = 'No.';
                     $scope.triggers.push({
                         time: element.time,
@@ -289,7 +309,7 @@ canibike.controller('home', function($scope, $localStorage) {
                     });
                 }
                 
-                if(element.windSpeed > $scope.$storage.thresholds[$scope.$storage.selectedActivity].windSpeed) {
+                if(($scope.$storage.ignores.windSpeed == false) && (element.windSpeed > $scope.$storage.thresholds[$scope.$storage.selectedActivity].windSpeed)) {
                     $scope.canI = 'No.';
                     $scope.triggers.push({
                         time: element.time,
@@ -297,7 +317,7 @@ canibike.controller('home', function($scope, $localStorage) {
                     });
                 }
                 
-                if(element.precipProbability > ($scope.$storage.thresholds[$scope.$storage.selectedActivity].precipProb / 100)) {
+                if(($scope.$storage.ignores.precipProb == false) && (element.precipProbability > ($scope.$storage.thresholds[$scope.$storage.selectedActivity].precipProb / 100))) {
                     $scope.canI = 'No.';
                     $scope.triggers.push({
                         time: element.time,
@@ -305,7 +325,7 @@ canibike.controller('home', function($scope, $localStorage) {
                     });
                 }
 
-                if(element.humidity > ($scope.$storage.thresholds[$scope.$storage.selectedActivity].humidity / 100)) {
+                if(($scope.$storage.ignores.humidity == false) && (element.humidity > ($scope.$storage.thresholds[$scope.$storage.selectedActivity].humidity / 100))) {
                     $scope.canI = 'No.';
                     $scope.triggers.push({
                         time: element.time,
@@ -347,13 +367,13 @@ canibike.controller('home', function($scope, $localStorage) {
                  //Store the weather data for this hour to be formatted and displayed later
                  $scope.relevantWeatherData.push(element);
 
-                if(element.temperature > $scope.$storage.thresholds[$scope.$storage.selectedActivity].highTemp) {
+                if(($scope.$storage.ignores.highTemp == false) && (element.temperature > $scope.$storage.thresholds[$scope.$storage.selectedActivity].highTemp)) {
                     $scope.canI = 'No.';
                     $scope.triggers.push({
                         time: element.time,
                         reason: 'temp'
                     });
-                } else if(element.temperature < $scope.$storage.thresholds[$scope.$storage.selectedActivity].lowTemp) {
+                } else if(($scope.$storage.ignores.lowTemp == false) && (element.temperature < $scope.$storage.thresholds[$scope.$storage.selectedActivity].lowTemp)) {
                     $scope.canI = 'No.';
                     $scope.triggers.push({
                         time: element.time,
@@ -361,7 +381,7 @@ canibike.controller('home', function($scope, $localStorage) {
                     });
                 }
                 
-                if(element.windSpeed > $scope.$storage.thresholds[$scope.$storage.selectedActivity].windSpeed) {
+                if(($scope.$storage.ignores.windSpeed == false) && (element.windSpeed > $scope.$storage.thresholds[$scope.$storage.selectedActivity].windSpeed)) {
                     $scope.canI = 'No.';
                     $scope.triggers.push({
                         time: element.time,
@@ -369,7 +389,7 @@ canibike.controller('home', function($scope, $localStorage) {
                     });
                 }
                 
-                if(element.precipProbability > ($scope.$storage.thresholds[$scope.$storage.selectedActivity].precipProb / 100)) {
+                if(($scope.$storage.ignores.precipProb == false) && (element.precipProbability > ($scope.$storage.thresholds[$scope.$storage.selectedActivity].precipProb / 100))) {
                     $scope.canI = 'No.';
                     $scope.triggers.push({
                         time: element.time,
@@ -377,7 +397,7 @@ canibike.controller('home', function($scope, $localStorage) {
                     });
                 }
 
-                if(element.humidity > ($scope.$storage.thresholds[$scope.$storage.selectedActivity].humidity / 100)) {
+                if(($scope.$storage.ignores.humidity == false) && (element.humidity > ($scope.$storage.thresholds[$scope.$storage.selectedActivity].humidity / 100))) {
                     $scope.canI = 'No.';
                     $scope.triggers.push({
                         time: element.time,
@@ -397,6 +417,9 @@ canibike.controller('home', function($scope, $localStorage) {
     }
 
     function formatWeatherData() {
+
+        $scope.loadingStatus = "Formatting weather data";
+
         console.log("* * * Entered formatWeatherData function * * *");
         console.log("Relevant Weather Data: ");
         console.log($scope.relevantWeatherData);
@@ -451,20 +474,6 @@ canibike.controller('home', function($scope, $localStorage) {
 
     }
 
-    $scope.displaySettings = function() {
-        
-        $(".popup").css({'opacity': '1', 'visibility': 'visible'});
-        $(".popup__content").css({'opacity': '1', 'transform': 'translate(-50%, -50%) scale(1)'});
-    };
-
-    $scope.hideSettings = function() {
-        $(".popup").css({'opacity': '0', 'visibility': 'hidden'});
-        $(".popup__content").css({'opacity': '0', 'transform': 'translate(-50%, -50%) scale(0)'});
-
-        clearWeatherData();
-        $scope.checkCanI();
-    }
-
     $scope.resetDefaults = function() {
         console.log("Setting thresholds and times back to default values.");
         $scope.$storage.selectedActivity = "bike";
@@ -473,6 +482,14 @@ canibike.controller('home', function($scope, $localStorage) {
         $scope.$storage.storedLat = '';
         $scope.$storage.storedLong = '';
     
+        $scope.$storage.ignores = {
+            lowTemp: false,
+            highTemp: false,
+            precipProb: false,
+            windSpeed: false,
+            humidity: false
+        };
+
         $scope.$storage.thresholds = {
             bike: {
                 highTemp: 85,

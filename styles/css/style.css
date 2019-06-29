@@ -23,6 +23,24 @@ body {
 .u-margin-top-small {
   margin-top: 3rem; }
 
+.loading:after {
+  overflow: hidden;
+  display: inline-block;
+  vertical-align: bottom;
+  -webkit-animation: ellipsis steps(4, end) 900ms infinite;
+  animation: ellipsis steps(4, end) 900ms infinite;
+  content: "\2026";
+  /* ascii code for the ellipsis character */
+  width: 0px; }
+
+@keyframes ellipsis {
+  to {
+    width: 1.25em; } }
+
+@-webkit-keyframes ellipsis {
+  to {
+    width: 1.25em; } }
+
 .current-settings {
   display: flex;
   flex-direction: column;
@@ -238,24 +256,34 @@ body {
 .section-canI {
   margin: 3rem 0;
   height: 32rem;
-  line-height: 32rem;
-  text-align: center;
   font-family: 'Merriweather', serif;
   font-weight: 700; }
   @media (max-width: 600px) {
     .section-canI {
-      height: 20rem;
-      line-height: 20rem; } }
+      height: 20rem; } }
+  .section-canI__container {
+    text-align: center; }
   .section-canI__span {
     font-size: 32rem;
-    font-weight: 400;
+    line-height: 32rem;
+    font-weight: 700;
     color: #4f4f4f;
     transition: all 0.6s ease-out; }
     @media (max-width: 600px) {
       .section-canI__span {
-        font-size: 20rem; } }
+        font-size: 20rem;
+        line-height: 20rem; } }
     .section-canI__span.ng-hide {
       opacity: 0; }
+  .section-canI__status {
+    display: inline-block;
+    margin-top: 4rem;
+    font-size: 4rem;
+    font-weight: 300;
+    color: #4f4f4f; }
+    @media (max-width: 600px) {
+      .section-canI__status {
+        font-size: 2.5rem; } }
 
 .section-weather {
   color: #4f4f4f;
