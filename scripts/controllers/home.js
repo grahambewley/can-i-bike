@@ -75,6 +75,12 @@ canibike.controller('home', function($scope, $localStorage) {
                 end: 22,
                 type: 'block'
             }
+        },
+
+        advanced: {
+            ignoreTailwinds: false,
+            commuteDirectionStart: 'north',
+            commuteDirectionEnd: 'south'
         }
         
     });
@@ -96,6 +102,31 @@ canibike.controller('home', function($scope, $localStorage) {
     $scope.relevantWeatherData = [];
     //Stores the formatted weather data we will display on screen
     $scope.displayedWeatherData = [];
+
+    
+    //Used inside the logic for the "Ignore Tailwinds" function
+    const windDirection = {};
+    windDirection[0] = 'north';
+    windDirection[45] = 'northeast';
+    windDirection[90] = 'east';
+    windDirection[135] = 'southeast';
+    windDirection[180] = 'south';
+    windDirection[225] = 'southwest';
+    windDirection[270] = 'west';
+    windDirection[315] = 'northwest';
+    windDirection[360] = 'north';
+
+    //Used to determine if the forecasted wind direction is "agreeable" (i.e. a tailwind)
+    const agreeableWinds = {
+        'north': ['northwest', 'north', 'northeast'],
+        'northeast' : ['north', 'northeast', 'east'],
+        'east': ['northeast', 'east', 'southeast'],
+        'southeast': ['east', 'southeast', 'south'],
+        'south': ['southeast', 'south', 'southwest'],
+        'southwest': ['south', 'southwest', 'west'],
+        'west': ['southwest', 'west', 'northwest'],
+        'northwest': ['west', 'northwest', 'north']
+    }
 
     //CanI Result variable -- empty for now
     $scope.canI = '';
@@ -265,11 +296,26 @@ canibike.controller('home', function($scope, $localStorage) {
                 }
 
                 if(($scope.$storage.ignores.windSpeed == false) && (element.windSpeed > $scope.$storage.thresholds[$scope.$storage.selectedActivity].windSpeed)) {
-                    $scope.canI = 'No.';
-                    $scope.triggers.push({
-                        time: element.time,
-                        reason: 'wind'
-                    });
+                    
+                    //If "Ignore Tailwinds" setting is turned on, check for wind-direction and factor that in
+                    if($scope.$storage.advanced.ignoreTailwinds == true){
+                        console.info("Ignore Tailwinds feature is on, checking for agreeable winds");
+                        if($scope.checkAgreeableWinds(element.windBearing, "start") == false) {
+                            $scope.canI = 'No.';
+                            $scope.triggers.push({
+                                time: element.time,
+                                reason: 'wind'
+                            });
+                        }
+                    } 
+                    //..otherwise just set No based on wind speed alone
+                    else {
+                        $scope.canI = 'No.';
+                        $scope.triggers.push({
+                            time: element.time,
+                            reason: 'wind'
+                        });
+                    }
                 }
 
                 //Precipitation probability is stored in a more user-friendly percentage format, so divide by 100
@@ -314,11 +360,25 @@ canibike.controller('home', function($scope, $localStorage) {
                 }
                 
                 if(($scope.$storage.ignores.windSpeed == false) && (element.windSpeed > $scope.$storage.thresholds[$scope.$storage.selectedActivity].windSpeed)) {
-                    $scope.canI = 'No.';
-                    $scope.triggers.push({
-                        time: element.time,
-                        reason: 'wind'
-                    });
+                    //If "Ignore Tailwinds" setting is turned on, check for wind-direction and factor that in
+                    if($scope.$storage.advanced.ignoreTailwinds == true){
+                        console.info("Ignore Tailwinds feature is on, checking for agreeable winds");
+                        if($scope.checkAgreeableWinds(element.windBearing, "end") == false) {
+                            $scope.canI = 'No.';
+                            $scope.triggers.push({
+                                time: element.time,
+                                reason: 'wind'
+                            });
+                        }
+                    } 
+                    //..otherwise just set No based on wind speed alone
+                    else {
+                        $scope.canI = 'No.';
+                        $scope.triggers.push({
+                            time: element.time,
+                            reason: 'wind'
+                        });
+                    }
                 }
                 
                 if(($scope.$storage.ignores.precipProb == false) && (element.precipProbability > ($scope.$storage.thresholds[$scope.$storage.selectedActivity].precipProb / 100))) {
@@ -424,7 +484,6 @@ canibike.controller('home', function($scope, $localStorage) {
 
         $scope.loadingStatus = "Formatting weather data";
 
-        console.log("* * * Entered formatWeatherData function * * *");
         console.log("Relevant Weather Data: ");
         console.log($scope.relevantWeatherData);
 
@@ -476,6 +535,53 @@ canibike.controller('home', function($scope, $localStorage) {
         console.log("Displayed Weather Data: ");
         console.log($scope.displayedWeatherData);
 
+    }
+
+    function getCompassDirectionFromBearing(thisWindBearing) {
+        //This array just stores integers that match up with compass directions...
+        const vals = [0, 45, 90, 135, 180, 225, 270, 315, 360];
+
+        //Find the value from the array above that is closest to 'thisWindDir'
+        //In other words... round this wind direction up or down to the nearest compass direction angle
+        smallestDiff = Math.abs(thisWindBearing - vals[0]);
+        closest = 0; //index of the current closest number
+
+        for (i = 1; i < vals.length; i++) {
+            currentDiff = Math.abs(thisWindBearing - vals[i]);
+            if (currentDiff < smallestDiff) {
+                smallestDiff = currentDiff;
+                closest = i;
+            }
+        }
+        
+        //Now grab the string value of nearest compass direction angle that we found
+        let windCompassDir = windDirection[vals[closest].toString()];
+
+        return windCompassDir;
+    }
+
+    $scope.checkAgreeableWinds = function(thisWindBearing, time) {
+        
+        //Get the compass direction from wind bearing using function above
+        thisWindDirection = getCompassDirectionFromBearing(thisWindBearing);
+        let commuteDirection;
+
+        //... and determine the travel direction value we want to check against
+        if(time == "start") {
+            commuteDirection = $scope.$storage.advanced.commuteDirectionStart;
+        } else if(time == "end") {
+            commuteDirection = $scope.$storage.advanced.commuteDirectionEnd;
+        }
+
+        console.log("Direction of the wind is " + thisWindDirection);
+        console.log("My travel direction is " + commuteDirection);
+
+        if(agreeableWinds[commuteDirection].includes(thisWindDirection)) {
+            console.log("Woohoo! Winds are agreeable")
+            return true;
+        } else {
+            return false;
+        }
     }
 
     $scope.resetDefaults = function() {

@@ -134,6 +134,41 @@
                 </div>
             </div>
 
+            <!-- ADVANCED SETTINGS SETTINGS -->
+            <h3 class="popup__sub-header">Advanced Settings</h3>
+
+            <!-- 'Ignore Tailwinds-related settings -->
+            <div class="popup__settings-item">
+                <label for="advanced_ignoreTailwinds">Ignore Tailwinds? ("Commute" travel only)</label>
+                <input id="advanced_ignoreTailwinds" type="checkbox" ng-model="$storage.advanced.ignoreTailwinds">                    
+            </div>
+            <div class="popup__settings-item">
+                <label for="advanced_commuteDirectionStart">Commute Departure Direction:</label>
+                <select id="advanced_commuteDirectionStart" ng-model="$storage.advanced.commuteDirectionStart" class="popup__select">
+                    <option value="north">North</option>
+                    <option value="northeast">Northeast</option>
+                    <option value="east">East</option>
+                    <option value="southeast">Southeast</option>
+                    <option value="south">South</option>
+                    <option value="southwest">Southwest</option>
+                    <option value="west">West</option>
+                    <option value="northwest">Northwest</option>
+                </select>
+            </div>
+            <div class="popup__settings-item">
+                    <label for="advanced_commuteDirectionEnd">Commute Return Direction:</label>
+                    <select id="advanced_commuteDirectionEnd" ng-model="$storage.advanced.commuteDirectionEnd" class="popup__select">
+                        <option value="north">North</option>
+                        <option value="northeast">Northeast</option>
+                        <option value="east">East</option>
+                        <option value="southeast">Southeast</option>
+                        <option value="south">South</option>
+                        <option value="southwest">Southwest</option>
+                        <option value="west">West</option>
+                        <option value="northwest">Northwest</option>
+                    </select>
+                </div>
+
             <button ng-click="resetDefaults()" class="popup__reset-button">Reset to Defaults</button>
         </div>
     </div>
