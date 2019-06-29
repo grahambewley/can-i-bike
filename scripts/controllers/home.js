@@ -22,8 +22,8 @@ canibike.controller('home', function($scope, $localStorage) {
 
         thresholds: {
             bike: {
-                highTemp: 85,
-                lowTemp: 45,
+                highTemp: 80,
+                lowTemp: 40,
                 precipProb: 20,
                 windSpeed: 15,
                 humidity: 60
@@ -37,7 +37,7 @@ canibike.controller('home', function($scope, $localStorage) {
             },
             walk: {
                 highTemp: 90,
-                lowTemp: 55,
+                lowTemp: 50,
                 precipProb: 30,
                 windSpeed: 10,
                 humidity: 70
@@ -601,8 +601,8 @@ canibike.controller('home', function($scope, $localStorage) {
 
         $scope.$storage.thresholds = {
             bike: {
-                highTemp: 85,
-                lowTemp: 45,
+                highTemp: 80,
+                lowTemp: 40,
                 precipProb: 20,
                 windSpeed: 15,
                 humidity: 60
@@ -616,7 +616,7 @@ canibike.controller('home', function($scope, $localStorage) {
             },
             walk: {
                 highTemp: 90,
-                lowTemp: 55,
+                lowTemp: 50,
                 precipProb: 30,
                 windSpeed: 10,
                 humidity: 70
@@ -654,6 +654,12 @@ canibike.controller('home', function($scope, $localStorage) {
                 end: 22,
                 type: 'block'
             }
+        }
+
+        $scope.$storage.advanced = {
+            ignoreTailwinds: false,
+            commuteDirectionStart: 'north',
+            commuteDirectionEnd: 'south'
         }
     }
 
