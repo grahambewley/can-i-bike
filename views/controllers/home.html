@@ -50,9 +50,9 @@
             </div>
             
             <div class="popup__settings-item">
-                <label for="lTemp">Minimum Temp (&deg;F)</label>
+                <label for="lTemp">Min Temp (&deg;F)</label>
                 <div>
-                    <label for="ignore_lTemp">Ignore</label>
+                    <label for="ignore_lTemp" class="popup__ignore-label">Ignore</label>
                     <input id="ignore_lTemp" type="checkbox" ng-model="$storage.ignores.lowTemp">
 
                     <input id="lTemp" type="number" min="0" max="130" ng-model="$storage.thresholds[$storage.selectedActivity].lowTemp">
@@ -60,9 +60,9 @@
             </div>
 
             <div class="popup__settings-item">
-                <label for="hTemp">Maximum Temp (&deg;F)</label>
+                <label for="hTemp">Max Temp (&deg;F)</label>
                 <div>
-                    <label for="ignore_hTemp">Ignore</label>
+                    <label for="ignore_hTemp" class="popup__ignore-label">Ignore</label>
                     <input id="ignore_hTemp" type="checkbox" ng-model="$storage.ignores.highTemp">
 
                     <input id="hTemp" type="number" min="0" max="130" ng-model="$storage.thresholds[$storage.selectedActivity].highTemp">
@@ -72,7 +72,7 @@
             <div class="popup__settings-item">
                 <label for="precip">Max Chance of Rain (%)</label>
                 <div>
-                    <label for="ignore_precip">Ignore</label>
+                    <label for="ignore_precip" class="popup__ignore-label">Ignore</label>
                     <input id="ignore_precip" type="checkbox" ng-model="$storage.ignores.precipProb">
                     
                     <input id="precip" type="number" min="0" max="100" ng-model="$storage.thresholds[$storage.selectedActivity].precipProb">
@@ -82,7 +82,7 @@
             <div class="popup__settings-item">
                 <label for="humid">Max Humidity (%)</label>
                 <div>
-                    <label for="ignore_humid">Ignore</label>
+                    <label for="ignore_humid" class="popup__ignore-label">Ignore</label>
                     <input id="ignore_humid" type="checkbox" ng-model="$storage.ignores.humidity">
                     
                     <input id="humid" type="number" min="0" max="100" ng-model="$storage.thresholds[$storage.selectedActivity].humidity">
@@ -92,7 +92,7 @@
             <div class="popup__settings-item">
                 <label for="wind">Max Wind Speed (MPH)</label>
                 <div>
-                    <label for="ignore_wind">Ignore</label>
+                    <label for="ignore_wind" class="popup__ignore-label">Ignore</label>
                     <input id="ignore_wind" type="checkbox" ng-model="$storage.ignores.windSpeed">
                         
                     <input id="wind" type="number" min="0" max="25" ng-model="$storage.thresholds[$storage.selectedActivity].windSpeed">

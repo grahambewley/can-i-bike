@@ -192,14 +192,19 @@ body {
     .popup__settings-item span {
       font-size: 2rem;
       color: #828282; }
+  .popup__ignore-label {
+    color: #828282;
+    font-size: 1rem;
+    vertical-align: center;
+    text-transform: uppercase; }
   .popup__reset-button {
     display: block;
-    margin: 4rem auto 0 auto;
+    margin: 6rem auto 0 auto;
     text-decoration: none;
     background-color: #828282;
-    color: #ededed;
+    color: #FFF;
     font-size: 1.5rem;
-    padding: 1rem;
+    padding: 1rem 3rem;
     border: none;
     outline: none;
     border-radius: 3px;

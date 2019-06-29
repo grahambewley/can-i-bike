@@ -215,14 +215,21 @@
         }
     }
 
+    &__ignore-label {
+        color: $color-grey;
+        font-size: 1rem;
+        vertical-align: center;
+        text-transform: uppercase;
+    }
+
     &__reset-button {
         display: block;
-        margin: 4rem auto 0 auto;
+        margin: 6rem auto 0 auto;
         text-decoration: none;
         background-color: $color-grey;
-        color: $color-light-grey;
+        color: $color-white;
         font-size: 1.5rem;
-        padding: 1rem;
+        padding: 1rem 3rem;
         border: none;
         outline: none;
         border-radius: 3px;
