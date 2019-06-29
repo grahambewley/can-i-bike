@@ -55,7 +55,7 @@
                     <label for="ignore_lTemp" class="popup__ignore-label">Ignore</label>
                     <input id="ignore_lTemp" type="checkbox" ng-model="$storage.ignores.lowTemp">
 
-                    <input id="lTemp" type="number" min="0" max="130" ng-model="$storage.thresholds[$storage.selectedActivity].lowTemp">
+                    <input id="lTemp" type="number" min="0" max="130" onclick="this.select()" ng-model="$storage.thresholds[$storage.selectedActivity].lowTemp">
                 </div>
             </div>
 
@@ -65,7 +65,7 @@
                     <label for="ignore_hTemp" class="popup__ignore-label">Ignore</label>
                     <input id="ignore_hTemp" type="checkbox" ng-model="$storage.ignores.highTemp">
 
-                    <input id="hTemp" type="number" min="0" max="130" ng-model="$storage.thresholds[$storage.selectedActivity].highTemp">
+                    <input id="hTemp" type="number" min="0" max="130" onclick="this.select()" ng-model="$storage.thresholds[$storage.selectedActivity].highTemp">
                 </div>
             </div>
 
@@ -75,7 +75,7 @@
                     <label for="ignore_precip" class="popup__ignore-label">Ignore</label>
                     <input id="ignore_precip" type="checkbox" ng-model="$storage.ignores.precipProb">
                     
-                    <input id="precip" type="number" min="0" max="100" ng-model="$storage.thresholds[$storage.selectedActivity].precipProb">
+                    <input id="precip" type="number" min="0" max="100" onclick="this.select()" ng-model="$storage.thresholds[$storage.selectedActivity].precipProb">
                 </div>
             </div>
 
@@ -85,7 +85,7 @@
                     <label for="ignore_humid" class="popup__ignore-label">Ignore</label>
                     <input id="ignore_humid" type="checkbox" ng-model="$storage.ignores.humidity">
                     
-                    <input id="humid" type="number" min="0" max="100" ng-model="$storage.thresholds[$storage.selectedActivity].humidity">
+                    <input id="humid" type="number" min="0" max="100" onclick="this.select()" ng-model="$storage.thresholds[$storage.selectedActivity].humidity">
                 </div>
             </div>
 
@@ -95,7 +95,7 @@
                     <label for="ignore_wind" class="popup__ignore-label">Ignore</label>
                     <input id="ignore_wind" type="checkbox" ng-model="$storage.ignores.windSpeed">
                         
-                    <input id="wind" type="number" min="0" max="25" ng-model="$storage.thresholds[$storage.selectedActivity].windSpeed">
+                    <input id="wind" type="number" min="0" max="25" onclick="this.select()" ng-model="$storage.thresholds[$storage.selectedActivity].windSpeed">
                 </div>
             </div>
 
@@ -121,7 +121,7 @@
                     <label ng-show="$storage.times[$storage.selectedTime].type == 'block'" for="activity_start">Begin Time (24-hour Format)</label>
                 </div>
                 <div>
-                    <input id="activity_start" type="number" min="0" max="23" ng-model="$storage.times[$storage.selectedTime].start"><span>:00</span>
+                    <input id="activity_start" type="number" min="0" max="23" onclick="this.select()" ng-model="$storage.times[$storage.selectedTime].start"><span>:00</span>
                 </div>
             </div>
             <div class="popup__settings-item">
@@ -130,7 +130,7 @@
                     <label ng-show="$storage.times[$storage.selectedTime].type == 'block'" for="activity_start">End Time (24-hour Format)</label>
                 </div>
                 <div>
-                    <input id="activity_return" type="number" min="0" max="23" ng-model="$storage.times[$storage.selectedTime].end"><span>:00</span>
+                    <input id="activity_return" type="number" min="0" max="23" onclick="this.select()" ng-model="$storage.times[$storage.selectedTime].end"><span>:00</span>
                 </div>
             </div>
 
