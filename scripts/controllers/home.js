@@ -160,7 +160,7 @@ canibike.controller('home', function($scope, $localStorage) {
             navigator.geolocation.getCurrentPosition(getWeatherFromPosition);
         } 
         else { 
-            console.log("Geolocation isn't supported by your browser");
+            console.error("Geolocation isn't supported by your browser");
         }
     }
 
@@ -169,7 +169,7 @@ canibike.controller('home', function($scope, $localStorage) {
         $scope.loadingStatus = "Gathering weather forecast";
 
         //TO-DO: Trigger some sort of weather check based on the $localStorage version of lat and long -- so we don't need that to come back first every time
-        console.log("***CURRENT POSITION: LAT: " + position.coords.latitude + ", LONG: " + position.coords.longitude);
+        console.debug("***CURRENT POSITION: LAT: " + position.coords.latitude + ", LONG: " + position.coords.longitude);
     
         $scope.latString = position.coords.latitude.toString();
         $scope.longString = position.coords.longitude.toString();
@@ -182,12 +182,12 @@ canibike.controller('home', function($scope, $localStorage) {
             "success": function(res){
                 //Take response string and parse into JSON object
                 darkSkyResponseObject = JSON.parse(res);
-                console.log("***FULL WEATHER DATA RETURNED:");
-                console.log(darkSkyResponseObject);
+                console.info("***FULL WEATHER DATA RETURNED:");
+                console.info(darkSkyResponseObject);
 
                 $scope.hourlyWeatherArray = darkSkyResponseObject.hourly.data;
-                console.log("***NARROW DOWN TO HOURLY WEATHER ONLY:");
-                console.log($scope.hourlyWeatherArray);
+                console.info("***NARROW DOWN TO HOURLY WEATHER ONLY:");
+                console.info($scope.hourlyWeatherArray);
 
                 //Use weather data and check "Can I" function to test against thresholds
                 //Use evalAsync to trigger another digest cycle -- grabbing weather data eats up the first one...
@@ -201,7 +201,7 @@ canibike.controller('home', function($scope, $localStorage) {
         let lat = position.coords.latitude.toFixed(6);
         let long = position.coords.longitude.toFixed(6);
 
-        console.log("About to Reverse Geocode using lat: " + lat + " and long: " + long );
+        console.debug("About to Reverse Geocode using lat: " + lat + " and long: " + long );
         //AJAX call to get address from geographical position
         $.ajax({      
             "crossDomain": true,
@@ -210,8 +210,8 @@ canibike.controller('home', function($scope, $localStorage) {
             "success": function(res2){
                 //Take response string and parse into JSON object
                 revGeocodeObject = JSON.parse(res2);
-                console.log("***GEOCODE DATA RETURNED:");
-                console.log(revGeocodeObject);
+                console.info("***GEOCODE DATA RETURNED:");
+                console.info(revGeocodeObject);
 
                 //Store city and state to be displayed for the user
                 let street = revGeocodeObject.results[0].locations[0].street;
@@ -219,7 +219,7 @@ canibike.controller('home', function($scope, $localStorage) {
                 let state = revGeocodeObject.results[0].locations[0].adminArea3;
 
                 $scope.address = street + ', ' + city + ', ' + state;
-                console.log("Address we got was: " + $scope.address);
+                console.info("Reverse geocode found address: " + $scope.address);
             }
         });
         
@@ -299,7 +299,7 @@ canibike.controller('home', function($scope, $localStorage) {
                     
                     //If "Ignore Tailwinds" setting is turned on, check for wind-direction and factor that in
                     if($scope.$storage.advanced.ignoreTailwinds == true){
-                        console.info("Ignore Tailwinds feature is on, checking for agreeable winds");
+                        console.debug("'Ignore Tailwinds' feature is on, checking for agreeable winds");
                         if($scope.checkAgreeableWinds(element.windBearing, "start") == false) {
                             $scope.canI = 'No.';
                             $scope.triggers.push({
@@ -362,7 +362,7 @@ canibike.controller('home', function($scope, $localStorage) {
                 if(($scope.$storage.ignores.windSpeed == false) && (element.windSpeed > $scope.$storage.thresholds[$scope.$storage.selectedActivity].windSpeed)) {
                     //If "Ignore Tailwinds" setting is turned on, check for wind-direction and factor that in
                     if($scope.$storage.advanced.ignoreTailwinds == true){
-                        console.info("Ignore Tailwinds feature is on, checking for agreeable winds");
+                        console.debug("'Ignore Tailwinds' feature is on, checking for agreeable winds");
                         if($scope.checkAgreeableWinds(element.windBearing, "end") == false) {
                             $scope.canI = 'No.';
                             $scope.triggers.push({
@@ -401,7 +401,7 @@ canibike.controller('home', function($scope, $localStorage) {
         
         //If result is still empty, set "Can I?" to Yes
         if($scope.canI == '') {
-            console.log("Setting result.canI to YES");
+            console.debug("Setting result.canI to YES");
             $scope.canI = 'Yes.';
         }
 
@@ -414,8 +414,7 @@ canibike.controller('home', function($scope, $localStorage) {
         $scope.hourlyWeatherArray.forEach(element => {
             
             let todaysDate = new Date().getDate();
-            console.info("Today's Date is " + todaysDate);
-            
+
             //Make a new data object at epoch 0 -- 00:00 Jan 1, 1970
             let thisTimeObject = new Date(0);
             //Add the epoch time (in seconds) that we get from the API
@@ -473,7 +472,7 @@ canibike.controller('home', function($scope, $localStorage) {
 
         //If result is still empty, set "Can I?" to Yes
         if($scope.canI == '') {
-            console.log("Setting result.canI to YES");
+            console.debug("Setting result.canI to YES");
             $scope.canI = 'Yes.';
         }
 
@@ -484,10 +483,10 @@ canibike.controller('home', function($scope, $localStorage) {
 
         $scope.loadingStatus = "Formatting weather data";
 
-        console.log("Relevant Weather Data: ");
-        console.log($scope.relevantWeatherData);
+        console.info("Relevant Weather Data: ");
+        console.info($scope.relevantWeatherData);
 
-        console.log("Current 'No' triggers: " + $scope.triggers);
+        console.info("Current 'No' triggers: " + $scope.triggers);
 
         $scope.relevantWeatherData.forEach(element => {
             //Instantiate an empty object to push data into
@@ -532,8 +531,8 @@ canibike.controller('home', function($scope, $localStorage) {
             $scope.displayedWeatherData.push(weatherEntry);
         });
 
-        console.log("Displayed Weather Data: ");
-        console.log($scope.displayedWeatherData);
+        console.info("Weather Data for displaying on-page: ");
+        console.info($scope.displayedWeatherData);
 
     }
 
@@ -573,11 +572,11 @@ canibike.controller('home', function($scope, $localStorage) {
             commuteDirection = $scope.$storage.advanced.commuteDirectionEnd;
         }
 
-        console.log("Direction of the wind is " + thisWindDirection);
-        console.log("My travel direction is " + commuteDirection);
+        console.debug("Direction of the wind is " + thisWindDirection);
+        console.debug("My commute direction is " + commuteDirection);
 
         if(agreeableWinds[commuteDirection].includes(thisWindDirection)) {
-            console.log("Woohoo! Winds are agreeable")
+            console.debug("Woohoo! Winds are agreeable")
             return true;
         } else {
             return false;
@@ -585,7 +584,7 @@ canibike.controller('home', function($scope, $localStorage) {
     }
 
     $scope.resetDefaults = function() {
-        console.log("Setting thresholds and times back to default values.");
+        console.debug("Setting thresholds and times back to default values.");
         $scope.$storage.selectedActivity = "bike";
         $scope.$storage.selectedTime = "towork";
     
