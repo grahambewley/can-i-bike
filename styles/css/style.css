@@ -46,7 +46,7 @@ body {
   flex-direction: column;
   align-items: flex-end;
   position: fixed;
-  top: 14rem;
+  top: 12rem;
   right: 4rem;
   color: #828282; }
   @media (max-width: 900px) {
@@ -139,15 +139,12 @@ body {
       backdrop-filter: blur(10px);
       -webkit-backdrop-filter: blur(10px);
       background-color: rgba(79, 79, 79, 0.3); } }
-  @media (max-width: 900px) {
-    .popup {
-      padding: 2rem; } }
   .popup__content {
     position: absolute;
     top: 50%;
     left: 50%;
     transform: translate(-50%, -50%);
-    width: 45rem;
+    width: 55rem;
     background-color: #FFF;
     box-shadow: 0 2rem 4rem rgba(79, 79, 79, 0.2);
     border-radius: 3px;

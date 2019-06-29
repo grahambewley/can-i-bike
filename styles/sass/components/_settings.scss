@@ -3,7 +3,7 @@
     flex-direction: column;
     align-items: flex-end;
     position:fixed;
-    top: 14rem;
+    top: 12rem;
     right: 4rem;
     color: $color-grey;
 
@@ -143,13 +143,9 @@
         background-color: rgba($color-dark-grey, .3);
     }
 
-    @include respond('tab-port') {
-        padding: 2rem;
-    }
-
     &__content {
         @include absolute-center;
-        width: 45rem;
+        width: 55rem;
         //height: 75%;
         background-color: $color-white;
         box-shadow: 0 2rem 4rem rgba($color-dark-grey, .2);

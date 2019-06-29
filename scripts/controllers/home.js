@@ -81,6 +81,10 @@ canibike.controller('home', function($scope, $localStorage) {
 
     $scope.loadingStatus = '';
 
+    //Model for hidden checkbox representing settings button
+    //Required for ng-change to work
+    $scope.settingsBool = false;
+
     //Stores the full JSON object returned by Dark Sky API
     var darkSkyResponseObject;
     //Stores an array containing the hourly forecast only, chopped from darkSkyResponseObject
@@ -545,6 +549,13 @@ canibike.controller('home', function($scope, $localStorage) {
                 end: 22,
                 type: 'block'
             }
+        }
+    }
+
+    $scope.applySettings = function() {
+        if(document.getElementById('navi-toggle').checked == false) {
+            clearWeatherData();
+            $scope.checkCanI();
         }
     }
 });
