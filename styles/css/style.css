@@ -287,6 +287,17 @@ body {
       .section-canI__status {
         font-size: 2.5rem; } }
 
+.section-clothing {
+  color: #4f4f4f;
+  margin-bottom: 5rem; }
+  .section-clothing__clothing-box {
+    max-width: 100rem;
+    margin: 0 auto;
+    padding: 2rem; }
+  .section-clothing__header {
+    font-size: 2rem;
+    font-weight: 400; }
+
 .section-weather {
   color: #4f4f4f;
   margin-bottom: 5rem; }
@@ -301,7 +312,7 @@ body {
       opacity: 0; }
   .section-weather__header {
     font-size: 3rem;
-    font-weight: 200;
+    font-weight: 300;
     text-align: center;
     text-transform: uppercase; }
     @media (max-width: 600px) {

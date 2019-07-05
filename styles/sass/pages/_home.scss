@@ -92,6 +92,24 @@
         }
     }
 }
+
+.section-clothing {
+    color: $color-dark-grey;
+    margin-bottom: 5rem;
+
+    &__clothing-box {
+        //background-color: $color-light-grey;
+        max-width: 100rem;
+        margin: 0 auto;
+        padding: 2rem;
+    }
+
+    &__header {
+        font-size: 2rem;
+        font-weight: 400;
+    }
+}
+
 .section-weather {
 
     color: $color-dark-grey;
@@ -114,7 +132,7 @@
     
     &__header {
         font-size: 3rem;
-        font-weight: 200;
+        font-weight: 300;
         text-align: center;
         text-transform: uppercase;
 
