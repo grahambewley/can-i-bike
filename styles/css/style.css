@@ -312,7 +312,7 @@ body {
       opacity: 0; }
   .section-weather__header {
     font-size: 3rem;
-    font-weight: 200;
+    font-weight: 300;
     text-align: center;
     text-transform: uppercase; }
     @media (max-width: 600px) {
