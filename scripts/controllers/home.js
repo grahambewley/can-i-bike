@@ -41,7 +41,7 @@ canibike.controller('home', function($scope, $localStorage) {
                 precipProb: 30,
                 windSpeed: 10,
                 humidity: 70
-            }
+            },
         },
 
         times: {
@@ -81,8 +81,18 @@ canibike.controller('home', function($scope, $localStorage) {
             ignoreTailwinds: false,
             commuteDirectionStart: 'north',
             commuteDirectionEnd: 'south'
-        }
+        },
         
+        clothingThresholds: {
+            top: {
+                maxTemp_heavyCoat: 30,
+                maxTemp_jacket: 40,
+                maxTemp_longSleeve: 55
+            },
+            bottom: {
+                maxTemp_pants: 50
+            }
+        }
     });
 
     $scope.loadingStatus = '';
@@ -98,10 +108,11 @@ canibike.controller('home', function($scope, $localStorage) {
     //Stores the full reverse-geocode JSON object returned by Mapquest API
     var revGeocodeObject;
 
-    //Stores the full hourly forecast object for data we want to display on screen
+    //Stores the full hourly forecast objects for hours that match the selected time
     $scope.relevantWeatherData = [];
     //Stores the formatted weather data we will display on screen
     $scope.displayedWeatherData = [];
+    
 
     
     //Used inside the logic for the "Ignore Tailwinds" function
@@ -131,8 +142,11 @@ canibike.controller('home', function($scope, $localStorage) {
     //CanI Result variable -- empty for now
     $scope.canI = '';
     
-    //Will hold data about the things we can't 
+    //Will hold data about the weather conditions that trigger a "NO" status
     $scope.triggers = [];
+
+    //Will store recommended clothing based on user's cached settings
+    $scope.clothing = [];
 
     //*******WATCHERS**********
 
@@ -403,6 +417,8 @@ canibike.controller('home', function($scope, $localStorage) {
         if($scope.canI == '') {
             console.debug("Setting result.canI to YES");
             $scope.canI = 'Yes.';
+
+            getRecommendedClothing();
         }
 
         formatWeatherData();
@@ -477,6 +493,42 @@ canibike.controller('home', function($scope, $localStorage) {
         }
 
         formatWeatherData();
+    }
+
+    function getRecommendedClothing() {
+        console.debug("Looks like we're a GO! Picking some appropriate clothing");
+        $scope.relevantWeatherData.forEach(element => {
+            let temp = element.temperature;
+
+            //precipType can be 'rain', 'sleet', or 'snow' -- choos appropriate coat and add to clothing
+            if(element.precipIntensity > 0) {
+                if(element.precipType == 'rain') {
+                    $scope.clothing.push('raincoat');
+                } else {
+                    $scope.clothing.push('winterJacket');
+                }
+            }
+
+            //Check for appropriate top based on user settings
+            if(temp <= $scope.$storage.clothingThresholds.top.maxTemp_heavyCoat) {
+                $scope.clothing.push('heavyCoat');
+            } else if(temp <= $scope.$storage.clothingThresholds.top.maxTemp_jacket) {
+                $scope.clothing.push('jacket');
+            } else if (temp <= $scope.$storage.clothingThresholds.top.maxTemp_longSleeve) {
+                $scope.clothing.push('longSleeve');
+            } else {
+                $scope.clothing.push('shortSleeve');
+            }
+
+            //Check for appropriate bottom based on user settings
+            if(temp <= $scope.$storage.clothingThresholds.bottom.maxTemp_pants) {
+                $scope.clothing.push('pants');
+            } else {
+                $scope.clothing.push('shorts')
+            }
+
+        });
+        console.debug('Clothing selected is: ' + $scope.clothing);
     }
 
     function formatWeatherData() {
@@ -654,7 +706,24 @@ canibike.controller('home', function($scope, $localStorage) {
                 end: 22,
                 type: 'block'
             }
-        }
+        };
+
+        $scope.$storage.advanced = {
+            ignoreTailwinds: false,
+            commuteDirectionStart: 'north',
+            commuteDirectionEnd: 'south'
+        };
+
+        $scope.$storage.clothingThresholds = {
+            top: {
+                maxTemp_heavyCoat: 30,
+                maxTemp_jacket: 40,
+                maxTemp_longSleeve: 55
+            },
+            bottom: {
+                maxTemp_pants: 50
+            }
+        };
     }
 
     $scope.applySettings = function() {

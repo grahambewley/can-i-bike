@@ -92,6 +92,19 @@
         }
     }
 }
+
+.section-clothing {
+    color: $color-dark-grey;
+    margin-bottom: 5rem;
+
+    &__clothing-box {
+        background-color: $color-light-grey;
+        max-width: 100rem;
+        margin: 0 auto;
+        padding: 2rem;
+    }
+}
+
 .section-weather {
 
     color: $color-dark-grey;

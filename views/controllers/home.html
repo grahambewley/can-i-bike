@@ -137,7 +137,7 @@
             <!-- ADVANCED SETTINGS SETTINGS -->
             <h3 class="popup__sub-header">Advanced Settings</h3>
 
-            <!-- 'Ignore Tailwinds-related settings -->
+            <!-- 'Ignore Tailwinds'-related settings -->
             <div class="popup__settings-item">
                 <label for="advanced_ignoreTailwinds">Ignore Tailwinds? ("Commute" travel only)</label>
                 <input id="advanced_ignoreTailwinds" type="checkbox" ng-model="$storage.advanced.ignoreTailwinds">                    
@@ -201,7 +201,16 @@
             <span model="{{ loadingStatus }}" class="section-canI__status loading" ng-show="canI == ''">{{ loadingStatus }}</span>
             <div class="section-canI__container">
                 <span model="{{ canI }}" class="section-canI__span" ng-show="canI != ''">{{ canI }}</span>
+                
             </div>
+        </section>
+
+        <section class="section-clothing">
+
+            <div class="section-clothing__clothing-box">
+                <h2 class="section-clothing__header">Recommended Clothing:</h2>
+            </div>
+
         </section>
 
         <section class="section-weather">
