@@ -145,7 +145,7 @@ canibike.controller('home', function($scope, $localStorage) {
     //Will hold data about the weather conditions that trigger a "NO" status
     $scope.triggers = [];
 
-    //Will store recommended clothing based on user's cached settings
+    //Will store appropriate clothing based on user's cached settings
     $scope.clothing = [];
 
     //*******WATCHERS**********
@@ -417,8 +417,9 @@ canibike.controller('home', function($scope, $localStorage) {
         if($scope.canI == '') {
             console.debug("Setting result.canI to YES");
             $scope.canI = 'Yes.';
-
-            getRecommendedClothing();
+            //Then get appropriate clothing
+            console.log('about to choose clothing');
+            getAppropriateClothing();
         }
 
         formatWeatherData();
@@ -490,12 +491,14 @@ canibike.controller('home', function($scope, $localStorage) {
         if($scope.canI == '') {
             console.debug("Setting result.canI to YES");
             $scope.canI = 'Yes.';
+            //Then get appropriate clothing
+            getAppropriateClothing();
         }
 
         formatWeatherData();
     }
 
-    function getRecommendedClothing() {
+    function getAppropriateClothing() {
         console.debug("Looks like we're a GO! Picking some appropriate clothing");
         $scope.relevantWeatherData.forEach(element => {
             let temp = element.temperature;
