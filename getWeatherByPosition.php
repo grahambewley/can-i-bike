@@ -2,7 +2,9 @@
 
 $lat =$_REQUEST['lat'];
 $long =$_REQUEST['long'];
+
 $curl = curl_init();
+
 
 curl_setopt_array($curl, array(
     CURLOPT_URL => "https://api.darksky.net/forecast/$API_KEY/$lat,$long",

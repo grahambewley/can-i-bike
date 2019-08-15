@@ -709,19 +709,12 @@ canibike.controller('home', function($scope, $localStorage) {
                 end: 22,
                 type: 'block'
             }
-<<<<<<< HEAD
-        }
-=======
         };
->>>>>>> 8de5c83118f4a37b8a99615a3a6a791a33db422e
 
         $scope.$storage.advanced = {
             ignoreTailwinds: false,
             commuteDirectionStart: 'north',
             commuteDirectionEnd: 'south'
-<<<<<<< HEAD
-        }
-=======
         };
 
         $scope.$storage.clothingThresholds = {
@@ -734,7 +727,6 @@ canibike.controller('home', function($scope, $localStorage) {
                 maxTemp_pants: 50
             }
         };
->>>>>>> 8de5c83118f4a37b8a99615a3a6a791a33db422e
     }
 
     $scope.applySettings = function() {
