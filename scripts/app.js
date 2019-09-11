@@ -3,7 +3,7 @@
 var canibike = angular.module('canibike', ['ui.router', 'ngStorage', 'ngAnimate']);
 
 //ROUTES
-canibike.config(function($stateProvider, $urlRouterProvider) {
+canibike.config(function($stateProvider, $urlRouterProvider, $locationProvider) {
 
     $stateProvider
         .state('home', {
@@ -13,5 +13,8 @@ canibike.config(function($stateProvider, $urlRouterProvider) {
         });
 
     $urlRouterProvider.otherwise('/home'); 
+
+    // use the HTML5 History API
+    $locationProvider.html5Mode(true);
 });
 
