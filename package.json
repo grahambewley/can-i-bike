@@ -1,5 +1,5 @@
 {
-  "name": "can--i-bike",
+  "name": "shouldibike",
   "version": "1.0.0",
   "description": "Web app used to quickly check whether the local weather forecast will allow for a particular activity",
   "main": "index.html",
